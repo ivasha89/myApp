@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
+    public $timestamps = false;
+
     use Notifiable;
 
     /**

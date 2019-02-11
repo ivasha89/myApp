@@ -1,3 +1,5 @@
+@inject('loggedin', 'БСШСА\Http\Controllers\IndexController')
+@inject('usrstr', 'БСШСА\Http\Controllers\IndexController')
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
 
     <title>
-        {{$appname . $usrstr }}
+        <?php $usrstr?>
     </title>
 
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
@@ -18,10 +20,10 @@
 <nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
     <a class="navbar-brand text-light" href="{{ url('/') }}">
         <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
-        {{ $appname }}
+
     </a>
     @if($loggedin)
-		@include('navbar')
+		@include('layouts.navbar')
     @endif
 </nav>
 

@@ -5,11 +5,11 @@ namespace БСШСА\Http\Controllers;
 
 class IndexController extends Controller
 {
-    public function index()
+    public static function index()
     {
 
         $user = '';
-        $appname = env('APP_NAME');
+        $appname = 'БСШСА';
         session_start();
         if(isset($_SESSION['name'])) {
             $loggedin = TRUE;
