@@ -16,13 +16,17 @@ class ProjectsTest extends TestCase
      */
     public function a_user_can_create_a_project()
     {
+        $this->withoutExceptionHandling();
+
         $attributes = [
+            'idbr' => $this->faker->phoneNumber,
+            'date' => $this->faker->phoneNumber,
             'stts' => $this->faker->name,
             'slba' => $this->faker->phoneNumber
         ];
 
-        $this->post('/slbs', $attributes);
+        $this->post('/welcome', $attributes)->assertRedirect('/welcome');
         $this->assertDatabaseHas('slbs', $attributes);
-        $response->assertStatus(200);
+        $this->get('/welcome')->assertSee($attributes['stts']);
     }
 }

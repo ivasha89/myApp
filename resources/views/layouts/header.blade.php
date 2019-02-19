@@ -1,35 +1,15 @@
-@inject('loggedin', 'БСШСА\Http\Controllers\IndexController')
-@inject('usrstr', 'БСШСА\Http\Controllers\IndexController')
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
-
-    <title>
-        <?php $usrstr;?>
-    </title>
-
-    {{--<link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">--}}
-    <link rel="stylesheet" href="{{ url ('css/app.css') }}">
+        <title>Document</title>
 </head>
 <body>
-<nav id="app" class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
-    <a class="navbar-brand text-light" href="{{ url('/') }}">
-        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
 
-    </a>
-    @if($loggedin)
-		@include('layouts.navbar')
-    @endif
-</nav>
+    <ul>
+        @foreach ($slbs as $slb)
+            <li>{{ $slb->stts }}</li>
+        @endforeach
+    </ul>
 
-@yield('content')
-
-@yield('footer')
 </body>
 </html>

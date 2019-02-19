@@ -14,8 +14,8 @@ class CreateSlbsTable extends Migration
     public function up()
     {
         Schema::create('slbs', function (Blueprint $table) {
-            $table->char('idbr', 16);
-            $table->char('date', 16);
+            $table->string('idbr', 28);
+            $table->string('date', 28);
             $table->string('slba', 28);
             $table->string('stts', 28);
             $table->increments('ind');
