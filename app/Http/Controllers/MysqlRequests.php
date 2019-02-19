@@ -12,7 +12,7 @@ class MysqlRequests extends Controller
         if (isset($_POST['chdt'])){
             $chd = 'chdt';
             $ch = {{ $chd }};
-            $y = date(".$ch.");
+            $y = new \DateTime(".$ch.");
         }
         if ($y->format('N') > 5)
             array_splice($slba, 2,1);

@@ -16,8 +16,8 @@ class CreateSlbsTable extends Migration
         Schema::create('slbs', function (Blueprint $table) {
             $table->char('idbr', 16);
             $table->char('date', 16);
-            $table->char('slba', 8);
-            $table->char('stts', 8);
+            $table->string('slba', 28);
+            $table->string('stts', 28);
             $table->increments('ind');
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';

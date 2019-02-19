@@ -173,6 +173,7 @@ return [
         БСШСА\Providers\AuthServiceProvider::class,
         // БСШСА\Providers\BroadcastServiceProvider::class,
         БСШСА\Providers\EventServiceProvider::class,
+        БСШСА\Providers\TelescopeServiceProvider::class,
         БСШСА\Providers\RouteServiceProvider::class,
 
     ],

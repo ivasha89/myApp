@@ -21,9 +21,9 @@ Route::get('/signup', 'InterController@signup');
 Route::get('/login', 'InterController@login');
 
 Route::get('/table', function () {
-    return view('table');
+    return view('layouts.table');
 });
 
 Route::get('/week', function () {
-    return view('week');
+    return view('layouts.week');
 });

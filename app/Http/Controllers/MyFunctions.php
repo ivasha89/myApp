@@ -12,13 +12,12 @@ class myFunctions extends Controller
 
          $_SESSION = [];
          if (session_id() != "" || isset($_COOKIE[session_name()]))
-             setcookie(session_name(), '', time() - 60*60*24*3, '/');
+             setcookie(session_name(), '', time() + 60*60*24*3, '/');
          session_destroy();
      }
 
     public static function search($var1) {
 
-        $var1 = {{ $var1 }};
         $queryz = '';
         $arraysearch = explode (",", $var1);
         switch ($_POST['srch']) {

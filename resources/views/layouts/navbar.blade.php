@@ -5,7 +5,7 @@
 <div class="collapse navbar-collapse" id="nvSpCnt">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link text-light" href="{{ url('table.php')}}">
+            <a class="nav-link text-light" href="{{ url('table')}}">
                 Таблица посещаемости
                 <span class="sr-only">
 								(current)
@@ -13,17 +13,17 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href={{ url("week.php") }}>
+            <a class="nav-link text-light" href={{ url('week') }}>
                 Отметиться
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href={{ url("logout.php") }}>
+            <a class="nav-link text-light" href={{ url('logout') }}>
                 Выход
             </a>
         </li>
     </ul>
-    <form class="form-inline" action={{ url("mysql.php") }} method="post">
+    <form class="form-inline" action={{ url('mysql') }} method="post">
         <div class="input-group">
             <input class="form-control" type="search" name="search" placeholder="Выберите тип поиска" aria-label="Search">
             <div class="input-group-append">

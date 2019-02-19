@@ -10,14 +10,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
 
     <title>
-        <?php $usrstr?>
+        <?php $usrstr;?>
     </title>
 
-    <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
+    {{--<link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">--}}
+    <link rel="stylesheet" href="{{ url ('css/app.css') }}">
 </head>
 <body>
-<nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
+<nav id="app" class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
     <a class="navbar-brand text-light" href="{{ url('/') }}">
         <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
 

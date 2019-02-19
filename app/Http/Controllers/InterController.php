@@ -81,7 +81,7 @@ class InterController extends Controller
                     $brah->ids = $id;
                     $brah->save();
 
-                    die($asa."href="\{{ url('login') }}\"><h4>Дорогой бхакта, "\$nme\" ваш профиль создан</h4>Пожалуйста войдите"\$bsa);
+                    die($asa.'href="'. url('login') .'"><h4>Дорогой бхакта, "'.$nme.'" ваш профиль создан</h4>Пожалуйста войдите'.$bsa);
                 }
             }
         }

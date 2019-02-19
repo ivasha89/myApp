@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="mb-2">
-                        <input class="btn btn-outline-success" type="submit" name="rt" value="ВВОД" formmethod="post">
+                        <input class="btn btn-outline-success" type="submit" name="rt" value="ВВОД" formmethod="post" required>
                     </div>
                 </div>
                 @else
@@ -39,7 +39,7 @@
                         <label class="text-info" for="sn">
                             Духовное имя
                         </label>
-                        <input type="text" class="form-control" id="sn" placeholder="Аласйа Вибхуноти дас" name="sn" autocapitalize="on">
+                        <input type="text" class="form-control" id="sn" placeholder="Аласйа Вибхуноти дас" name="sn" autocapitalize="on" required>
                     </div>
                     <div class="form-group">
                         <label class="text-info" for="idy">
