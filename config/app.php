@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'БСШСА'),
+    'name' => env('APP_NAME', 'App'),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'ru_RU',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,12 +169,12 @@ return [
         /*
          * Application Service Providers...
          */
-        БСШСА\Providers\AppServiceProvider::class,
-        БСШСА\Providers\AuthServiceProvider::class,
-        // БСШСА\Providers\BroadcastServiceProvider::class,
-        БСШСА\Providers\EventServiceProvider::class,
-        БСШСА\Providers\TelescopeServiceProvider::class,
-        БСШСА\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
     ],
 

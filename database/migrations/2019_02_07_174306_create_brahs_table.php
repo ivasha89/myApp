@@ -18,7 +18,7 @@ class CreateBrahsTable extends Migration
             $table->string('sname', 32);
             $table->string('tel', 12);
             $table->string('city', 24);
-            $table->string('ids', 8)->primary();
+            $table->string('user_id', 28)->primary();
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';
         });

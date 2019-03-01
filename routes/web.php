@@ -12,12 +12,16 @@
 */
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use БСШСА\Slb;
+use App\Slb;
+use App\Http\Controllers\InterController;
 
-Auth::routes();
 Route::get('/', 'IndexController@index');
 
 Route::get('/signup', 'InterController@signup');
+
+    Route::post('/signup', 'InterController@store');
+
+    Route::post('/signup', 'InterController@reg');
 
 Route::get('/login', 'InterController@login');
 
@@ -29,10 +33,13 @@ Route::get('/week', function () {
     return view('layouts.week');
 });
 Route::post('/welcome', function() {
-    БСШСА\Slb::create(request(['stts', 'slba', 'idbr', 'date']));
+    Slb::create(request(['stts', 'slba', 'user_id', 'date']));
     return redirect('/welcome');
 });
 Route::get('/welcome', function() {
-   $slbs = БСШСА\Slb::all();
+   $slbs = Slb::all();
    return view('layouts.header', compact('slbs'));
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

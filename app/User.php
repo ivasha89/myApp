@@ -1,6 +1,6 @@
 <?php
 
-namespace БСШСА;
+namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'pssw', 'ids', 'right'
+        'name', 'pssw', 'id', 'right'
     ];
 
     /**
@@ -27,7 +27,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'pssw'
-    ];
+
+    public function slbs() {
+
+        return $this->hasMany(Slb::class);
+    }
 }

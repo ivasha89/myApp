@@ -11,7 +11,7 @@
                     </h1>
 @if($loggedin)
 	                <p class="lead">
-	                    {{$user}}, дорогой, вы уже вошли
+	                    {{ $usrstr }}, дорогой, вы уже вошли
 	                </p>
 @else
 	                <p class="lead">

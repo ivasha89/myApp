@@ -19,7 +19,7 @@ class ProjectsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $attributes = [
-            'idbr' => $this->faker->phoneNumber,
+            'user_id' => $this->faker->phoneNumber,
             'date' => $this->faker->phoneNumber,
             'stts' => $this->faker->name,
             'slba' => $this->faker->phoneNumber

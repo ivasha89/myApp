@@ -1,91 +1,94 @@
 <?php
 
-namespace БСШСА\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use БСШСА\User;
-use БСШСА\Brah;
+use App\User;
+use App\Brah;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class InterController extends Controller
 {
-    public function signup() {
+    static $hj, $error;
 
-        if (!isset($error))
-            $error = 'Вы не заполнили ни одного поля';
-        $hj = FALSE;
-        if (isset($_POST['psrd'])) {
-            $psrd = $_POST->psrd;
-            $salt1 = "gi^r";
-            $salt2 = "w&(v";
-            $tkn = hash('ripemd128', "$salt1$psrd$salt2");
+    public static function store()
+    {
+        $attributes = [
+            'hj' => self::$hj,
+            'error' => self::$error
+        ];
+        if (request()->has('psrd')) {
 
-            $rslt = DB::table('users')
-                ->where('pssw', '=', $tkn)
-                ->select('pssw')
-                ->get();
+            $rslt = User::where('id', 'B17004')->first();
+            $tkn = Hash::check(request()->psrd, $rslt->pssw);
             $rw = $rslt->count();
-            if ($rw == 0) {
+            if ($rw == 0)
+            {
                 $a = ["Неверно ввели", "Ошибка ввода", "Снова мимо", "Беда какая-то", "Неповезло. День Сатурна", "Узнать у астролога пароль", "Может вы на сайте другого ашрама?", "Переключить раскладку на английский"];
-                die($asa . "href=\"{{ url('signup') }}\"" . $a[array_rand($a, 1)] . $bsa);
+                $attributes['error'] = VariablesController::$asa . 'href="' . url('signup') . '">' . $a[array_rand($a, 1)] . VariablesController::$bsa;
+                return redirect('/signup')->with('attributes',$attributes);
             }
-            elseif ($rw !== 0) {
+            elseif ($rw !== 0)
+            {
                 $row = $rslt;
                 if ($tkn == $row)
-                    $hj = TRUE;
+                    $attributes['hj'] = TRUE;
+                return redirect('/signup')->with('attributes',$attributes);
             }
         }
+    }
 
+    protected function reg(Request $request)
+    {
         if (isset($_SESSION['user'])) MyFunctions::destroySession();
 
-        if (isset($_POST['id'])) {
-            $pss = $_POST->ps;
-            $nme = $_POST->nm;
-            $snm = $_POST->sn;
-            $idy = $_POST->id;
-            $rts = $_POST->rt;
+        $data = $request->input();
 
-            if ($pss == "" && $nme == "" && $idy == "")
-                $error = "Обязательные поля не были заполнены";
-            else {
-                $result = DB::table('brahs')
-                    ->where('name','=', $nme)
-                    ->get();
-                $rw = $result->count();
-                if ($rw)
-                    $error = "Такой пользователь уже существует";
-                else {
-                    $error = "Успешно";
-                    $ps = $pss;
-                    $rt = $rts;
-                    $id = $idy;
-                    $nm = $nme;
-                    $sn = $snm;
-                    $salt1 = "gi^r";
-                    $salt2 = "w&(v";
-                    $tkn = hash('ripemd128', "$salt1$ps$salt2");
+        $request->validate ([
+            'id' => ['required', 'string', 'min:6', 'max:255'],
+            'ps' => ['required', 'string', 'min:6', 'max:255'],
+            'nm' => ['required', 'string', 'min:6', 'max:255'],
+            'sn' => ['string', 'min:6', 'max:255'],
+            'rt' => []
+        ]);
 
-                    $user = new User();
-                    $user->ids = $id;
-                    $user->pssw = $tkn;
-                    $user->right = $rt;
-                    $user->save();
+        User::create([
+            'name' => $request->nm,
+            'pssw' => Hash::make($request->ps),
+            'right' => $request->rt,
+            'id' => $request->id
+        ]);
 
-                    if (!$result) $error = "Ошибка в отправке пароля или ID";
+        Brah::create([
+            'name' => $request->nm,
+            'sname' => $request->sn,
+            'tel' => '',
+            'city' => '',
+            'user_id' => $request->id
+        ]);
 
-                    $brah = new Brah;
-                    $brah->name = $nm;
-                    $brah->sname = $sn;
-                    $brah->tel = '';
-                    $brah->city = '';
-                    $brah->ids = $id;
-                    $brah->save();
+        $request->flashOnly('id','nm', 'rt');
+        $error =  VariablesController::$asa.'href="'. url('login') .'"><h4>Дорогой бхакта, "'.$data('nm').'" ваш профиль создан</h4>Пожалуйста войдите'.VariablesController::$bsa;
 
-                    die($asa.'href="'. url('login') .'"><h4>Дорогой бхакта, "'.$nme.'" ваш профиль создан</h4>Пожалуйста войдите'.$bsa);
-                }
-            }
+        return redirect('/index')->with('error', $error);
+    }
+
+    public function signup()
+    {
+        if(!$this->store()['hj']) {
+
+            $attributes = [
+                'hj' => self::$hj,
+                'error' => self::$error
+            ];
         }
 
-        return view('signup', compact('error', 'hj'));
+        else {
+            $attributes = $this->store();
+        }
+
+        return view('signup')->with('attributes',$attributes);
     }
 }

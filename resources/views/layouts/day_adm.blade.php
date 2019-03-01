@@ -55,7 +55,7 @@
 @for ($i = 0; $i < count($row1); ++$i)
                                         <li class="list-group-item text-dark btn-outline-info">
                                             <div class="custom-control custom-switch mb-1">
-                                                <input type="checkbox" name="idbr[]" value="{{ $row1[$i]['id'] }}" class="custom-control-input" id="{{ $row1[$i]['id'] }}">
+                                                <input type="checkbox" name="user_id[]" value="{{ $row1[$i]['id'] }}" class="custom-control-input" id="{{ $row1[$i]['id'] }}">
                                                 <label class="custom-control-label" for="{{ $row1[$i]['id'] }}">
                                                     {{ $row1[$i]['name'] }}
                                                 </label>

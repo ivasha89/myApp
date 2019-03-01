@@ -1,25 +1,19 @@
 <?php
 
-namespace БСШСА\Http\Controllers;
+namespace App\Http\Controllers;
 
 
 class IndexController extends Controller
 {
     public static function index()
     {
+        $appname = VariablesController::$appname;
+        $error = InterController::$error;
 
-        $user = '';
-        $appname = 'БСШСА';
-        session_start();
-        if(isset($_SESSION['name'])) {
-            $loggedin = TRUE;
-            $user = $_SESSION['name'];
-            $usrstr = "($user)";
-        }
-        else {
-            $usrstr = '(Гость)';
-            $loggedin = FALSE;
-        }
-        return view('index', compact('appname', 'loggedin', 'user', 'usrstr'));
+        $test = new VariablesController();
+        $usrstr = $test::init()['frst'];
+        $loggedin = $test::init()['scnd'];
+
+        return view('index', compact('appname', 'usrstr', 'loggedin', 'error'));
     }
 }
