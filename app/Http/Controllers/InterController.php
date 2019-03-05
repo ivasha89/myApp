@@ -21,15 +21,14 @@ class InterController extends Controller
             //dd($tkn);
             if ($tkn)
             {
-                $tkn = TRUE;
-                return redirect('/signup')->with('hj',$tkn);
+                return redirect('/signup')->with('tkn',$tkn);
             }
             else
             {
                 request()->validate ([
                     'psrd' => ['custom' => ['reg' => ['fault']]]
                 ]);
-                return redirect('/check')->with('hj',$tkn);
+                return redirect('/check')->with('tkn',$tkn);
             }
         }
     }
@@ -61,17 +60,16 @@ class InterController extends Controller
             'user_id' => $request->id
         ]);
 
-        $request->flashOnly('id','name', 'rt');
+        $request->session()->put('name', $request->name);
+        $request->session()->put('rt', $request->rt);
+        $request->session()->put('id', $request->id);
 
         return redirect('/index');
     }
 
     public function signup()
     {
-        if($this->store()['tkn'])
-        {
-            $tkn = $this->store();
-        }
+        $tkn = $this->store();
 
         return view('signup')->with('tkn',$tkn);
     }
