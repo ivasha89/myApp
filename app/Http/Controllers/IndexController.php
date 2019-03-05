@@ -8,12 +8,11 @@ class IndexController extends Controller
     public static function index()
     {
         $appname = VariablesController::$appname;
-        $error = InterController::$error;
 
         $test = new VariablesController();
         $usrstr = $test::init()['frst'];
         $loggedin = $test::init()['scnd'];
 
-        return view('index', compact('appname', 'usrstr', 'loggedin', 'error'));
+        return view('index', compact('appname', 'usrstr', 'loggedin'));
     }
 }

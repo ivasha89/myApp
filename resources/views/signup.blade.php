@@ -6,7 +6,7 @@
         <div style="width:330px">
             <div class="card text-center border-secondary">
 
-                @if ($attributes['tkn'])
+                @if ($tkn)
 
                     @include('layouts.signup')
 

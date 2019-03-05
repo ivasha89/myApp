@@ -19,7 +19,7 @@ Route::get('/', 'IndexController@index');
 
 Route::get('/signup', 'InterController@signup');
 
-Route::post('/signup', 'InterController@reg');
+Route::post('/signup', 'InterController@registration');
 
 Route::get('/check', 'InterController@signup');
 

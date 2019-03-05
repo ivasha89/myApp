@@ -12,28 +12,28 @@ use Illuminate\Support\Facades\Hash;
 class InterController extends Controller
 {
 
-    public static function store()
+    public static function store(Request $request)
     {
-        if (request()->has('psrd')) {
+        if ($request->has('psrd')) {
 
-            $rslt = User::where('id', 'B17004')->first();
-            $tkn = Hash::check(request()->psrd, $rslt->pssw);
-            //dd($tkn);
+            $secretWord = User::where('id', 'B17004')->first();
+            $tkn = Hash::check(request()->psrd, $secretWord->pssw);
+            $request->session()->put('tkn', $tkn);
             if ($tkn)
             {
-                return redirect('/signup')->with('tkn',$tkn);
+                return redirect('/signup');
             }
             else
             {
-                request()->validate ([
+                $request->validate ([
                     'psrd' => ['custom' => ['reg' => ['fault']]]
                 ]);
-                return redirect('/check')->with('tkn',$tkn);
+                return redirect('/check');
             }
         }
     }
 
-    protected function reg(Request $request)
+    protected function registration(Request $request)
     {
         if (isset($_SESSION['user'])) MyFunctions::destroySession();
 
@@ -69,7 +69,7 @@ class InterController extends Controller
 
     public function signup()
     {
-        $tkn = $this->store();
+        $tkn = session('tkn');
 
         return view('signup')->with('tkn',$tkn);
     }

@@ -12,7 +12,6 @@
     </title>
 
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
