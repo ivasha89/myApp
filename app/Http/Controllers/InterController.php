@@ -30,8 +30,7 @@ class InterController extends Controller
             }
             else
             {
-                if ($tkn == $rslt)
-                    $hj = TRUE;
+                $hj = TRUE;
                 return redirect('/signup')->with('hj',$hj);
             }
         }
