@@ -41,7 +41,7 @@ class InterController extends Controller
             'id' => ['required', 'string', 'min:6', 'max:255'],
             'password' => ['required', 'string', 'min:6', 'max:255'],
             'name' => ['required', 'string', 'min:6', 'max:255'],
-            'spiritualName' => ['string', 'min:6', 'max:255'],
+            'spiritualName' => [],
             'rt' => []
         ]);
 
@@ -52,13 +52,23 @@ class InterController extends Controller
             'id' => $request->id
         ]);
 
-        Brah::create([
+        if($request->has('spiritualName')) {
+            Brah::create([
             'name' => $request->name,
             'sname' => $request->spiritualName,
             'tel' => '',
             'city' => '',
             'user_id' => $request->id
-        ]);
+        ]);}
+        else {
+            Brah::create([
+                'name' => $request->name,
+                'sname' => '',
+                'tel' => '',
+                'city' => '',
+                'user_id' => $request->id
+            ]);
+        }
 
         $request->session()->put('name', $request->name);
         $request->session()->put('rt', $request->rt);
