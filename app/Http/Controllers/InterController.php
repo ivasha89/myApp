@@ -20,15 +20,15 @@ class InterController extends Controller
 
             $rslt = User::where('id', 'B17004')->first();
             $tkn = Hash::check(request()->psrd, $rslt->pssw);
-            $rw = $rslt->count();
-            if ($rw == 0)
+            //dd($tkn);
+            if (!$tkn)
             {
                 request()->validate ([
                     'psrd' => ['custom' => ['reg' => ['fault']]]
                     ]);
                 return redirect('/check')->with('hj',$hj);
             }
-            elseif ($rw !== 0)
+            else
             {
                 if ($tkn == $rslt)
                     $hj = TRUE;
