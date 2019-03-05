@@ -6,13 +6,13 @@
         <div style="width:330px">
             <div class="card text-center border-secondary">
 
-                @if (!$attributes['hj'])
+                @if ($attributes['tkn'])
 
-                    @include('layouts.check')
+                    @include('layouts.signup')
 
                 @else
 
-                    @include('layouts.signup')
+                    @include('layouts.check')
 
                 @endif
 

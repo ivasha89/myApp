@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class InterController extends Controller
 {
-    static $hj, $error;
 
     public static function store()
     {
@@ -21,17 +20,17 @@ class InterController extends Controller
             $rslt = User::where('id', 'B17004')->first();
             $tkn = Hash::check(request()->psrd, $rslt->pssw);
             //dd($tkn);
-            if (!$tkn)
+            if ($tkn)
             {
-                request()->validate ([
-                    'psrd' => ['custom' => ['reg' => ['fault']]]
-                    ]);
-                return redirect('/check')->with('hj',$hj);
+                $tkn = TRUE;
+                return redirect('/signup')->with('hj',$tkn);
             }
             else
             {
-                $hj = TRUE;
-                return redirect('/signup')->with('hj',$hj);
+                request()->validate ([
+                    'psrd' => ['custom' => ['reg' => ['fault']]]
+                ]);
+                return redirect('/check')->with('hj',$tkn);
             }
         }
     }
@@ -39,8 +38,6 @@ class InterController extends Controller
     protected function reg(Request $request)
     {
         if (isset($_SESSION['user'])) MyFunctions::destroySession();
-
-        $data = $request->input();
 
         $request->validate ([
             'id' => ['required', 'string', 'min:6', 'max:255'],
