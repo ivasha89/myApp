@@ -14,7 +14,6 @@ class InterController extends Controller
 
     public static function store()
     {
-        $hj = self::$hj;
         if (request()->has('psrd')) {
 
             $rslt = User::where('id', 'B17004')->first();
@@ -69,18 +68,11 @@ class InterController extends Controller
 
     public function signup()
     {
-        if(!$this->store()['hj']) {
-
-            $attributes = [
-                'hj' => self::$hj,
-                'error' => self::$error
-            ];
+        if($this->store()['tkn'])
+        {
+            $tkn = $this->store();
         }
 
-        else {
-            $attributes = $this->store();
-        }
-
-        return view('signup')->with('attributes',$attributes);
+        return view('signup')->with('tkn',$tkn);
     }
 }
