@@ -39,7 +39,7 @@
                     <a class="dropdown-item btn-lg mb-2" href="{{ url('login') }}">
                         Вход
                     </a>
-                    <a class="dropdown-item btn-lg mb-2" href="{{ url('signup') }}">
+                    <a class="dropdown-item btn-lg mb-2" href="{{ url('check') }}">
                         Регистрация
                     </a>
 @endif

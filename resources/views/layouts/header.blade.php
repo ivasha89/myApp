@@ -1,4 +1,3 @@
-@inject('loggedin', 'App\Http\Controllers\IndexController')
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,14 +19,14 @@
     <a class="navbar-brand text-light" href="{{ url('/') }}">
         <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
     </a>
-    @if($loggedin)
+    @if(\App\Http\Controllers\VariablesController::init()['scnd'])
         @include('layouts.navbar')
     @endif
 </nav>
 
-{{--@if($errors->any())--}}
-    @extends('layouts.toast')
-{{--@endif--}}
+@if($errors->any())
+    @include('layouts.toast')
+@endif
 
 @yield('content')
 

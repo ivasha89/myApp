@@ -19,9 +19,11 @@ Route::get('/', 'IndexController@index');
 
 Route::get('/signup', 'InterController@signup');
 
-    Route::post('/signup', 'InterController@store');
+Route::post('/signup', 'InterController@reg');
 
-    Route::post('/signup', 'InterController@reg');
+Route::get('/check', 'InterController@signup');
+
+Route::post('/check', 'InterController@store');
 
 Route::get('/login', 'InterController@login');
 

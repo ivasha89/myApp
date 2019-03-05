@@ -15,10 +15,7 @@ class InterController extends Controller
 
     public static function store()
     {
-        $attributes = [
-            'hj' => self::$hj,
-            'error' => self::$error
-        ];
+        $hj = self::$hj;
         if (request()->has('psrd')) {
 
             $rslt = User::where('id', 'B17004')->first();
@@ -26,16 +23,16 @@ class InterController extends Controller
             $rw = $rslt->count();
             if ($rw == 0)
             {
-                $a = ["Неверно ввели", "Ошибка ввода", "Снова мимо", "Беда какая-то", "Неповезло. День Сатурна", "Узнать у астролога пароль", "Может вы на сайте другого ашрама?", "Переключить раскладку на английский"];
-                $attributes['error'] = VariablesController::$asa . 'href="' . url('signup') . '">' . $a[array_rand($a, 1)] . VariablesController::$bsa;
-                return redirect('/signup')->with('attributes',$attributes);
+                request()->validate ([
+                    'psrd' => ['custom' => ['reg' => ['fault']]]
+                    ]);
+                return redirect('/check')->with('hj',$hj);
             }
             elseif ($rw !== 0)
             {
-                $row = $rslt;
-                if ($tkn == $row)
-                    $attributes['hj'] = TRUE;
-                return redirect('/signup')->with('attributes',$attributes);
+                if ($tkn == $rslt)
+                    $hj = TRUE;
+                return redirect('/signup')->with('hj',$hj);
             }
         }
     }
@@ -48,31 +45,30 @@ class InterController extends Controller
 
         $request->validate ([
             'id' => ['required', 'string', 'min:6', 'max:255'],
-            'ps' => ['required', 'string', 'min:6', 'max:255'],
-            'nm' => ['required', 'string', 'min:6', 'max:255'],
-            'sn' => ['string', 'min:6', 'max:255'],
+            'password' => ['required', 'string', 'min:6', 'max:255'],
+            'name' => ['required', 'string', 'min:6', 'max:255'],
+            'spiritualName' => ['string', 'min:6', 'max:255'],
             'rt' => []
         ]);
 
         User::create([
-            'name' => $request->nm,
-            'pssw' => Hash::make($request->ps),
+            'name' => $request->name,
+            'pssw' => Hash::make($request->password),
             'right' => $request->rt,
             'id' => $request->id
         ]);
 
         Brah::create([
-            'name' => $request->nm,
-            'sname' => $request->sn,
+            'name' => $request->name,
+            'sname' => $request->spiritualName,
             'tel' => '',
             'city' => '',
             'user_id' => $request->id
         ]);
 
-        $request->flashOnly('id','nm', 'rt');
-        $error =  VariablesController::$asa.'href="'. url('login') .'"><h4>Дорогой бхакта, "'.$data('nm').'" ваш профиль создан</h4>Пожалуйста войдите'.VariablesController::$bsa;
+        $request->flashOnly('id','name', 'rt');
 
-        return redirect('/index')->with('error', $error);
+        return redirect('/index');
     }
 
     public function signup()

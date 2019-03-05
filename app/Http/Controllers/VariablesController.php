@@ -35,9 +35,9 @@ class VariablesController extends Controller
 
     public static function init()
     {
-        if (isset($_SESSION['nm'])) {
+        if (isset($_SESSION['name'])) {
             $loggedin = TRUE;
-            $user = $_SESSION['nm'];
+            $user = $_SESSION['name'];
             $usrstr = $user;
         } else {
             $usrstr = '(Гость)';
