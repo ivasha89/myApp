@@ -5,7 +5,7 @@
 <div class="collapse navbar-collapse" id="nvSpCnt">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link text-light" href="{{ url('table')}}">
+            <a class="nav-link text-light" href="{{ url('slbs')}}">
                 Таблица посещаемости
                 <span class="sr-only">
 								(current)

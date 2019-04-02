@@ -6,7 +6,7 @@
         <div style="width:330px">
             <div class="card text-center border-secondary">
 
-                @if ($tkn)
+                @if (session('token'))
 
                     @include('layouts.signup')
 

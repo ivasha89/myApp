@@ -29,6 +29,6 @@
 
 @yield('content')
 
-@extends('layouts.footer')
+@include('layouts.footer')
 </body>
 </html>

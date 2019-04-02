@@ -14,10 +14,9 @@ class CreateBrahsTable extends Migration
     public function up()
     {
         Schema::create('brahs', function (Blueprint $table) {
-            $table->string('name', 16);
-            $table->string('sname', 32);
-            $table->string('tel', 12);
-            $table->string('city', 24);
+            $table->string('sname', 32)->nullable();
+            $table->string('tel', 12)->nullable();
+            $table->string('city', 24)->nullable();
             $table->string('user_id', 28)->primary();
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';

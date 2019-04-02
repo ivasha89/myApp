@@ -27,27 +27,26 @@ class VariablesController extends Controller
 
         $stts = [
             '+', 'o', 'n', 'c', '-', 'b', '/'
-        ],
-
-        $asa = "<div class='container text-center mb-2'><a class='btn btn-warning'",
-
-        $bsa = "</a></div>";
+        ];
 
     public static function init()
     {
-        if (isset($_SESSION['name'])) {
+        if (session('name')) {
             $loggedin = TRUE;
-            $user = $_SESSION['name'];
+            $user = session('name');
             $usrstr = $user;
         } else {
             $usrstr = '(Гость)';
             $loggedin = FALSE;
         }
-        $usr = ['frst' => $usrstr, 'scnd' => $loggedin];
+        $usr = [
+        	'frst' => $usrstr, 
+        	'scnd' => $loggedin
+        	];
         return $usr;
     }
 
-    public static function time_set()
+    public static function timeSet()
     {
         $now = new DateTime(date('Y-m-d H:i:s'));
         $ma = new DateTime('04:30:00'); //дата с которой отчитываем
@@ -70,5 +69,4 @@ class VariablesController extends Controller
 
         return compact('now', 'slb');
     }
-
 }

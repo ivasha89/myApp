@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Hash;
 class InterController extends Controller
 {
 
-    public static function store(Request $request)
+    public function check(Request $request)
     {
         if ($request->has('psrd')) {
 
-            $secretWord = User::where('id', 'B17004')->first();
-            $tkn = Hash::check(request()->psrd, $secretWord->pssw);
-            $request->session()->put('tkn', $tkn);
-            if ($tkn)
+            $secretWord = User::where('id', '1704')->first();
+            $token = Hash::check(request()->psrd, $secretWord->pssw);
+            $request->session()->put('token', $token);
+            if ($token)
             {
                 return redirect('/signup');
             }
@@ -35,26 +35,16 @@ class InterController extends Controller
 
     protected function registration(Request $request)
     {
-        if (isset($_SESSION['user'])) MyFunctions::destroySession();
+        if (session('name') !== null) MyFunctions::destroySession();
 
         $request->validate ([
-            'id' => ['required', 'string', 'min:6', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'max:255'],
-            'name' => ['required', 'string', 'min:6', 'max:255'],
-            'spiritualName' => [],
-            'rt' => []
-        ]);
-
-        User::create([
-            'name' => $request->name,
-            'pssw' => Hash::make($request->password),
-            'right' => $request->rt,
-            'id' => $request->id
+            'id' => 'required|string|min:4|max:255',
+            'password' => 'required|string|min:6|max:255',
+            'name' => 'required|string|min:6|max:255|unique:users',
         ]);
 
         if($request->has('spiritualName')) {
             Brah::create([
-            'name' => $request->name,
             'sname' => $request->spiritualName,
             'tel' => '',
             'city' => '',
@@ -62,7 +52,6 @@ class InterController extends Controller
         ]);}
         else {
             Brah::create([
-                'name' => $request->name,
                 'sname' => '',
                 'tel' => '',
                 'city' => '',
@@ -70,17 +59,51 @@ class InterController extends Controller
             ]);
         }
 
-        $request->session()->put('name', $request->name);
-        $request->session()->put('rt', $request->rt);
-        $request->session()->put('id', $request->id);
-
-        return redirect('/index');
+        User::create([
+            'name' => $request->name,
+            'pssw' => Hash::make($request->password),
+            'right' => $request->rt,
+            'id' => $request->id
+        ]);
+        return redirect('/');
     }
 
     public function signup()
     {
-        $tkn = session('tkn');
+        return view('signup');
+    }
+    
+    public function login()
+    {
+    	return view('layouts.login');
+    }
+    
+    public function enter(Request $request)
+    {
+    	$request->validate ([
+            'password' => 'required|string|min:6|max:255',
+            'name' => 'required|string|min:6|max:255',
+        ]);
 
-        return view('signup')->with('tkn',$tkn);
+    	$user = User::where('name', $request->name)->first();
+        $interToken = Hash::check($request->password, $user->pssw);
+
+        if ($interToken) {
+            $request->session()->put('interToken', $interToken);
+            $request->session()->put('name', $user->name);
+            $request->session()->put('right', $user->right);
+            $request->session()->put('id', $user->id);
+            $request->session()->regenerate();
+            return redirect('/slbs');
+        }
+        else
+            redirect('login');
+    }
+
+    public function logout(Request $request)
+    {
+        $name = $request->session()->pull('name');
+        $request->session()->flush();
+        return view('layouts.logout', compact('name'));
     }
 }

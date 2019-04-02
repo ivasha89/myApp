@@ -18,7 +18,7 @@ class CreateSlbsTable extends Migration
             $table->string('date', 28);
             $table->string('slba', 28);
             $table->string('stts', 28);
-            $table->increments('ind');
+            $table->increments('id');
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';
         });

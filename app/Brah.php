@@ -9,6 +9,6 @@ class Brah extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'sname', 'tel', 'city', 'user_id'
+        'name', 'sname', 'tel', 'city', 'user_id'
     ];
 }

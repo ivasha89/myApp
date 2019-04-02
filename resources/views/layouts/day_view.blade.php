@@ -1,4 +1,7 @@
-@if(mysqli_num_rows($alrt) == 0)
+@extends('layouts.header')
+
+@section('content')
+@if($alrt == NULL)
 <div class="container shadow alert alert-info alert-dismissible fade show" role="alert">
     <p class="lead">
         Здравствуйте. Доброго утра и приятного дня.
@@ -20,7 +23,8 @@
     </div>
     <div class="row justify-content-center">
         <div class="collapse mb-2" id="date" style="width:330px">
-            <form action="{{ url ('table') }}" method="post">
+            <form action="{{ url ('slbs') }}" method="post">
+                @csrf
                 <div class="card text-center border-secondary">
                     <div class="form-group">
                         <div class="card-header bg-info text-white">
@@ -47,27 +51,28 @@
             <thead class="bg-info">
                 <tr>
                     <th scope='col'>Имя брахмачари</th>
-@for($i = 0; $i < count($slba); ++$i)
+@foreach($slba as $slb)
                     <th scope='col'>
-                        {{ $slba[$i] }}
+                        {{ $slb }}
                     </th>
-@endfor
+@endforeach
                 </tr>
             </thead>
             <tbody>
-@for ($j = 0; $j < count($row1); ++$j)									//перебор всех брахмачари
+@for ($j = 0; $j < count($row1); ++$j)
                 <tr>
                     <td>
-                        {{ $row1[$j]['name'] }}												//выводим имена брахмачари
+                        {{ $row1[$j]['name'] }}
                     </td>
-@for ($i = 0; $i < count($slba); ++$i)											//перебор по служениям
+@for ($i = 0; $i < count($slba); ++$i)
                     <td>
-@if ($row1[$j]['id'] == $_SESSION['id'])
+
 @if ($row[$i][$j]['slba'] == $slb)
+@if ($row1[$j]['id'] == session('id'))
                         <a href="{{ url('week') }}">
 @endif
 @endif
-                            {{$row[$i][$j]['stts']}}										//выводим статусы служб
+                                {{$row[$i][$j]['stts']}}
                         </a>
                     </td>
 @endfor
@@ -76,3 +81,5 @@
             </tbody>
         </table>
     </div>
+</div>
+@endsection

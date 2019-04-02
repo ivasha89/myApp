@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\Request;
+
 class IndexController extends Controller
 {
-    public static function index()
+    public static function index(Request $request)
     {
+        $request->session()->forget('token');
+
         $appname = VariablesController::$appname;
 
         $test = new VariablesController();

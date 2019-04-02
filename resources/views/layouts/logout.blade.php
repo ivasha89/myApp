@@ -1,4 +1,8 @@
-@if ($loggedin)
+@extends('layouts.header')
+
+
+@section('content')
+    @if($name)
 <div class="row justify-content-center p-2">
     <div style="width:300px">
         <div class="card text-center border-secondary">
@@ -7,8 +11,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    Всего доброго,
-@if(isset($user)) {{ $user }}
+                    Всего доброго, {{ $name }}
                 </h5>
                 <a class="btn btn-outline-info" href="{{ url('login') }}">
                     На вход
@@ -31,7 +34,7 @@
                 <h5 class="card-title">
                     Вы ещё не заходили
                 </h5>
-                <a class="btn btn-outline-primary" href="{{ url('index') }}">
+                <a class="btn btn-outline-primary" href="{{ url('/') }}">
                     Начало
                 </a>
             </div>
@@ -42,3 +45,4 @@
     </div>
 </div>
 @endif
+@endsection

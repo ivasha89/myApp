@@ -8,7 +8,7 @@
             <label class="text-info" for="name">
                 Ваше Имя на русском
             </label>
-            <input type="text" class="form-control {{ $errors->has('name') ? 'is-danger' : ''}}" id="name" placeholder="{{ old('name') }}"  name="name" autocapitalize="on" required autofocus>
+            <input type="text" class="form-control {{ $errors->has('name') ? 'border-danger' : ''}}" id="name" value="{{ old('name') }}"  name="name" autocapitalize="on" required>
         </div>
         <div class="form-group">
             <label class="text-info" for="psw">
@@ -20,13 +20,13 @@
             <label class="text-info" for="sn">
                 Духовное имя
             </label>
-            <input type="text" class="form-control {{ $errors->has('spiritualName') ? 'is-danger' : ''}}" id="sn" placeholder="{{ old('spiritualName') }}" name="spiritualName" autocapitalize="on">
+            <input type="text" class="form-control {{ $errors->has('spiritualName') ? 'is-danger' : ''}}" id="sn" value="{{ old('spiritualName') }}" name="spiritualName" autocapitalize="on">
         </div>
         <div class="form-group">
             <label class="text-info" for="idy">
                 ID
             </label>
-            <input type="text" class="form-control {{ $errors->has('id') ? 'is-danger' : ''}}" id="idy" placeholder="{{ old('id') }}" name="id" required>
+            <input type="text" class="form-control {{ $errors->has('id') ? 'is-danger' : ''}}" id="idy" value="{{ old('id') }}" name="id" required>
         </div>
         <div class="col btn-group btn-group-toggle custom-control-inline mb-2" data-toggle="buttons">
             <label class="btn btn-secondary active">

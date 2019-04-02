@@ -68,9 +68,6 @@ class myFunctions extends Controller
                     ['stts' => $var4]
                 );
         }
-
-         if ($conn->error or $conn->connect_error)
-             $error = "Не удалось вставить данные: " . $conn->error;
      }
 
         public static function delete($conn, $var1, $var2, $var3) {							// Функция удаления данных
@@ -97,8 +94,5 @@ class myFunctions extends Controller
                  ->delete();
          $error = "Полубоги уже удалили ваши данные";
          }
-
-         if ($conn->error or $conn->connect_error)
-             $error = "Не удалось удалить запись: " . $conn->error;
      }
 }

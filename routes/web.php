@@ -16,18 +16,16 @@ use App\Slb;
 use App\Http\Controllers\InterController;
 
 Route::get('/', 'IndexController@index');
-
 Route::get('/signup', 'InterController@signup');
-
 Route::post('/signup', 'InterController@registration');
-
 Route::get('/check', 'InterController@signup');
-
-Route::post('/check', 'InterController@store');
-
+Route::post('/check', 'InterController@check');
 Route::get('/login', 'InterController@login');
+Route::post('/login', 'InterController@enter');
+Route::resource('slbs', 'SlbsController');
+Route::get('/logout', 'InterController@logout');
 
-Route::get('/table', function () {
+/*Route::get('/table', function () {
     return view('layouts.table');
 });
 
@@ -41,7 +39,7 @@ Route::post('/welcome', function() {
 Route::get('/welcome', function() {
    $slbs = Slb::all();
    return view('layouts.header', compact('slbs'));
-});
-Auth::routes();
+});*/
+//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

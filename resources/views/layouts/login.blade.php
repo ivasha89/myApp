@@ -1,4 +1,4 @@
-@extends('layouts.header)
+@extends('layouts.header')
 
 @section('content')
     <div class="row justify-content-center p-2">
@@ -14,25 +14,13 @@
                         <label for="ysl">
                             Ваше имя
                         </label>
-                        <input type="text" class="form-control{{ $errors->has('user') ? ' is-invalid' : '' }}" id="ysl" value="{{ old('user') }}" maxlength="32" name="user" required>
-
-                        @if ($errors->has('user'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('user') }}</strong>
-                            </span>
-                        @endif
+                        <input type="text" class="form-control{{ $errors->has('name') ? 'border-danger' : '' }}" id="ysl" value="{{ old('name') }}" maxlength="32" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="yep">
                             Пароль
                         </label>
-                        <input type="password" class="form-control{{ $errors->has('pass') ? ' is-invalid' : '' }}" id="yep" placeholder="Пароль" maxlength="16" name="pass" required>
-
-                        @if ($errors->has('pass'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('pass') }}</strong>
-                            </span>
-                        @endif
+                        <input type="password" class="form-control{{ $errors->has('password') ? ' border-danger' : '' }}" id="yep" placeholder="Пароль" maxlength="16" name="password" required>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
