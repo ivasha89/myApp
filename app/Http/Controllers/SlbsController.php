@@ -20,8 +20,17 @@ class SlbsController extends Controller
         $y = $test1::timeSet()['now'];
         $days = $test1::$days;
         $monthes = $test1::$monthes;
-        $slb = $test1::timeSet()['slb'];
+        $currentSlb = $test1::timeSet()['slb'];
         $slba = $test1::$slba;
+        $stts = $test1::$stts;
+
+        if (request()->has('chdt')) {
+            $chd = request()->chdt;
+            $y = new DateTime($chd);
+        }
+
+        if ($y->format('N') > 5)
+            array_splice($slba, 2, 1);
 
         /*$users = User::whereNotIn('right', ['adm', 'out'])
             ->select('name', 'right','id')
@@ -54,7 +63,6 @@ class SlbsController extends Controller
                         $row[$i][$j]['user_id'] = $row1[$j]['id'];
                     } elseif ((int)$row[$i][$j]['user_id'] !== $row1[$j]['id']) {
                         $arr = ['name' => $row1[$j]['name'], 'slba' => $slba[$i], 'stts' => '❌', 'user_id' => $row1[$j]['id']];
-                        dd($row[$i][$j], $row1[$j], $arr, $j);
                         array_unshift($row[$i], $arr);
                         foreach ($row[$i] as $key => $val)                          //создаём пустой статус для
                             $id[$key] = $val['user_id'];                           //неотметившихся брахмачари
@@ -65,7 +73,7 @@ class SlbsController extends Controller
             }
         }
 
-            return view('layouts.day_view', compact('row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'slb'));
+            return view('layouts.day_view', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'currentSlb'));
     }
 
     /**
@@ -86,14 +94,26 @@ class SlbsController extends Controller
      */
     public function store(Request $request)
     {
-        $slba = VariablesController::$slba;
-        if ($request->has('chdt')) {
-            $chd = $request->chdt;
-            $y = new DateTime($chd);
+        if ((integer)$request->status) {
+            $request->validate([
+                'status' => ['gte: 1','lt: 17']
+            ]);
         }
 
-        if ($y->format('N') > 5)
-            array_splice($slba, 2, 1);
+            $var1 = session('id');
+
+            $y = $this::index()['y'];
+
+            $var2 = $y->format('Y-m-d');
+
+            $var3 = $request->slba;
+
+            $var4 = $request->status;
+
+            if ($request->has('delete'))
+                MyFunctions::delete($var1, $var2, $var3);
+            else
+                MyFunctions::updateOrInsert($var1, $var2, $var3, $var4);
 
         return redirect('/slbs');
     }

@@ -50,7 +50,7 @@ class VariablesController extends Controller
     {
         $now = new DateTime(date('Y-m-d H:i:s'));
         $ma = new DateTime('04:30:00'); //дата с которой отчитываем
-        $dz = new DateTime('06:00:00');
+        $dz = new DateTime('6:00:00');
         $pb = new DateTime('7:45:00');
         $ga = new DateTime('18:00:00');
         $diff0 = $now->getTimestamp() - $ma->getTimestamp();
@@ -65,7 +65,7 @@ class VariablesController extends Controller
             $slb = 'ПБ';
         elseif (($diff3 < 300) && (-$diff3 < 1200))
             $slb = 'ГА';
-        else $slb = '';
+        else $slb = null;
 
         return compact('now', 'slb');
     }

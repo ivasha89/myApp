@@ -154,7 +154,7 @@ return [
 |
 */
 'attributes' => [
-
+    'status'                => 'Статус службы',
     'spiritualName'         => 'Духовное Имя',
     'name'                  => 'Имя',
     'username'              => 'Никнейм',

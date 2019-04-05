@@ -30,5 +30,27 @@
 @yield('content')
 
 @include('layouts.footer')
+<script>
+    $(document).ready(function () {
+        $('#sluzhba').click(function () {
+            var id = $(this).parent().attr('id');
+            if (id == 'ДЖ') {
+                $("#dzhapaModal .td").val(id);
+                $('#dzhapaModal').modal('show');
+            }
+            else {
+                $("#sluzhbaModal .td").val(id);
+                $('#sluzhbaModal').modal('show');
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#timeSet').click(function () {
+            $('#timeForm').modal('show')
+        });
+    });
+</script>
 </body>
 </html>

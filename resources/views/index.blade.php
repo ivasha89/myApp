@@ -29,17 +29,17 @@
                         Инструкция
                     </button>
 @if($loggedin)
-                    <a class="dropdown-item btn-lg mb-2" href="{{ url('table') }}">
+                    <a class="dropdown-item btn-lg mb-2" href="{{ url('/slbs') }}">
                         Домой
                     </a>
-                    <a class="dropdown-item btn-lg mb-2" href="{{ url('logout') }}">
+                    <a class="dropdown-item btn-lg mb-2" href="{{ url('/logout') }}">
                         Выход
                     </a>
 @else
-                    <a class="dropdown-item btn-lg mb-2" href="{{ url('login') }}">
+                    <a class="dropdown-item btn-lg mb-2" href="{{ url('/login') }}">
                         Вход
                     </a>
-                    <a class="dropdown-item btn-lg mb-2" href="{{ url('check') }}">
+                    <a class="dropdown-item btn-lg mb-2" href="{{ url('/check') }}">
                         Регистрация
                     </a>
 @endif

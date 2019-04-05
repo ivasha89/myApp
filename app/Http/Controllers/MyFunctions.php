@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class myFunctions extends Controller
+class MyFunctions extends Controller
 {
 
     public static function destroySession() {
@@ -45,10 +45,8 @@ class myFunctions extends Controller
          return $res;
     }
 
-    public static function updateOrInsert($conn, $var1, $var2, $var3, $var4)
+    public static function updateOrInsert($var1, $var2, $var3, $var4)
     {        // Функция создания новой записи в таблице
-
-        global $error;
         if (is_array($var1)) {                                                    //создание администратором
             for ($i = 0; $i < count($var1); $i++) {                                    //множества записей
                 if (is_array($var3)) {
@@ -70,9 +68,8 @@ class myFunctions extends Controller
         }
      }
 
-        public static function delete($conn, $var1, $var2, $var3) {							// Функция удаления данных
+        public static function delete($var1, $var2, $var3) {							// Функция удаления данных
 
-         global $error;
          if (is_array($var1)) {													//удаление администратором
              for ($i = 0; $i < count($var1); $i++) {								//множества записей
                  if (is_array($var3)) {
@@ -92,7 +89,6 @@ class myFunctions extends Controller
                  ->where('date', $var2)
                  ->where('slba', $var3)
                  ->delete();
-         $error = "Полубоги уже удалили ваши данные";
          }
      }
 }
