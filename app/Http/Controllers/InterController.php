@@ -11,11 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class InterController extends Controller
 {
-
     public function check(Request $request)
     {
         if ($request->has('psrd')) {
-
             $secretWord = User::where('id', '1704')->first();
             $token = Hash::check(request()->psrd, $secretWord->pssw);
             $request->session()->put('token', $token);
@@ -31,6 +29,8 @@ class InterController extends Controller
                 return redirect('/check');
             }
         }
+        else
+            return back();
     }
 
     protected function registration(Request $request)

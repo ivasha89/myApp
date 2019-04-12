@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public static function index(Request $request)
+    public function index(Request $request)
     {
         $request->session()->forget('token');
 

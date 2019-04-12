@@ -24,9 +24,9 @@ class SlbsController extends Controller
         $slba = $test1::$slba;
         $stts = $test1::$stts;
 
-        if (request()->has('chdt')) {
-            $chd = request()->chdt;
-            $y = new DateTime($chd);
+        if (request()->has('changeDate')) {
+            $changeDate = request()->changeDate;
+            $y = new DateTime($changeDate);
         }
 
         if ($y->format('N') > 5)
@@ -73,7 +73,16 @@ class SlbsController extends Controller
             }
         }
 
-            return view('layouts.day_view', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'currentSlb'));
+        if (session()->has('mode')) {
+            $mode = null;
+            session()->forget('mode');
+        }
+        else {
+            request()->session()->put('mode', request()->mode);
+            $mode = session('mode');
+        }
+
+            return view('layouts.day_view', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'currentSlb', 'mode'));
     }
 
     /**
@@ -94,26 +103,32 @@ class SlbsController extends Controller
      */
     public function store(Request $request)
     {
-        if ((integer)$request->status) {
+        $y = VariablesController::timeSet()['now'];
+        $slb = $this::index()['currentSlb'];
+        if ($request->statusNumber) {
             $request->validate([
                 'status' => ['gte: 1','lt: 17']
             ]);
+            $var4 = $request->statusNumber;
         }
-
-            $var1 = session('id');
-
-            $y = $this::index()['y'];
-
-            $var2 = $y->format('Y-m-d');
-
-            $var3 = $request->slba;
-
+        else
             $var4 = $request->status;
 
-            if ($request->has('delete'))
-                MyFunctions::delete($var1, $var2, $var3);
-            else
-                MyFunctions::updateOrInsert($var1, $var2, $var3, $var4);
+        if ($slb) {
+            $var1 = session('id');
+            $var2 = $y->format('Y-m-d');
+            $var3 = $request->slba;
+        }
+        else{
+            $var1 = $request->id;
+            $var2 = $request->date;
+            $var3 = $request->sluzhba;
+        }
+        dd($var3);
+        if ($request->has('delete'))
+            MyFunctions::delete($var1, $var2, $var3);
+        else
+            MyFunctions::updateOrInsert($var1, $var2, $var3, $var4);
 
         return redirect('/slbs');
     }

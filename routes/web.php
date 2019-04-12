@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Slb;
 use App\Http\Controllers\InterController;
 
+
 Route::get('/', 'IndexController@index');
 Route::get('/signup', 'InterController@signup');
 Route::post('/signup', 'InterController@registration');

@@ -1,6 +1,6 @@
 @extends('layouts.header')
 
-@section('content')
+@section('guest')
     <div class="row justify-content-center p-2">
         <div style="width:300px">
             <div class="card text-center border-primary">
