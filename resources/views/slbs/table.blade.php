@@ -89,10 +89,8 @@
         @for ($i = 0; $i < count($slba); ++$i)
                             <td id="{{ $row[$i][$j]['slba'] }}">
 
-        @if (($row[$i][$j]['slba'] == $currentSlb) or ($mode))
-            @if (($row1[$j]['id'] == session('id')) && ($y->format('Y-m-d') == $now))
+        @if ((($row[$i][$j]['slba'] == $currentSlb) && ($row1[$j]['id'] == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
                                 <a href="#" id="sluzhba{{$i}}">
-            @endif
         @endif
                                     {{$row[$i][$j]['stts']}}
                                 </a>

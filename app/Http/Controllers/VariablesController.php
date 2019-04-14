@@ -51,7 +51,7 @@ class VariablesController extends Controller
         $now = new DateTime(date('Y-m-d H:i:s'));
         $ma = new DateTime('04:30:00'); //дата с которой отчитываем
         $dz = new DateTime('6:00:00');
-        $pb = new DateTime('7:45:00');
+        $pb = new DateTime('14:45:00');
         $ga = new DateTime('18:00:00');
         $diff0 = $now->getTimestamp() - $ma->getTimestamp();
         $diff1 = $now->getTimestamp() - $dz->getTimestamp();
