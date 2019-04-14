@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
 </head>
+<body>
 
 <nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
     <a class="navbar-brand text-light" href="{{ url('/') }}">
@@ -39,7 +40,7 @@
 @include('layouts.footer')
 <script>
     $(document).ready(function () {
-        $('a').each(function(i, element){
+        $('td > a').each(function(i, element){
             $(element).click(function () {
                 var id = $(this).parent().attr('id');
                 if (id == 'ДЖ') {
@@ -70,6 +71,13 @@
             }
             else {
                 $('#control0 .custom-control-input').removeAttr("checked");
+            }
+        });
+        $('#checkbox1').click(function () {
+            if ($(this).is(':checked')) {
+                $('#control1 .custom-control-input').attr("checked", "checked");
+            } else {
+                $('#control1 .custom-control-input').removeAttr("checked");
             }
         });
     });

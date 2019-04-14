@@ -70,12 +70,12 @@ class InterController extends Controller
 
     public function signup()
     {
-        return view('signup');
+        return view('guest.signup');
     }
     
     public function login()
     {
-    	return view('layouts.login');
+    	return view('guest.login');
     }
     
     public function enter(Request $request)
@@ -97,13 +97,13 @@ class InterController extends Controller
             return redirect('/slbs');
         }
         else
-            redirect('login');
+            redirect('/login');
     }
 
     public function logout(Request $request)
     {
         $name = $request->session()->pull('name');
         $request->session()->flush();
-        return view('layouts.logout', compact('name'));
+        return view('guest.logout', compact('name'));
     }
 }

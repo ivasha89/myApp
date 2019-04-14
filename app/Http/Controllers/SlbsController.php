@@ -18,14 +18,20 @@ class SlbsController extends Controller
     {
         $test1 = new VariablesController();
         $y = $test1::timeSet()['now'];
+        $now = $y->format('Y-m-d');
         $days = $test1::$days;
         $monthes = $test1::$monthes;
         $currentSlb = $test1::timeSet()['slb'];
         $slba = $test1::$slba;
         $stts = $test1::$stts;
-
+//dd(session('date'));
         if (request()->has('changeDate')) {
-            $changeDate = request()->changeDate;
+            session()->forget('date');
+            request()->session()->put('date', request()->changeDate);
+        }
+
+        if (session()->has('date')) {
+            $changeDate = session('date');
             $y = new DateTime($changeDate);
         }
 
@@ -82,7 +88,7 @@ class SlbsController extends Controller
             $mode = session('mode');
         }
 
-            return view('layouts.day_view', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'currentSlb', 'mode'));
+            return view('slbs.table', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'currentSlb', 'mode', 'now'));
     }
 
     /**
@@ -124,7 +130,7 @@ class SlbsController extends Controller
             $var2 = $request->date;
             $var3 = $request->sluzhba;
         }
-        dd($var3);
+
         if ($request->has('delete'))
             MyFunctions::delete($var1, $var2, $var3);
         else

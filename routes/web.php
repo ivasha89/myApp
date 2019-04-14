@@ -23,8 +23,10 @@ Route::get('/check', 'InterController@signup');
 Route::post('/check', 'InterController@check');
 Route::get('/login', 'InterController@login');
 Route::post('/login', 'InterController@enter');
-Route::resource('slbs', 'SlbsController');
 Route::get('/logout', 'InterController@logout');
+
+Route::get('/slbs', 'SlbsController@index');
+Route::post('/slbs', 'SlbsController@store');
 
 /*Route::get('/table', function () {
     return view('layouts.table');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DateTime;
 use App\Slb;
 use App\User;
 
@@ -11,17 +11,12 @@ class MysqlRequests extends Controller
 {
     public static function programm() {
 
-        $y = VariablesController::timeSet()['now'];
+        if (session('date'))
+            $y = new DateTime(session('date'));
+        else
+            $y = VariablesController::timeSet()['now'];
+
         $slba = VariablesController::$slba;
-
-        if (request()->has('chdt'))
-        {
-            $chd = request()->chdt;
-            $y = new \DateTime($chd);
-        }
-
-        if ($y->format('N') > 5)
-            array_splice($slba, 2,1);
         
         for ($i = 0; $i < count($slba); ++$i) {													// 7 служб в течение дня
             $c = $slba[$i];						//задаём очерёдность служб в массиве day по времени в течение дня
@@ -47,7 +42,7 @@ class MysqlRequests extends Controller
             unset($row1[$j]->sname);
         }
 
-        $alrt = Slb::where('date', $y->format('Y-m-d'))
+        $alrt = Slb::where('date', VariablesController::timeSet()['now'])
             ->where('user_id', session('id'))
             ->select('user_id')
             ->get();

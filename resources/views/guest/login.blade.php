@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layout')
 
 @section('guest')
     <div class="row justify-content-center p-2">

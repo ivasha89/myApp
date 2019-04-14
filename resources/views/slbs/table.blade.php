@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layout')
 
 @section('content')
     @if($alrt->first() == null)
@@ -18,9 +18,9 @@
     <div class="container bg-white rounded">
         <div class="row justify-content-center">
             <div class="alert alert-info shadow">
-                <a class="h1" id="timeSet">
+                <p class="h1" id="timeSet">
                     {{ $days[$y->format('N')] . $y->format(' d ') . $monthes[$y->format('n')] . $y->format(' Y года') }}
-                </a>
+                </p>
             </div>
         </div>
         <form method="get" action="{{ url('/slbs') }}">
@@ -43,11 +43,19 @@
                     <thead class="bg-info">
                         <tr>
                             <th scope="col">
-                                <div class="float-right">
-                                    <input type="checkbox" id="checkbox0" class="cl">Службы
+                                @if($mode)
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" id="checkbox0" class="cl custom-control-input">
+                                    <label class="custom-control-label float-right" for="checkbox0">
+                                        Службы
+                                    </label>
                                 </div>
-                                <div>
-                                    <input type="checkbox" id="checkbox1" class="cl">Имя
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" id="checkbox1" class="cl custom-control-input">
+                                    <label class="custom-control-label" for="checkbox1">
+                                @endif
+                                        Имя
+                                    </label>
                                 </div>
                             </th>
         @foreach($slba as $slb)
@@ -82,7 +90,7 @@
                             <td id="{{ $row[$i][$j]['slba'] }}">
 
         @if (($row[$i][$j]['slba'] == $currentSlb) or ($mode))
-            @if ($row1[$j]['id'] == session('id'))
+            @if (($row1[$j]['id'] == session('id')) && ($y->format('Y-m-d') == $now))
                                 <a href="#" id="sluzhba{{$i}}">
             @endif
         @endif
@@ -169,6 +177,11 @@
                 <div class="modal-body">
                     <form method="get" action="{{ url('/slbs') }}">
                         <input class="form-control mb-2" onchange="this.form.submit()" type="date" name="changeDate">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-info" href='{{ url("/slbs?changeDate=$now") }}'>
+                                Сегодня
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
