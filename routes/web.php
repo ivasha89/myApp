@@ -27,7 +27,7 @@ Route::get('/logout', 'InterController@logout');
 
 Route::get('/slbs', 'SlbsController@index');
 Route::post('/slbs', 'SlbsController@store');
-Route::get('/slbs/stats','SlbsController@statistics');
+Route::get('/slbs/statistic','SlbsController@statistics');
 
 /*Route::get('/table', function () {
     return view('layouts.table');

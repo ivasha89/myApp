@@ -13,8 +13,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href={{ url('/week') }}>
-                Отметиться
+            <a class="nav-link text-light" href={{ url('/slbs/statistic') }}>
+                Посещаемость
             </a>
         </li>
         <li class="nav-item">

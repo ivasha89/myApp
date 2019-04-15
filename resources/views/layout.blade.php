@@ -44,7 +44,7 @@
             $(element).click(function () {
                 var id = $(this).parent().attr('id');
                 if (id == 'ДЖ') {
-                    $("#dzhapaModal .td").val(id);
+                    $('#dzhapaModal .thname').val(id);
                     $('#dzhapaModal').modal('show');
                 }
                 else {

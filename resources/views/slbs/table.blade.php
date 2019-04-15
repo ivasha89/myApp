@@ -105,7 +105,7 @@
                         <div class="modal-content">
                             <div class="modal-header card">
                                 <div class="row justify-content-center">
-                                    <input type="hidden" name="slba" class="td">
+                                    <input type="hidden" name="slba" class="thname">
                                     <div class="btn-group-toggle mb-2" data-toggle="buttons">
                                         @foreach($stts as $stt)
                                             <label class="btn btn-secondary" for="stts{{ $stt }}">
@@ -151,7 +151,7 @@
                                     <div class="col-6 mb-2">
                                         <input type="number" name="statusNumber" onfocusout="this.form.submit()"
                                                class="form-control"
-                                               placeholder="в лакхах" min="1">
+                                               placeholder="в лакхах" min="1" max="16">
                                     </div>
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit" class="btn btn-outline-danger" name="delete">
