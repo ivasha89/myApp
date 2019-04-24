@@ -178,7 +178,7 @@ class SlbsController extends Controller
         $yogaDays = $diff - $weekEndDays;
 
         $userId = User::whereNotIn('users.right', ['adm', 'out'])->select('id')->get()->toArray();
-        for ($i = 0; $i < count(User::all()); ++$i )
+        for ($i = 0; $i < count($userId); ++$i )
             $id[$i] = $userId[$i]['id'];
 
         for ($j = 0; $j < count($id); ++$j) {

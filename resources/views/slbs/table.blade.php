@@ -34,11 +34,11 @@
             <div class="row justify-content-center">
                 <div class="alert alert-info shadow">
                     <div class="row">
-                            <a class="btn float-left" href='{{ url("/slbs?changeDate=$previousDay") }}'>
-                                <img style="height: 100px; width: 50px;" src="{{ url('/svg/prev') }}.jpg"
-                                     class="rounded-circle" alt="...">
-                            </a>
-                        <div class="row justify-content-center">
+                        <a class="col-1 btn float-left" href='{{ url("/slbs?changeDate=$previousDay") }}'>
+                            <img style="height: 100px; width: 50px;" src="{{ url('/svg/prev') }}.jpg"
+                                 class="rounded-circle" alt="...">
+                        </a>
+                        <div class="col-10 row justify-content-center">
                             <p class="col-12 h1 text-center" id="timeSet">
                                 {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                             </p>
@@ -48,7 +48,7 @@
                                 </button>
                             </a>
                         </div>
-                            <a class="btn float-right" href='{{ url("/slbs?changeDate=$nextDay") }}'>
+                            <a class="col-1 btn float-right" href='{{ url("/slbs?changeDate=$nextDay") }}'>
                                 <img style="height: 100px; width: 50px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
                                      alt="...">
                             </a>
@@ -67,7 +67,7 @@
         <form action="{{ url('/slbs') }}" method="post">
             @csrf
             <div class="row justify-content-center rounded">
-                <table class="table table-sm table-striped table-bordered shadow">
+                <table class="col-12 table table-sm table-striped table-bordered shadow">
                     <caption>
                         Список посещаемости
                     </caption>
