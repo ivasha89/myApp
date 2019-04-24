@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afa7eb74-3c51-47ea-8984-0dee104e5184" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/slbs/stats.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/slbs/stats.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,14 +33,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/slbs/stats.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="69" column="97" selection-start-line="69" selection-start-column="97" selection-end-line="69" selection-end-column="97" />
+            <state relative-caret-position="169">
+              <caret line="35" column="156" selection-start-line="35" selection-start-column="156" selection-end-line="35" selection-end-column="156" />
               <folding>
                 <element signature="e#93#490#0#HTML" />
-                <element signature="e#560#2482#0#HTML" />
                 <element signature="e#4199#4247#0#HTML" expanded="true" />
                 <element signature="e#4175#5320#0#HTML" />
                 <element signature="e#4273#5293#0#HTML" />
@@ -113,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SlbsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="173" column="45" selection-start-line="173" selection-start-column="45" selection-end-line="173" selection-end-column="45" />
+            <state relative-caret-position="108">
+              <caret line="170" column="45" lean-forward="true" selection-start-line="170" selection-start-column="45" selection-end-line="170" selection-end-column="45" />
               <folding>
                 <element signature="e#40#52#0#PHP" expanded="true" />
                 <element signature="e#264#4379#0#PHP" />
@@ -257,8 +256,8 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layout.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/slbs/table.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/slbs/stats.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" />
+        <option value="$PROJECT_DIR$/resources/views/slbs/stats.blade.php" />
       </list>
     </option>
   </component>
@@ -587,12 +586,12 @@
       <workItem from="1555850768547" duration="9706000" />
       <workItem from="1556002456585" duration="161000" />
       <workItem from="1556002691723" duration="13746000" />
-      <workItem from="1556087932058" duration="10439000" />
+      <workItem from="1556087932058" duration="11150000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="484006000" />
+    <option name="totallyTimeSpent" value="484717000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -967,28 +966,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/slbs/stats.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="69" column="97" selection-start-line="69" selection-start-column="97" selection-end-line="69" selection-end-column="97" />
-          <folding>
-            <element signature="e#93#490#0#HTML" />
-            <element signature="e#560#2482#0#HTML" />
-            <element signature="e#4199#4247#0#HTML" expanded="true" />
-            <element signature="e#4175#5320#0#HTML" />
-            <element signature="e#4273#5293#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SlbsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="173" column="45" selection-start-line="173" selection-start-column="45" selection-end-line="173" selection-end-column="45" />
+        <state relative-caret-position="108">
+          <caret line="170" column="45" lean-forward="true" selection-start-line="170" selection-start-column="45" selection-end-line="170" selection-end-column="45" />
           <folding>
             <element signature="e#40#52#0#PHP" expanded="true" />
             <element signature="e#264#4379#0#PHP" />
             <element signature="e#4554#5427#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/slbs/stats.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="35" column="156" selection-start-line="35" selection-start-column="156" selection-end-line="35" selection-end-column="156" />
+          <folding>
+            <element signature="e#93#490#0#HTML" />
+            <element signature="e#4199#4247#0#HTML" expanded="true" />
+            <element signature="e#4175#5320#0#HTML" />
+            <element signature="e#4273#5293#0#HTML" />
           </folding>
         </state>
       </provider>
