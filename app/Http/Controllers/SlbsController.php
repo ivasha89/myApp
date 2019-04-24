@@ -18,10 +18,12 @@ class SlbsController extends Controller
     public function index()
     {
         $test1 = new VariablesController();
+        $now = (new DateTime)->format('Y-m-d');
         $y = $test1::timeSet()['now'];
-        $now = $y->format('Y-m-d');
+        $nextDay = (new DateTime())->modify('+1 day')->format('Y-m-d');
+        $previousDay = (new DateTime())->modify('-1 day')->format('Y-m-d');
         $days = $test1::$days;
-        $monthes = $test1::$monthes;
+        $months = $test1::$months;
         $currentSlb = $test1::timeSet()['slb'];
         $slba = $test1::$slba;
         $stts = $test1::$stts;
@@ -30,10 +32,12 @@ class SlbsController extends Controller
             session()->forget('date');
             request()->session()->put('date', request()->changeDate);
         }
-
+        //dd(request()->changeDate, request()->mode);
         if (session()->has('date')) {
             $changeDate = session('date');
             $y = new DateTime($changeDate);
+            $nextDay = (new DateTime($changeDate))->modify('+1 day')->format('Y-m-d');
+            $previousDay = (new DateTime($changeDate))->modify('-1 day')->format('Y-m-d');
         }
 
         if ($y->format('N') > 5)
@@ -94,7 +98,7 @@ class SlbsController extends Controller
             $mode = session('mode');
         }
 
-            return view('slbs.table', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'monthes', 'row1', 'currentSlb', 'mode', 'now'));
+            return view('slbs.table', compact('stts','row', 'slba', 'alrt', 'y', 'days', 'months', 'row1', 'currentSlb', 'mode', 'now', 'nextDay', 'previousDay'));
     }
     
 
@@ -138,34 +142,109 @@ class SlbsController extends Controller
 
     public function statistics()
     {
-        $y = VariablesController::timeSet()['now'];
-        $slba = $this->index()['slba'];
+        $test = new VariablesController();
+        $dateEnd = new DateTime();
+        $dateStart = new DateTime();
+        $stts = $test::$stts;
+        $slba = $test::$slba;
+        $slbs = $slba;
+        array_splice($slbs, 1, 1);
 
-        for($i = 0; $i < 7; ++$i)
-            $date[$i] = $y->modify("-1 day")->format('Y-m-d');
+        $dzhapaStatuses = [
+            'c' => 16, 'n' => 0, '-' => 16, 'b' => 16, '/' => 16
+        ];
+
+        $row1 = MysqlRequests::programm()['row1'];
+        $days = $this->index()['days'];
+        $months = $this->index()['months'];
+        $diff = 7;
+        $dateStart->modify("-$diff day");
+
+        if (request()->has('dateStart')) {
+            $dateStart = (new DateTime(request()->dateStart))->modify('-1 day');
+            $dateEnd = new DateTime(request()->dateEnd);
+            $diff = $dateEnd->diff($dateStart)->d;
+        }
+
+        $weekEndDays = 0;
+        for ($i = 0; $i < $diff; ++$i) {
+            $date[$i] = new DateTime($dateStart->modify('+1 day')->format('Y-m-d'));
+            if($date[$i]->format('N') == 6 or $date[$i]->format('N') == 7)
+                $weekEndDays = $weekEndDays + 1;
+            if ($dateEnd->diff($date[$i])->d == 0) {
+                break;
+            }
+        }
+        $yogaDays = $diff - $weekEndDays;
 
         $userId = User::whereNotIn('users.right', ['adm', 'out'])->select('id')->get()->toArray();
         for ($i = 0; $i < count(User::all()); ++$i )
             $id[$i] = $userId[$i]['id'];
 
         for ($j = 0; $j < count($id); ++$j) {
-            for ($i = 0; $i < count($slba); ++$i) {
+            for ($i = 0; $i < count($slbs); ++$i) {
                 for ($k = 0; $k < count($date); ++$k) {
-                    $status = Slb::where('date', $date[$k])
-                        ->where('slba', $slba[$i])
+                    $status = Slb::where('date', $date[$k]->format('Y-m-d'))
+                        ->where('slba', $slbs[$i])
                         ->where('user_id', $id[$j])
                         ->select('stts')
                         ->get()
                         ->toArray();
-                    if ($status)
-                        $day[$j][$i][$k] = $status;
+                    if ($status){
+                        $statuses[$j][$i][$k] = $status['0']['stts'];
+                        foreach($stts as $key => $stt){
+                            if ($status['0']['stts'] == $key)
+                                $day[$j][$i][$k] = $stt;
+                        }
+                    }
+                    else {
+                        $day[$j][$i][$k] = 0;
+                        $statuses[$j][$i][$k] = '❌';
+                    }
+                    $dzhapa = Slb::where('date', $date[$k]->format('Y-m-d'))
+                        ->where('slba', 'ДЖ')
+                        ->where('user_id', $id[$j])
+                        ->select('stts')
+                        ->get()
+                        ->toArray();
+                    if ($dzhapa) {
+                        if (!(int)$dzhapa['0']['stts']) {
+                            $statuses[$j][6][$k] = $dzhapa['0']['stts'];
+                            foreach ($dzhapaStatuses as $key => $stt) {
+                                if ($dzhapa['0']['stts'] == $key) {
+                                    $day[$j][6][$k] = $stt;
+                                }
+                            }
+                        } else {
+                            $day[$j][6][$k] = (int)$dzhapa['0']['stts'];
+                            $statuses[$j][6][$k] = (int)$dzhapa['0']['stts'];
+                        }
+                    }
+                    else {
+                        $day[$j][6][$k] = 0;
+                        $statuses[$j][6][$k] = '❌';
+                    }
+
+                    if ($slbs[$i] == 'ЙГ') {
+                        if ($yogaDays == 0)
+                            $a[$j][$i] = '❌';
+                        else
+                            $a[$j][$i] = (int)(array_sum($day[$j][$i]) / $yogaDays * 100);
+                    }
                     else
-                        $day[$j][$i][$k] = ['0' => ['stts' => '']];
-                    $a[$id[$j]][$slba[$i]][$date[$k]] = $day[$j][$i][$k][0]['stts'];
+                        $a[$j][$i] = (int)(array_sum($day[$j][$i]) / $diff * 100);
+
+                    $a[$j][6] = (int)(array_sum($day[$j][6]) / 16 / $diff * 100);
                 }
+                $iArr[$i] = $i;
+                if ($i == 5)
+                    $iArr[6] = 6;
             }
+            array_multisort($iArr, SORT_ASC, $day[$j]);
+            array_multisort($iArr, SORT_ASC, $a[$j]);
+            array_multisort($iArr, SORT_ASC, $statuses[$j]);
         }
-//dd($day);
-        return compact('a');
+
+        return view('slbs.stats',compact('a', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd'));
     }
 }

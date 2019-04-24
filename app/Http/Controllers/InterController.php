@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Brah;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -38,7 +37,6 @@ class InterController extends Controller
         if (session('name') !== null) MyFunctions::destroySession();
 
         $request->validate ([
-            'id' => 'required|string|min:4|max:255',
             'password' => 'required|string|min:6|max:255',
             'name' => 'required|string|min:6|max:255|unique:users',
         ]);
@@ -59,11 +57,19 @@ class InterController extends Controller
             ]);
         }
 
+        $thisYear = (new \DateTime())->format('y');
+        $lastUserId = User::select('id')->get()->last()->id;
+        $lastUserIdToArray = str_split($lastUserId, 2);
+        if ($lastUserIdToArray[0] == $thisYear)
+            $id = $lastUserId + 1;
+        else
+            $id = (int)($thisYear . "01");
+
         User::create([
             'name' => $request->name,
             'pssw' => Hash::make($request->password),
             'right' => $request->rt,
-            'id' => $request->id
+            'id' => $id
         ]);
         return redirect('/');
     }
@@ -73,7 +79,7 @@ class InterController extends Controller
         return view('guest.signup');
     }
     
-    public function login()
+    protected function login()
     {
     	return view('guest.login');
     }

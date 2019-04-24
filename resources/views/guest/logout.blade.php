@@ -1,7 +1,7 @@
 @extends('layout')
 
 
-@section('content')
+@section('guest')
     @if($name)
 <div class="row justify-content-center p-2">
     <div style="width:300px">

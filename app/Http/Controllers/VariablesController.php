@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use DateTime;
 
@@ -9,7 +10,7 @@ class VariablesController extends Controller
 {
     static $appname = 'БСШСА',
 
-        $monthes = [
+        $months = [
             '','Января', 'Февраля', 'Марта',
             'Апреля', 'Мая', 'Июня',
             'Июля', 'Августа', 'Сентября',
@@ -26,7 +27,7 @@ class VariablesController extends Controller
         ],
 
         $stts = [
-            '+', 'o', 'n', 'c', '-', 'b', '/'
+            '+' => 1, 'o' => 0.5, 'c' => 1, 'n' => 0, '-' => 1, 'b' => 1, '/' => 1
         ];
 
     public static function init()
@@ -49,14 +50,14 @@ class VariablesController extends Controller
     public static function timeSet()
     {
         $now = new DateTime(date('Y-m-d H:i:s'));
-        $ma = new DateTime('04:30:00'); //дата с которой отчитываем
-        $dz = new DateTime('6:00:00');
-        $pb = new DateTime('14:45:00');
-        $ga = new DateTime('18:00:00');
-        $diff0 = $now->getTimestamp() - $ma->getTimestamp();
-        $diff1 = $now->getTimestamp() - $dz->getTimestamp();
-        $diff2 = $now->getTimestamp() - $pb->getTimestamp();
-        $diff3 = $now->getTimestamp() - $ga->getTimestamp();
+        $mangalarati = new DateTime('04:30:00'); //дата с которой отчитываем
+        $dzapa = new DateTime('6:00:00');
+        $meetDeity = new DateTime('14:45:00');
+        $gauraArati = new DateTime('18:00:00');
+        $diff0 = $now->getTimestamp() - $mangalarati->getTimestamp();
+        $diff1 = $now->getTimestamp() - $dzapa->getTimestamp();
+        $diff2 = $now->getTimestamp() - $meetDeity->getTimestamp();
+        $diff3 = $now->getTimestamp() - $gauraArati->getTimestamp();
         if (($diff0 < 300) && (-$diff0 < 1200))
             $slb = 'МА';
         elseif (abs($diff1) < 3900)

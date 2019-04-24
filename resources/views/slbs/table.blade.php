@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+{{--    @dd($nextDay, $previousDay, $now)--}}
     @if($alrt->first() == null)
         <div class="container shadow alert alert-info alert-dismissible fade show" role="alert">
             <div class="d-flex justify-content-center">
@@ -16,14 +17,44 @@
         </div>
     @endif
     <div class="container bg-white rounded">
-        <div class="row justify-content-center">
-            <div class="alert alert-info shadow">
-                <p class="h1" id="timeSet">
-                    {{ $days[$y->format('N')] . $y->format(' d ') . $monthes[$y->format('n')] . $y->format(' Y года') }}
-                </p>
-            </div>
-        </div>
         <form method="get" action="{{ url('/slbs') }}">
+            <div class="modal fade" id="timeForm">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info justify-content-center">
+                            Изменить дату
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control mb-2" onchange="this.form.submit()" type="date"
+                                   name="changeDate" value="{{$y->format('Y-m-d')}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="alert alert-info shadow">
+                    <div class="row">
+                            <a class="btn float-left" href='{{ url("/slbs?changeDate=$previousDay") }}'>
+                                <img style="height: 100px; width: 50px;" src="{{ url('/svg/prev') }}.jpg"
+                                     class="rounded-circle" alt="...">
+                            </a>
+                        <div class="row justify-content-center">
+                            <p class="col-12 h1 text-center" id="timeSet">
+                                {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
+                            </p>
+                            <a href='{{ url("/slbs?changeDate=$now") }}'>
+                                <button type="button" class="btn btn-outline-info">
+                                    Сегодня
+                                </button>
+                            </a>
+                        </div>
+                            <a class="btn float-right" href='{{ url("/slbs?changeDate=$nextDay") }}'>
+                                <img style="height: 100px; width: 50px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                                     alt="...">
+                            </a>
+                    </div>
+                </div>
+            </div>
             @if(session('right') == 'root')
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="ok" value="admin" name="mode" onchange="this.form.submit()">
@@ -87,10 +118,10 @@
                                     </div>
                             </td>
         @for ($i = 0; $i < count($slba); ++$i)
-                            <td id="{{ $row[$i][$j]['slba'] }}">
+                            <td id="{{ $slba[$i] }}">
 
-        @if ((($row[$i][$j]['slba'] == $currentSlb) && ($row1[$j]['id'] == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
-                                <a href="#" id="sluzhba{{$i}}">
+        @if ((($slba[$i] == $currentSlb) && ($row1[$j]['id'] == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
+                                <a href="#">
         @endif
                                     {{$row[$i][$j]['stts']}}
                                 </a>
@@ -107,11 +138,11 @@
                                 <div class="row justify-content-center">
                                     <input type="hidden" name="slba" class="thname">
                                     <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                                        @foreach($stts as $stt)
-                                            <label class="btn btn-secondary" for="stts{{ $stt }}">
+                                        @foreach($stts as $key => $stt)
+                                            <label class="btn btn-secondary" for="stts{{ $key }}">
                                                 <input type="radio" name="status" onchange="this.form.submit()"
-                                                       class="custom-control-input" id="stts{{ $stt }}"
-                                                       value="{{ $stt }}">{{ $stt }}
+                                                       class="custom-control-input" id="stts{{ $key }}"
+                                                       value="{{ $key }}">{{ $key }}
                                             </label>
                                         @endforeach
                                     </div>
@@ -165,24 +196,5 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div class="modal fade" id="timeForm">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header bg-info justify-content-center">
-                    Изменить дату
-                </div>
-                <div class="modal-body">
-                    <form method="get" action="{{ url('/slbs') }}">
-                        <input class="form-control mb-2" onchange="this.form.submit()" type="date" name="changeDate">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-outline-info" href='{{ url("/slbs?changeDate=$now") }}'>
-                                Сегодня
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
