@@ -157,8 +157,8 @@ class SlbsController extends Controller
         $row1 = MysqlRequests::programm()['row1'];
         $days = $this->index()['days'];
         $months = $this->index()['months'];
-        $diff = 8;
-        $dateStart->modify("-$diff day");
+        $diff = 7;
+        $dateStart->modify("-8 day");
 
         if (request()->has('dateStart')) {
             $dateStart = (new DateTime(request()->dateStart))->modify('-1 day');
@@ -167,11 +167,11 @@ class SlbsController extends Controller
         }
 
         $weekEndDays = 0;
-        for ($i = 0; $i < $diff-1; ++$i) {
+        for ($i = 0; $i < $diff; ++$i) {
             $date[$i] = new DateTime($dateStart->modify('+1 day')->format('Y-m-d'));
             if($date[$i]->format('N') == 6 or $date[$i]->format('N') == 7)
                 $weekEndDays = $weekEndDays + 1;
-            if ($dateEnd->diff($date[$i])->d == 0) {
+            if (($dateEnd->diff($date[$i])->d) == 0) {
                 break;
             }
         }
