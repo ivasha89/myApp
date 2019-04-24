@@ -110,6 +110,7 @@ class SlbsController extends Controller
      */
     public function store(Request $request)
     {
+
         $y = VariablesController::timeSet()['now'];
         $slb = $this::index()['currentSlb'];
         if ($request->statusNumber) {

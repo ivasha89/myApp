@@ -3,11 +3,9 @@
 @section('content')
     @if($alrt->first() == null)
         <div class="container shadow alert alert-info alert-dismissible fade show" role="alert">
-            <div class="d-flex justify-content-center">
-                <p class="lead ">
-                    Здравствуйте. Доброго утра и приятного дня.
-                </p>
-            </div>
+            <p class="lead text-center">
+                Здравствуйте. Доброго утра и приятного дня.
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">
                     &times;
@@ -29,28 +27,28 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="alert alert-info shadow">
-                <div class="row">
-                    <a class="col-1 btn float-left" href='{{ url("/slbs?changeDate=$previousDay") }}'>
-                        <img style="height: 100px; width: 50px;" src="{{ url('/svg/prev') }}.jpg"
-                             class="rounded-circle" alt="...">
-                    </a>
-                    <div class="col-10 row justify-content-center">
-                        <p class="col-12 h1 text-center" id="timeSet">
-                            {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
-                        </p>
-                        <a href='{{ url("/slbs?changeDate=$now") }}'>
-                            <button type="button" class="btn btn-outline-info">
-                                Сегодня
-                            </button>
-                        </a>
-                    </div>
-                        <a class="col-1 btn float-right" href='{{ url("/slbs?changeDate=$nextDay") }}'>
-                            <img style="height: 100px; width: 50px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
-                                 alt="...">
-                        </a>
-                </div>
+        <div class="row">
+            <div class="float-left">
+                <a class="btn" href='{{ url("/slbs?changeDate=$previousDay") }}'>
+                    <img style="height: 100px; width: 50px;" src="{{ url('/svg/prev') }}.jpg"
+                         class="rounded-circle" alt="...">
+                </a>
+            </div>
+            <div class="col-7 row justify-content-center">
+                <p class="col-12 h5 text-center border border-info rounded" id="timeSet">
+                    {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
+                </p>
+                <a href='{{ url("/slbs?changeDate=$now") }}'>
+                    <button type="button" class="btn btn-outline-info">
+                        Сегодня
+                    </button>
+                </a>
+            </div>
+            <div class="col-1">
+                <a class="btn" href='{{ url("/slbs?changeDate=$nextDay") }}'>
+                    <img style="height: 100px; width: 50px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                         alt="...">
+                </a>
             </div>
         </div>
         @if(session('right') == 'root')
@@ -134,7 +132,7 @@
                 <div class="modal-content">
                     <div class="modal-header card">
                         <div class="row justify-content-center">
-                            <input type="hidden" name="slba" class="thname">
+                            <input type="hidden" name="slba" id="utf" value="">
                             <div class="btn-group-toggle mb-2" data-toggle="buttons">
                                 @foreach($stts as $key => $stt)
                                     <label class="btn btn-secondary" for="stts{{ $key }}">
@@ -159,9 +157,9 @@
                             <div class="modal-content">
                                 <div class="modal-header card">
                                     <div class="row">
-                                        <input type="hidden" name="slba" class="td">
+                                        <input type="hidden" name="slba" value="">
                                         <div class="btn-group-toggle col-6" data-toggle="buttons">
-                                            <label class="btn btn-secondary" for="sttsn">
+                                            <label class="btn btn   -secondary" for="sttsn">
                                                 <input type="radio" name="status"
                                                        class="custom-control-input" id="sttsn" value="n"
                                                        onchange="this.form.submit()">n

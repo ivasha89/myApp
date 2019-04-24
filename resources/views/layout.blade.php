@@ -83,7 +83,7 @@
                     $('#dzhapaModal').modal('show');
                 }
                 else {
-                    $("#sluzhbaModal .thname").val(id);
+                    $("input[name='slba']").val(id);
                     $('#sluzhbaModal').modal('show');
                 }
             });
