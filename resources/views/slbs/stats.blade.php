@@ -4,8 +4,8 @@
     <div class="row justify-content-center">
         <div class="alert alert-info shadow">
             <p class="h4" id="timeSet">
-                Статистика за {{$diff}} дней начиная с {{ $date[0]->format(' d ') . $months[$date[0]->format('n')] }}
-                до {{ $dateEnd->format(' d ') . $months[$dateEnd->format('n')] }} в %
+                Статистика за {{$diff-1}} дней начиная с {{ $date[0]->format(' d ') . $months[$date[0]->format('n')] }}
+                до {{ $date[$diff-2]->format(' d ') . $months[$date[$diff-2]->format('n')] }} в %
             </p>
         </div>
     </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="col-6">
                 <div class="float-left">
-                    <input class="form-control" type="date" name="dateEnd" value="{{$dateEnd->format('Y-m-d')}}" min="{{$date[1]->format('Y-m-d')}}"
+                    <input class="form-control" type="date" name="dateEnd" value="{{$date[$diff-2]->format('Y-m-d')}}" min="{{$date[1]->format('Y-m-d')}}"
                            onchange="this.form.submit()">
                 </div>
             </div>
