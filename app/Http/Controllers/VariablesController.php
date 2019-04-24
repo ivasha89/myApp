@@ -53,7 +53,7 @@ class VariablesController extends Controller
         $mangalarati = new DateTime('04:30:00'); //дата с которой отчитываем
         $dzapa = new DateTime('6:00:00');
         $meetDeity = new DateTime('14:45:00');
-        $gauraArati = new DateTime('19:00:00');
+        $gauraArati = new DateTime('18:00:00');
         $diff0 = $now->getTimestamp() - $mangalarati->getTimestamp();
         $diff1 = $now->getTimestamp() - $dzapa->getTimestamp();
         $diff2 = $now->getTimestamp() - $meetDeity->getTimestamp();
