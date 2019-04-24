@@ -14,28 +14,44 @@
     <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
 </head>
 <body>
-<nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
-    <a class="navbar-brand text-light" href="{{ url('/') }}">
-        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
-    </a>
-@if(\App\Http\Controllers\VariablesController::init()['scnd'])
-    @include('layouts.navbar')
-</nav>
-@if($errors->any())
-    @include('layouts.toast')
-@endif
-    @yield('content')
-@else
-</nav>
-@if($errors->any())
-    @include('layouts.toast')
-@endif
-@hasSection('guest')
-    @yield('guest')
-@else
-    <div class="row justify-content-center btn-outline-danger">Вы не авторизованы</div>
-@endif
-@endif
+<div class="spinner-border text-success"
+     style="position: absolute; top: 50%; left: 50%; margin-top: -1.5rem; margin-left: -1.5rem; width: 3rem; height: 3rem;"
+     role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+    <header class="page-header d-none">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
+            <a class="navbar-brand text-light" href="{{ url('/') }}">
+                <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
+            </a>
+        @if(\App\Http\Controllers\VariablesController::init()['scnd'])
+            @include('layouts.navbar')
+        </nav>
+    </header>
+    <main class="page-main d-none">
+        <div class="container">
+            @if($errors->any())
+                @include('layouts.toast')
+            @endif
+            @yield('content')
+        </div>
+    </main>
+        @else
+        </nav>
+    </header>
+    <main class="page-main d-none">
+        <div class="container">
+            @if($errors->any())
+                @include('layouts.toast')
+            @endif
+            @hasSection('guest')
+                @yield('guest')
+            @else
+                <div class="row justify-content-center btn-outline-danger">Вы не авторизованы</div>
+            @endif
+        @endif
+        </div>
+    </main>
 
 @include('layouts.footer')
 <script>
