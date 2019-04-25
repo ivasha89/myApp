@@ -28,13 +28,11 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <div class="">
-                <a class="btn" href='{{ url("/slbs?changeDate=$previousDay") }}'>
-                    <img style="height: 100px; width: 30px;" src="{{ url('/svg/prev') }}.jpg"
-                         class="rounded-circle" alt="...">
-                </a>
-            </div>
-            <div class="mr-2 ml-2">
+            <a class="navbar-brand" href='{{ url("/slbs?changeDate=$previousDay") }}'>
+                <img style="height: 100px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
+                     class="rounded-circle shadow" alt="...">
+            </a>
+            <div class="mr-3 ml-3">
                 <div class="row justify-content-center">
                     <div class="col-12 h5 text-center border border-info rounded p-2 shadow" id="timeSet">
                         {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
@@ -46,12 +44,10 @@
                     </a>
                 </div>
             </div>
-            <div class="">
-                <a class="btn" href='{{ url("/slbs?changeDate=$nextDay") }}'>
+                <a class="navbar-brand ml-2" href='{{ url("/slbs?changeDate=$nextDay") }}'>
                     <img style="height: 100px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
                          alt="...">
                 </a>
-            </div>
         </div>
         @if(session('right') == 'root')
             <div class="custom-control custom-switch">
