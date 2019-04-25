@@ -2,7 +2,7 @@
 
 @section('content')
     @if($alrt->first() == null)
-        <div class="container shadow alert alert-info alert-dismissible fade show" role="alert">
+        <div class="shadow alert alert-info alert-dismissible fade show" role="alert">
             <p class="lead text-center">
                 Здравствуйте. Доброго утра и приятного дня.
             </p>
@@ -27,14 +27,14 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="float-left">
+        <div class="row">
+            <div class="col-1">
                 <a class="btn" href='{{ url("/slbs?changeDate=$previousDay") }}'>
                     <img style="height: 100px; width: 30px;" src="{{ url('/svg/prev') }}.jpg"
                          class="rounded-circle" alt="...">
                 </a>
             </div>
-            <div class="col-7 row justify-content-center">
+            <div class="col-10 row justify-content-center">
                 <p class="col-12 h5 text-center border border-info rounded p-2" id="timeSet">
                     {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                 </p>
