@@ -74,7 +74,7 @@
         </div>
     </form>
     <div class="modal fade" id="statuses" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" >
             <div class="modal-content">
                 <div class="justify-content-center">
                     <div class="modal-header bg-light">

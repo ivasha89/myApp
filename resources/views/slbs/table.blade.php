@@ -125,8 +125,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="sluzhbaModal" style="transform: translate(-50%, -50%); top: 50%;">
-            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal fade" id="sluzhbaModal">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header card">
                         <div class="row justify-content-center">
@@ -151,7 +151,7 @@
             </div>
         </div>
         <div class="modal fade" id="dzhapaModal">
-            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header card">
                         <div class="row">
