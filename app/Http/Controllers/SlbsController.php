@@ -110,9 +110,7 @@ class SlbsController extends Controller
      */
     public function store(Request $request)
     {
-
         $y = VariablesController::timeSet()['now'];
-        $slb = $this::index()['currentSlb'];
         if ($request->statusNumber) {
             $request->validate([
                 'status' => ['gte: 1','lt: 17']
@@ -122,15 +120,15 @@ class SlbsController extends Controller
         else
             $var4 = $request->status;
 
-        if ($slb) {
-            $var1 = session('id');
-            $var2 = $y->format('Y-m-d');
-            $var3 = $request->slba;
-        }
-        else{
+        if ($request->id) {
             $var1 = $request->id;
             $var2 = $request->date;
             $var3 = $request->sluzhba;
+        }
+        else{
+            $var1 = session('id');
+            $var2 = $y->format('Y-m-d');
+            $var3 = $request->slba;
         }
 
         if ($request->has('delete'))

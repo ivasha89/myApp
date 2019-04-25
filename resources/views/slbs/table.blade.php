@@ -15,7 +15,7 @@
     @endif
     <form method="get" action="{{ url('/slbs') }}">
         <div class="modal fade" id="timeForm">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header bg-info justify-content-center">
                         Изменить дату
@@ -105,8 +105,8 @@
                             @if($mode)
                                 <input type="hidden" name="date" value="{{$y->format('Y-m-d')}}">
                                 <div class="custom-control custom-switch" id="control1">
-                                    <input type="checkbox" name="id[]" value="{{$row1[$j]['id']}}" class="custom-control-input" id="{{$row1[$j]['id']}}">
-                                    <label class="custom-control-label" for="{{$row1[$j]['id']}}">
+                                    <input type="checkbox" name="id[]" value="{{$row1[$j]['id']}}" class="custom-control-input" id="{{$row1[$j]['id']}}{{$j}}">
+                                    <label class="custom-control-label" for="{{$row1[$j]['id']}}{{$j}}">
                                     </label>
                                 </div>
                             @endif
@@ -127,12 +127,12 @@
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="sluzhbaModal">
-            <div class="modal-dialog modal-sm" role="document">
+        <div class="modal fade" id="sluzhbaModal" style="transform: translate(-50%, -50%); top: 50%;">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header card">
                         <div class="row justify-content-center">
-                            <input type="hidden" name="slba" id="utf" value="">
+                            <input type="hidden" name="slba" id="sluzhba" value="">
                             <div class="btn-group-toggle mb-2" data-toggle="buttons">
                                 @foreach($stts as $key => $stt)
                                     <label class="btn btn-secondary" for="stts{{ $key }}">
@@ -153,42 +153,42 @@
             </div>
         </div>
         <div class="modal fade" id="dzhapaModal">
-                        <div class="modal-dialog modal-sm" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header card">
-                                    <div class="row">
-                                        <input type="hidden" name="slba" value="">
-                                        <div class="btn-group-toggle col-6" data-toggle="buttons">
-                                            <label class="btn btn   -secondary" for="sttsn">
-                                                <input type="radio" name="status"
-                                                       class="custom-control-input" id="sttsn" value="n"
-                                                       onchange="this.form.submit()">n
-                                            </label>
-                                            <label class="btn btn-secondary" for="sttsc">
-                                                <input type="radio" name="status"
-                                                       class="custom-control-input" id="sttsc" value="c"
-                                                       onchange="this.form.submit()">c
-                                            </label>
-                                            <label class="btn btn-secondary" for="sttsb">
-                                                <input type="radio" name="status"
-                                                       class="custom-control-input" id="sttsb" value="b"
-                                                       onchange="this.form.submit()">b
-                                            </label>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <input type="number" name="statusNumber" onfocusout="this.form.submit()"
-                                                   class="form-control"
-                                                   placeholder="в лакхах" min="1" max="16">
-                                        </div>
-                                        <div class="col-12 d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-outline-danger" name="delete">
-                                                ❌
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header card">
+                        <div class="row">
+                            <input type="hidden" name="slba" id="dzhapa" value="">
+                            <div class="btn-group-toggle col-6" data-toggle="buttons">
+                                <label class="btn btn-secondary" for="sttsn">
+                                    <input type="radio" name="status"
+                                           class="custom-control-input" id="sttsn" value="n"
+                                           onchange="this.form.submit()">n
+                                </label>
+                                <label class="btn btn-secondary" for="sttsc">
+                                    <input type="radio" name="status"
+                                           class="custom-control-input" id="sttsc" value="c"
+                                           onchange="this.form.submit()">c
+                                </label>
+                                <label class="btn btn-secondary" for="sttsb">
+                                    <input type="radio" name="status"
+                                           class="custom-control-input" id="sttsb" value="b"
+                                           onchange="this.form.submit()">b
+                                </label>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <input type="number" name="statusNumber" onfocusout="this.form.submit()"
+                                       class="form-control"
+                                       placeholder="в лакхах" min="1" max="16">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-outline-danger" name="delete">
+                                    ❌
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </form>
 @endsection

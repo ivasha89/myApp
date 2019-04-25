@@ -50,7 +50,7 @@ class VariablesController extends Controller
     public static function timeSet()
     {
         $now = new DateTime(date('Y-m-d H:i:s'));
-        $mangalarati = new DateTime('04:30:00'); //дата с которой отчитываем
+        $mangalarati = new DateTime('4:30:00'); //дата с которой отчитываем
         $dzapa = new DateTime('6:00:00');
         $meetDeity = new DateTime('14:45:00');
         $gauraArati = new DateTime('18:00:00');
