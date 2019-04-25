@@ -27,24 +27,26 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-1">
+        <div class="d-flex justify-content-center">
+            <div class="">
                 <a class="btn" href='{{ url("/slbs?changeDate=$previousDay") }}'>
                     <img style="height: 100px; width: 30px;" src="{{ url('/svg/prev') }}.jpg"
                          class="rounded-circle" alt="...">
                 </a>
             </div>
-            <div class="col-10 row justify-content-center">
-                <p class="col-12 h5 text-center border border-info rounded p-2" id="timeSet">
-                    {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
-                </p>
-                <a href='{{ url("/slbs?changeDate=$now") }}'>
-                    <button type="button" class="btn btn-outline-info">
-                        Сегодня
-                    </button>
-                </a>
+            <div class="mr-2 ml-2">
+                <div class="row justify-content-center">
+                    <div class="col-12 h5 text-center border border-info rounded p-2 shadow" id="timeSet">
+                        {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
+                    </div>
+                    <a href='{{ url("/slbs?changeDate=$now") }}'>
+                        <button type="button" class="btn btn-outline-info">
+                            Сегодня
+                        </button>
+                    </a>
+                </div>
             </div>
-            <div class="col-1">
+            <div class="">
                 <a class="btn" href='{{ url("/slbs?changeDate=$nextDay") }}'>
                     <img style="height: 100px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
                          alt="...">
