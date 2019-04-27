@@ -62,12 +62,12 @@
         <div class="row">
             <div class="col-6">
                 <div class="float-right">
-                    <input class="form-control" type="date" name="dateStart" value="{{$date[0]->format('Y-m-d')}}" onchange="this.form.submit()">
+                    <input class="form-control" type="date" name="dateStart" value="{{$date[0]->format('Y-m-d')}}" onchange="this.form.submit()" max="{{$date[$diff-1]->format('Y-m-d')}}">
                 </div>
             </div>
             <div class="col-6">
                 <div class="float-left">
-                    <input class="form-control" type="date" name="dateEnd" value="{{$date[$diff-1]->format('Y-m-d')}}" min="{{$date[1]->format('Y-m-d')}}"
+                    <input class="form-control" type="date" name="dateEnd" value="{{$date[$diff-1]->format('Y-m-d')}}" min="{{$date[1]->format('Y-m-d')}}" max="{{$date[$diff-1]->format('Y-m-d')}}"
                            onchange="this.form.submit()">
                 </div>
             </div>

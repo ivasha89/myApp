@@ -9,11 +9,9 @@
 				    <h1 class="display-6">
 					    Добро пожаловать в {{ $appname }}
                     </h1>
-@if($loggedin)
 	                <p class="lead">
 	                    {{ $usrstr }}, дорогой, вы уже вошли
 	                </p>
-@endif
                 </div>
                 <div class="col-3">
                     <img src="{{ url('svg/BSSHSA.jpg') }}" width="195" class="img-thumbnail shadow" alt="">
@@ -24,14 +22,12 @@
                     <button type="button" class="dropdown-item btn-lg btn mb-2" data-toggle="modal" data-target="#exML">
                         Инструкция
                     </button>
-@if($loggedin)
                     <a class="dropdown-item btn-lg mb-2" href="{{ url('/slbs') }}">
                         Домой
                     </a>
                     <a class="dropdown-item btn-lg mb-2" href="{{ url('/logout') }}">
                         Выход
                     </a>
-@endif
                 </p>
 @include('layouts.instruction')
 

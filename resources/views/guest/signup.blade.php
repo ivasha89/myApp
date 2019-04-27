@@ -35,13 +35,6 @@
                                        id="sn" value="{{ old('spiritualName') }}" name="spiritualName"
                                        autocapitalize="on">
                             </div>
-                            <div class="form-group">
-                                <label class="text-info" for="idy">
-                                    ID
-                                </label>
-                                <input type="text" class="form-control {{ $errors->has('id') ? 'is-danger' : ''}}"
-                                       id="idy" value="{{ old('id') }}" name="id" required>
-                            </div>
                             <div class="col btn-group btn-group-toggle custom-control-inline mb-2"
                                  data-toggle="buttons">
                                 <label class="btn btn-secondary active">

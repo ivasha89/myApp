@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+{{--    @dd($users[0]->slbs->where('date', $y->format('Y-m-d'))->where('slba', 'МА')->first()->stts)--}}
     @if($alrt->first() == null)
         <div class="shadow alert alert-info alert-dismissible fade show" role="alert">
             <p class="lead text-center">
@@ -97,31 +98,35 @@
                     </tr>
                 </thead>
                 <tbody>
-        @for ($j = 0; $j < count($row1); ++$j)
+                @foreach($users as $user)
                     <tr>
                         <td>
                             @if($mode)
                                 <input type="hidden" name="date" value="{{$y->format('Y-m-d')}}">
                                 <div class="custom-control custom-switch" id="control1">
-                                    <input type="checkbox" name="id[]" value="{{$row1[$j]['id']}}" class="custom-control-input" id="{{$row1[$j]['id']}}{{$j}}">
-                                    <label class="custom-control-label" for="{{$row1[$j]['id']}}{{$j}}">
+                                    <input type="checkbox" name="id[]" value="{{$user->id}}" class="custom-control-input" id="{{$user->id}}">
+                                    <label class="custom-control-label" for="{{$user->id}}">
                                     </label>
                                 </div>
                             @endif
-                                            {{ $row1[$j]['name'] }}
+                                            {{ $user->name }}
                         </td>
-        @for ($i = 0; $i < count($slba); ++$i)
-                        <td id="{{ $slba[$i] }}">
+                        @foreach($slba as $slb)
+                        <td id="{{ $slb }}">
 
-        @if ((($slba[$i] == $currentSlb) && ($row1[$j]['id'] == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
+        @if ((($slb == $currentSlb) && ($user->id == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
                             <a href="#">
         @endif
-                                {{$row[$i][$j]['stts']}}
+                                @if(isset($user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
+                                    {{$user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
+                                @else
+                                    ❌
+                                @endif
                             </a>
                         </td>
-        @endfor
+        @endforeach
                     </tr>
-        @endfor
+        @endforeach
                 </tbody>
             </table>
         </div>

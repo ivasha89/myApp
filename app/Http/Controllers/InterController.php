@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Brah;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -41,22 +42,6 @@ class InterController extends Controller
             'name' => 'required|string|min:6|max:255|unique:users',
         ]);
 
-        if($request->has('spiritualName')) {
-            Brah::create([
-            'sname' => $request->spiritualName,
-            'tel' => '',
-            'city' => '',
-            'user_id' => $request->id
-        ]);}
-        else {
-            Brah::create([
-                'sname' => '',
-                'tel' => '',
-                'city' => '',
-                'user_id' => $request->id
-            ]);
-        }
-
         $thisYear = (new \DateTime())->format('y');
         $lastUserId = User::select('id')->get()->last()->id;
         $lastUserIdToArray = str_split($lastUserId, 2);
@@ -64,6 +49,22 @@ class InterController extends Controller
             $id = $lastUserId + 1;
         else
             $id = (int)($thisYear . "01");
+
+        if($request->has('spiritualName')) {
+            Brah::create([
+            'sname' => $request->spiritualName,
+            'tel' => '',
+            'city' => '',
+            'user_id' => $id
+        ]);}
+        else {
+            Brah::create([
+                'sname' => '',
+                'tel' => '',
+                'city' => '',
+                'user_id' => $id
+            ]);
+        }
 
         User::create([
             'name' => $request->name,
@@ -91,10 +92,21 @@ class InterController extends Controller
             'name' => 'required|string|min:6|max:255',
         ]);
 
+        $credentials = $request->only('name', 'password');
+
+        /*if (Auth::attempt($credentials))
+            return redirect('/slbs');
+        else
+            return redirect('/login');*/
     	$user = User::where('name', $request->name)->first();
         $interToken = Hash::check($request->password, $user->pssw);
-
-        if ($interToken) {
+        $password = $request->password;
+        if($request->remember == 'on')
+            $remember = TRUE;
+        else
+            $remember = FALSE;
+//dd(Auth::attempt(['name' => $user, 'pssw' => $password], $remember), $remember);
+        if (Auth::attempt(['name' => $user, 'password' => $password], $remember)) {
             $request->session()->put('interToken', $interToken);
             $request->session()->put('name', $user->name);
             $request->session()->put('right', $user->right);
@@ -103,13 +115,13 @@ class InterController extends Controller
             return redirect('/slbs');
         }
         else
-            redirect('/login');
+            return redirect('/login');
     }
 
     public function logout(Request $request)
     {
         $name = $request->session()->pull('name');
-        $request->session()->flush();
+        Auth::logout();
         return view('guest.logout', compact('name'));
     }
 }

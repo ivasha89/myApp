@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('name', 32);
             $table->string('pssw', 64);
             $table->char('right', 16);
+            $table->string('remember_token', 100);
             $table->string('id', 16)->primary();
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';
