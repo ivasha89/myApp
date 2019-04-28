@@ -14,9 +14,14 @@ class InterController extends Controller
     public function check(Request $request)
     {
         if ($request->has('psrd')) {
-            $secretWord = User::where('id', '1704')->first();
-            $token = Hash::check(request()->psrd, $secretWord->pssw);
+            $password = $request->psrd;
+            $secretWord = 'jointohil';
+            if($password == $secretWord)
+                $token = TRUE;
+            else
+                $token = FALSE;
             $request->session()->put('token', $token);
+
             if ($token)
             {
                 return redirect('/signup');
@@ -35,7 +40,10 @@ class InterController extends Controller
 
     protected function registration(Request $request)
     {
-        if (session('name') !== null) MyFunctions::destroySession();
+        if (Auth::viaRemember()) {
+            MyFunctions::destroySession();
+            Auth::logout();
+        }
 
         $request->validate ([
             'password' => 'required|string|min:6|max:255',
@@ -92,35 +100,32 @@ class InterController extends Controller
             'name' => 'required|string|min:6|max:255',
         ]);
 
-        $credentials = $request->only('name', 'password');
-
-        /*if (Auth::attempt($credentials))
-            return redirect('/slbs');
-        else
-            return redirect('/login');*/
     	$user = User::where('name', $request->name)->first();
-        $interToken = Hash::check($request->password, $user->pssw);
         $password = $request->password;
         if($request->remember == 'on')
             $remember = TRUE;
         else
             $remember = FALSE;
-//dd(Auth::attempt(['name' => $user, 'pssw' => $password], $remember), $remember);
+
         if (Auth::attempt(['name' => $user, 'password' => $password], $remember)) {
-            $request->session()->put('interToken', $interToken);
-            $request->session()->put('name', $user->name);
-            $request->session()->put('right', $user->right);
-            $request->session()->put('id', $user->id);
+            session()->put('name', auth()->user()->name);
+            session()->put('id', auth()->user()->id);
+            session()->put('right', auth()->user()->right);
             $request->session()->regenerate();
             return redirect('/slbs');
         }
         else
-            return redirect('/login');
+            return redirect('/');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $name = $request->session()->pull('name');
+        if (isset($name))
+            $name = null;
+        else
+            $name = session()->pull('name');
+
+        session()->flush();
         Auth::logout();
         return view('guest.logout', compact('name'));
     }

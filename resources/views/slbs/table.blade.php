@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-{{--    @dd($users[0]->slbs->where('date', $y->format('Y-m-d'))->where('slba', 'МА')->first()->stts)--}}
     @if($alrt->first() == null)
         <div class="shadow alert alert-info alert-dismissible fade show" role="alert">
             <p class="lead text-center">

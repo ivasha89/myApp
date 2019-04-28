@@ -30,23 +30,6 @@ class VariablesController extends Controller
             '+' => 1, 'o' => 0.5, 'c' => 1, 'n' => 0, '-' => 1, 'b' => 1, '/' => 1
         ];
 
-    public static function init()
-    {
-        if (session('name')) {
-            $loggedin = TRUE;
-            $user = session('name');
-            $usrstr = $user;
-        } else {
-            $usrstr = '(Гость)';
-            $loggedin = FALSE;
-        }
-        $usr = [
-        	'frst' => $usrstr, 
-        	'scnd' => $loggedin
-        	];
-        return $usr;
-    }
-
     public static function timeSet()
     {
         $now = new DateTime(date('Y-m-d H:i:s'));

@@ -17,6 +17,7 @@ class SlbsController extends Controller
 
     public function index()
     {
+        IndexController::sessionData();
         $test1 = new VariablesController();
         $now = (new DateTime)->format('Y-m-d');
         $y = $test1::timeSet()['now'];
@@ -72,6 +73,7 @@ class SlbsController extends Controller
      */
     public function store(Request $request)
     {
+        IndexController::sessionData();
         $y = VariablesController::timeSet()['now'];
         if ($request->statusNumber) {
             $request->validate([
@@ -103,6 +105,7 @@ class SlbsController extends Controller
 
     public function statistics()
     {
+        IndexController::sessionData();
         $test = new VariablesController();
         $dateEnd = new DateTime();
         $dateStart = new DateTime();

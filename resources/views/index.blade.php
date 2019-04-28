@@ -7,10 +7,10 @@
 		    <div class="row">
 			    <div class="col-9">
 				    <h1 class="display-6">
-					    Добро пожаловать в {{ $appname }}
+					    Добро пожаловать в БСШСА
                     </h1>
 	                <p class="lead">
-	                    {{ $usrstr }}, дорогой, вы уже вошли
+	                    {{ session('name') }}, дорогой, вы уже вошли
 	                </p>
                 </div>
                 <div class="col-3">
@@ -30,7 +30,6 @@
                     </a>
                 </p>
 @include('layouts.instruction')
-
         </div>
     </div>
     </div>
@@ -42,7 +41,7 @@
                 <div class="row">
                     <div class="col-9">
                         <h1 class="display-6">
-                            Добро пожаловать в {{ $appname }}
+                            Добро пожаловать в БСШСА
                         </h1>
                         <p class="lead">
                             Дорогой Гость! Пожалуйста зарегистрируйтесь или войдите, чтобы пользоваться сайтом

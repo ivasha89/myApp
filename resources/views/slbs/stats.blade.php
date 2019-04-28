@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-6">
                 <div class="float-right">
                     <input class="form-control" type="date" name="dateStart" value="{{$date[0]->format('Y-m-d')}}" onchange="this.form.submit()" max="{{$date[$diff-1]->format('Y-m-d')}}">
