@@ -108,7 +108,11 @@
                                     </label>
                                 </div>
                             @endif
-                                            {{ $user->name }}
+                                @if($user->brah->sname)
+                                    {{ $user->brah->sname }}
+                                @else
+                                    {{ $user->name }}
+                                @endif
                         </td>
                         @foreach($slba as $slb)
                         <td id="{{ $slb }}">

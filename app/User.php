@@ -34,4 +34,9 @@ class User extends Authenticatable
 
         return $this->hasMany(Slb::class);
     }
+
+    public function brah()
+    {
+        return $this->hasOne(Brah::class);
+    }
 }
