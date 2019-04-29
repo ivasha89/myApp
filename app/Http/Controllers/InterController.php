@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Hash;
 
 class InterController extends Controller
 {
+    protected $redirectTo = '/';
+
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    public function name()
+    {
+        return 'name';
+    }
     public function check(Request $request)
     {
         if ($request->has('psrd')) {
@@ -80,7 +91,7 @@ class InterController extends Controller
             'right' => $request->rt,
             'id' => $id
         ]);
-        return redirect('/');
+        return $this->redirectTo;
     }
 
     public function signup()
@@ -108,14 +119,14 @@ class InterController extends Controller
             $remember = FALSE;
 
         if (Auth::attempt(['name' => $user, 'password' => $password], $remember)) {
-            session()->put('name', auth()->user()->name);
+            /*session()->put('name', auth()->user()->name);
             session()->put('id', auth()->user()->id);
-            session()->put('right', auth()->user()->right);
+            session()->put('right', auth()->user()->right);*/
             $request->session()->regenerate();
             return redirect('/slbs');
         }
         else
-            return redirect('/');
+            return $this->redirectTo;
     }
 
     public function logout()
@@ -125,7 +136,6 @@ class InterController extends Controller
         else
             $name = session()->pull('name');
 
-        session()->flush();
         Auth::logout();
         return view('guest.logout', compact('name'));
     }

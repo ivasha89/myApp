@@ -21,9 +21,9 @@ Route::get('/signup', 'InterController@signup');
 Route::post('/signup', 'InterController@registration');
 Route::get('/check', 'InterController@signup');
 Route::post('/check', 'InterController@check');
-Route::get('/login', 'InterController@login');
+Route::get('/login', 'InterController@login')->name('login');
 Route::post('/login', 'InterController@enter');
-Route::get('/logout', 'InterController@logout');
+Route::get('/logout', 'InterController@logout')->name('logout');
 
 Route::get('/slbs', 'SlbsController@index');
 Route::post('/slbs', 'SlbsController@store');

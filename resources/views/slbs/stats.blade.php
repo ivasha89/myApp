@@ -37,11 +37,7 @@
                                     @for($k = 0; $k < count($date); ++$k)
                                         <div class="hide sts{{$row1[$j]['id']}}{{$i}}{{$k}}" title="{{$statuses[$j][$i][$k]}}"></div>
                                     @endfor
-                                    @if((int)$a[$j][$i])
-                                            {{ $a[$j][$i] }}
-                                        @else
-                                            {{ $a[$j][$i] }}
-                                    @endif
+                                    {{ $a[$j][$i] }}
                             </td>
                         @endfor
                     </tr>
