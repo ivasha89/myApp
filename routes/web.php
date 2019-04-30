@@ -25,7 +25,7 @@ Route::get('/login', 'InterController@login')->name('login');
 Route::post('/login', 'InterController@enter');
 Route::get('/logout', 'InterController@logout')->name('logout');
 
-Route::get('/slbs', 'SlbsController@index')->middleware('auth');
+Route::get('/slbs', 'SlbsController@index')->middleware('auth:api');
 Route::post('/slbs', 'SlbsController@store');
 Route::get('/slbs/statistic','SlbsController@statistics')->middleware('auth');
 

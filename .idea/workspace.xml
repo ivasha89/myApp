@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afa7eb74-3c51-47ea-8984-0dee104e5184" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -90,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="25" column="64" lean-forward="true" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
+            <state relative-caret-position="72">
+              <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
               <folding>
                 <element signature="e#7#389#0#PHP" expanded="true" />
                 <element signature="e#390#427#0#PHP" expanded="true" />
@@ -195,7 +195,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/MysqlRequests.php" />
         <option value="$PROJECT_DIR$/resources/views/slbs/stats.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
         <option value="$PROJECT_DIR$/config/auth.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/InterController.php" />
@@ -203,6 +202,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/IndexController.php" />
         <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
       </list>
     </option>
   </component>
@@ -502,12 +502,12 @@
       <workItem from="1556363698159" duration="14813000" />
       <workItem from="1556425900862" duration="10891000" />
       <workItem from="1556520338940" duration="11139000" />
-      <workItem from="1556606020198" duration="2007000" />
+      <workItem from="1556606020198" duration="2426000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="539986000" />
+    <option name="totallyTimeSpent" value="540405000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -520,9 +520,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49479166" visible="true" weight="0.17954545" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49479166" visible="true" weight="0.17954545" />
       <window_info id="Structure" order="1" sideWeight="0.5052083" side_tool="true" weight="0.21060605" />
       <window_info id="npm" order="2" sideWeight="0.50242716" side_tool="true" weight="0.19545455" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -537,7 +536,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32899022" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32899022" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5121212" side_tool="true" weight="0.3843648" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4878788" visible="true" weight="0.20358306" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4878788" visible="true" weight="0.5944625" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32899022" />
       <window_info anchor="bottom" id="REST Client" order="13" weight="0.50162864" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="14" weight="0.32899022" />
@@ -937,8 +936,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="25" column="64" lean-forward="true" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
+        <state relative-caret-position="72">
+          <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
           <folding>
             <element signature="e#7#389#0#PHP" expanded="true" />
             <element signature="e#390#427#0#PHP" expanded="true" />
