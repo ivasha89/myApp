@@ -25,9 +25,9 @@ Route::get('/login', 'InterController@login')->name('login');
 Route::post('/login', 'InterController@enter');
 Route::get('/logout', 'InterController@logout')->name('logout');
 
-Route::get('/slbs', 'SlbsController@index');
+Route::get('/slbs', 'SlbsController@index')->middleware('auth');
 Route::post('/slbs', 'SlbsController@store');
-Route::get('/slbs/statistic','SlbsController@statistics');
+Route::get('/slbs/statistic','SlbsController@statistics')->middleware('auth');
 
 /*Route::get('/table', function () {
     return view('layouts.table');
