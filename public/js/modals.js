@@ -3,7 +3,7 @@ $(document).ready(function () {
         $('#timeForm').modal('show')
     });
 
-    $('td > a').each(function (i, element) {
+    $('td > a, .statusSet').each(function (i, element) {
         $(element).click(function () {
             var id = $(this).parent().attr('id');
             if (id == 'ДЖ') {

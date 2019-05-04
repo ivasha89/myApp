@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class InterController extends Controller
 {
-    protected $redirectTo = '/';
-
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
@@ -62,9 +60,9 @@ class InterController extends Controller
         ]);
 
         $thisYear = (new \DateTime())->format('y');
-        $lastUserId = User::select('id')->get()->last()->id;
-        $lastUserIdToArray = str_split($lastUserId, 2);
-        if ($lastUserIdToArray[0] == $thisYear)
+        $lastUser = User::select('id')->get()->last()->id;
+        $lastUserId = str_split($lastUser, 2);
+        if ($lastUserId[0] == $thisYear)
             $id = $lastUserId + 1;
         else
             $id = (int)($thisYear . "01");
@@ -119,14 +117,11 @@ class InterController extends Controller
             $remember = FALSE;
 
         if (Auth::attempt(['name' => $user, 'password' => $password], $remember)) {
-            /*session()->put('name', auth()->user()->name);
-            session()->put('id', auth()->user()->id);
-            session()->put('right', auth()->user()->right);*/
             $request->session()->regenerate();
-            return redirect('/slbs');
+            return redirect("/$user->id");
         }
         else
-            return $this->redirectTo;
+            return redirect('/login');
     }
 
     public function logout()

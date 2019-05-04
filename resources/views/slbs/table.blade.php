@@ -108,18 +108,21 @@
                                     </label>
                                 </div>
                             @endif
-                                @if($user->brah->sname)
-                                    {{ $user->brah->sname }}
-                                @else
-                                    {{ $user->name }}
-                                @endif
+                                <a href='{{ url("/$user->id") }}'>
+                                    @if($user->brah->sname)
+                                        {{ $user->brah->sname }}
+                                    @else
+                                        {{ $user->name }}
+                                    @endif
+                                </a>
                         </td>
                         @foreach($slba as $slb)
                         <td id="{{ $slb }}">
 
         @if ((($slb == $currentSlb) && ($user->id == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
-                            <a href="#">
+                            <a href="#" class="statusSet">
         @endif
+                                <button class="btn btn-light"></button>
                                 @if(isset($user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
                                     {{$user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
                                 @else

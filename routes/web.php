@@ -25,17 +25,14 @@ Route::get('/login', 'InterController@login')->name('login');
 Route::post('/login', 'InterController@enter');
 Route::get('/logout', 'InterController@logout')->name('logout');
 
-Route::get('/slbs', 'SlbsController@index')->middleware('auth:api');
+Route::get('/slbs', 'SlbsController@index');
 Route::post('/slbs', 'SlbsController@store');
-Route::get('/slbs/statistic','SlbsController@statistics')->middleware('auth');
+Route::get('/slbs/statistic','SlbsController@statistics');
+Route::get('/{user}', 'IndexController@user')->middleware('can:view,user');
 
-/*Route::get('/table', function () {
-    return view('layouts.table');
-});
 
-Route::get('/week', function () {
-    return view('layouts.week');
-});
+
+/*
 Route::post('/welcome', function() {
     Slb::create(request(['stts', 'slba', 'user_id', 'date']));
     return redirect('/welcome');
@@ -44,6 +41,3 @@ Route::get('/welcome', function() {
    $slbs = Slb::all();
    return view('layouts.header', compact('slbs'));
 });*/
-//Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');

@@ -40,35 +40,10 @@
                 @include('layouts.toast')
             @endif
             @auth
-                @hasSection('content')
                     @yield('content')
-                    @else
-                        <div class="d-flex justify-content-center">
-                            <a href="{{ url('/logout') }}" class="btn btn-outline-danger">
-                                Нужно выйти
-                            </a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <img width="300px" src="{{ url('/svg/ShP.jpg') }}"
-                                 class="rounded-circle shadow"
-                                 alt="...">
-                        </div>
-                    @endif
             @endauth
             @guest
-                @hasSection('guest')
                     @yield('guest')
-                @else
-                        <div class="d-flex justify-content-center">
-                                <a href="{{ url('/login') }}" class="btn btn-outline-danger mb-2">
-                                    Нужно войти
-                                </a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <img width="400px" src="{{ url('/svg/krishnaRadhe.jpg') }}" class="rounded-circle shadow"
-                                 alt="...">
-                        </div>
-                @endif
             @endguest
         </div>
     </main>
