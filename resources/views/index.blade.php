@@ -22,7 +22,7 @@
                     <button type="button" class="dropdown-item btn-lg btn mb-2" data-toggle="modal" data-target="#exML">
                         Инструкция
                     </button>
-                    <a class="dropdown-item btn-lg mb-2" href="{{ url('/slbs') }}">
+                    <a class="dropdown-item btn-lg mb-2" href='{{ url("/$user->id") }}'>
                         Домой
                     </a>
                     <a class="dropdown-item btn-lg mb-2" href="{{ url('/logout') }}">

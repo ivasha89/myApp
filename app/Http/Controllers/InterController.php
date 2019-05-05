@@ -89,7 +89,7 @@ class InterController extends Controller
             'right' => $request->rt,
             'id' => $id
         ]);
-        return $this->redirectTo;
+        return redirect('/');
     }
 
     public function signup()

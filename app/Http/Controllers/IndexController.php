@@ -17,15 +17,29 @@ class IndexController extends Controller
         $id = str_split($user->id, 2);
         $idYear = '20'.$id[0].'-08-25';
         $daysInAshram = (integer)((new \DateTime("$idYear"))->diff(new \DateTime('now'))->days);
+        $dzhapa = $user->slbs()->where('slba', 'ДЖ')->select('stts')->get();
+        $dzhapaFiltered = $dzhapa->filter(function ($value, $key) {
+            return $value->stts > 1;
+        });
+        foreach($dzhapaFiltered as $dzhapaFilt) {
+            $dzhapaArray[] = $dzhapaFilt->toArray()['stts'];
+        }
+        $allDzhapa = array_sum($dzhapaArray);
+        $stts = VariablesController::$stts;
+        $currentSlb = VariablesController::timeSet()['slb'];
+        $alrt = MysqlRequests::programm()['alrt'];
 
-        return view('user.page', compact('user', 'daysInAshram'));
+        $this->authorize('view', $user);
+
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt'));
     }
 
     public function index()
     {
+        $user = auth()->user();
         session()->forget('token');
         $this->sessionData();
-        return view('index');
+        return view('index', compact('user'));
     }
 
     public static function sessionData()

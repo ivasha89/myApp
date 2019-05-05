@@ -53,9 +53,6 @@ class SlbsController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
-        $test = new MysqlRequests();
-        $alrt = $test::programm()['alrt'];
-
         if (session()->has('mode')) {
             $mode = null;
             session()->forget('mode');
@@ -65,7 +62,7 @@ class SlbsController extends Controller
             $mode = session('mode');
         }
 
-            return view('slbs.table', compact('stts','users', 'slba', 'alrt', 'y', 'days', 'months', 'currentSlb', 'mode', 'now', 'nextDay', 'previousDay'));
+            return view('slbs.table', compact('stts','users', 'slba', 'y', 'days', 'months', 'currentSlb', 'mode', 'now', 'nextDay', 'previousDay'));
     }
     
 
@@ -81,12 +78,16 @@ class SlbsController extends Controller
         $y = VariablesController::timeSet()['now'];
         if ($request->statusNumber) {
             $request->validate([
-                'status' => ['gte: 1','lt: 17']
+                'status' => 'min: 1|max: 16'
             ]);
             $var4 = $request->statusNumber;
         }
         else
             $var4 = $request->status;
+
+        if (!$request->slba){
+            $request->slba = $this->index()['currentSlb'];
+        }
 
         if ($request->sluzhba) {
             $var1 = $request->id;

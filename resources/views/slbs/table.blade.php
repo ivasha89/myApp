@@ -1,18 +1,6 @@
 @extends('layout')
 
 @section('content')
-    @if($alrt->first() == null)
-        <div class="shadow alert alert-info alert-dismissible fade show" role="alert">
-            <p class="lead text-center">
-                Здравствуйте. Доброго утра и приятного дня.
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">
-                    &times;
-                </span>
-            </button>
-        </div>
-    @endif
     <form method="get" action="{{ url('/slbs') }}">
         <div class="modal fade" id="timeForm">
             <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -29,7 +17,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <a class="navbar-brand" href='{{ url("/slbs?changeDate=$previousDay") }}'>
-                <img style="height: 100px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
+                <img style="height: 80px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
                      class="rounded-circle shadow" alt="...">
             </a>
             <div class="mr-3 ml-3">
@@ -37,7 +25,7 @@
                     <div class="col-12 h5 text-center border border-info rounded p-2 shadow" id="timeSet">
                         {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                     </div>
-                    <a href='{{ url("/slbs?changeDate=$now") }}'>
+                    <a href='{{ url("/slbs?changeDate=$now") }}' class="shadow">
                         <button type="button" class="btn btn-outline-info">
                             Сегодня
                         </button>
@@ -45,7 +33,7 @@
                 </div>
             </div>
                 <a class="navbar-brand ml-2" href='{{ url("/slbs?changeDate=$nextDay") }}'>
-                    <img style="height: 100px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                    <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
                          alt="...">
                 </a>
         </div>
@@ -122,7 +110,6 @@
         @if ((($slb == $currentSlb) && ($user->id == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
                             <a href="#" class="statusSet">
         @endif
-                                <button class="btn btn-light"></button>
                                 @if(isset($user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
                                     {{$user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
                                 @else

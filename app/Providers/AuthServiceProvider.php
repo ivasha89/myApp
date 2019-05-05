@@ -20,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
+     * @param Gate $gate
      * @return void
      */
     public function boot(Gate $gate)
@@ -28,7 +28,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         $gate->before(function ($user) {
-           return $user->right !== 'usr';
+            if(($user->right == 'adm') || ($user->right == 'kur')) {
+                return true;
+            }
         });
     }
 }

@@ -28,7 +28,7 @@ Route::get('/logout', 'InterController@logout')->name('logout');
 Route::get('/slbs', 'SlbsController@index');
 Route::post('/slbs', 'SlbsController@store');
 Route::get('/slbs/statistic','SlbsController@statistics');
-Route::get('/{user}', 'IndexController@user')->middleware('can:view,user');
+Route::get('/{user}', 'IndexController@user');
 
 
 
