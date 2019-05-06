@@ -15,7 +15,7 @@ class IndexController extends Controller
     public function user(User $user)
     {
         $id = str_split($user->id, 2);
-        $idYear = '20'.$id[0].'-08-25';
+        $idYear = '20'.$id[0].'-07-25';
         $daysInAshram = (integer)((new \DateTime("$idYear"))->diff(new \DateTime('now'))->days);
         $dzhapa = $user->slbs()->where('slba', 'ДЖ')->select('stts')->get();
         $dzhapaFiltered = $dzhapa->filter(function ($value, $key) {
