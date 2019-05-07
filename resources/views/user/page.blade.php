@@ -98,5 +98,15 @@
                 @endif
             </div>
         </form>
+        @can('view', $user)
+            @if(isset($projects))
+                <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
+                    Мои Задачи/Цели
+                </div>
+            @endif
+            <div class="text-muted mb-2" onclick="document.location.href='{{ url("/projects/create") }}'">
+                Создать Задачу/Цель
+            </div>
+        @endcan
     </div>
 @endsection

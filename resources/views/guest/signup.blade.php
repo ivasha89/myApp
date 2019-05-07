@@ -38,7 +38,7 @@
                             <div class="col btn-group btn-group-toggle custom-control-inline mb-2"
                                  data-toggle="buttons">
                                 <label class="btn btn-secondary active">
-                                    <input type="radio" name="rt" class="custom-control-input" id="usr" value="usr"
+                                    <input type="radio" name="right" class="custom-control-input" id="usr" value="usr"
                                            autocomplete="off" checked>Брахмачари
                                 </label>
                                 <label class="btn btn-secondary">

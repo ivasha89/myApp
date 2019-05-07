@@ -14,9 +14,7 @@ class IndexController extends Controller
      */
     public function user(User $user)
     {
-        $id = str_split($user->id, 2);
-        $idYear = '20'.$id[0].'-07-25';
-        $daysInAshram = (integer)((new \DateTime("$idYear"))->diff(new \DateTime('now'))->days);
+        $daysInAshram = (integer)((new \DateTime("$user->created_at"))->diff(new \DateTime('now'))->days);
         $dzhapa = $user->slbs()->where('slba', 'ДЖ')->select('stts')->get();
         $dzhapaFiltered = $dzhapa->filter(function ($value, $key) {
             return $value->stts > 1;
@@ -24,14 +22,20 @@ class IndexController extends Controller
         foreach($dzhapaFiltered as $dzhapaFilt) {
             $dzhapaArray[] = $dzhapaFilt->toArray()['stts'];
         }
-        $allDzhapa = array_sum($dzhapaArray);
+
+        if(isset($dzhapaArray))
+            $allDzhapa = array_sum($dzhapaArray);
+        else
+            $allDzhapa = 0;
+
         $stts = VariablesController::$stts;
         $currentSlb = VariablesController::timeSet()['slb'];
         $alrt = MysqlRequests::programm()['alrt'];
 
-        $this->authorize('view', $user);
+        $projects = $user->projects;
+        //$this->authorize('view', $user);
 
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'projects'));
     }
 
     public function index()

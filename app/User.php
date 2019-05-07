@@ -18,8 +18,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'id', 'right'
+    protected $guarded = [
+        'password', 'remember_token'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -38,5 +38,11 @@ class User extends Authenticatable
     public function brah()
     {
         return $this->hasOne(Brah::class);
+    }
+
+    public function projects()
+    {
+
+        return $this->hasMany(Project::class);
     }
 }

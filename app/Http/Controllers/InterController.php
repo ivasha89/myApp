@@ -37,9 +37,7 @@ class InterController extends Controller
             }
             else
             {
-                $request->validate ([
-                    'psrd' => ['custom' => ['reg' => ['fault']]]
-                ]);
+                session()->flash('message', 'Секретное слово введено неверно');
                 return redirect('/check');
             }
         }
@@ -63,17 +61,18 @@ class InterController extends Controller
         $lastUser = User::select('id')->get()->last()->id;
         $lastUserId = str_split($lastUser, 2);
         if ($lastUserId[0] == $thisYear)
-            $id = $lastUserId + 1;
+            $id = $lastUser + 1;
         else
             $id = (int)($thisYear . "01");
 
         if($request->has('spiritualName')) {
             Brah::create([
-            'sname' => $request->spiritualName,
-            'tel' => '',
-            'city' => '',
-            'user_id' => $id
-        ]);}
+                'sname' => $request->spiritualName,
+                'tel' => '',
+                'city' => '',
+                'user_id' => $id
+            ]);
+        }
         else {
             Brah::create([
                 'sname' => '',
@@ -85,10 +84,11 @@ class InterController extends Controller
 
         User::create([
             'name' => $request->name,
-            'pssw' => Hash::make($request->password),
-            'right' => $request->rt,
+            'password' => Hash::make($request->password),
+            'right' => $request->right,
             'id' => $id
         ]);
+        session()->flash('message', 'Успешная регистрация. Удачи!');
         return redirect('/');
     }
 
@@ -120,8 +120,10 @@ class InterController extends Controller
             $request->session()->regenerate();
             return redirect("/$user->id");
         }
-        else
+        else {
+            session()->flash('message', 'Имя или пароль введены неверно');
             return redirect('/login');
+        }
     }
 
     public function logout()

@@ -36,7 +36,7 @@
     </header>
     <main class="page-main d-none">
         <div class="container">
-            @if($errors->any())
+            @if($errors->any() || session('message'))
                 @include('layouts.toast')
             @endif
             @auth

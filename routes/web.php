@@ -11,10 +11,6 @@
 |
 */
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Slb;
-use App\Http\Controllers\InterController;
-
 
 Route::get('/', 'IndexController@index');
 Route::get('/signup', 'InterController@signup');
@@ -28,7 +24,11 @@ Route::get('/logout', 'InterController@logout')->name('logout');
 Route::get('/slbs', 'SlbsController@index');
 Route::post('/slbs', 'SlbsController@store');
 Route::get('/slbs/statistic','SlbsController@statistics');
-Route::get('/{user}', 'IndexController@user');
+Route::get('/{user}', 'IndexController@user')->middleware('auth');
+Route::get('/{user}/projects', 'ProjectsController@index')->middleware('auth');
+Route::resource('/projects', 'ProjectsController')->except('index');
+Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
+Route::patch('/tasks/{task}', 'ProjectTasksController@update');
 
 
 
