@@ -20,9 +20,11 @@
                 <a class="dropdown-item text-light" href='{{ url("/$user->id") }}'>
                     Моя станица
                 </a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-light" href='{{ url("/$user->id/projects") }}'>
                     Мои Проекты
                 </a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-light" href='{{ url("/projects/create") }}'>
                     Создать свой проект
                 </a>
@@ -37,6 +39,7 @@
                 <a class="nav-link text-light" href="{{ url('/slbs') }}">
                     Таблица
                 </a>
+                <div class="dropdown-divider"></div>
                 <a class="nav-link text-light" href="{{ url('/slbs/statistic') }}">
                     Статистика
                 </a>
