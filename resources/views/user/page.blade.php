@@ -42,6 +42,7 @@
             </tr>
             </tbody>
         </table>
+        @can('view', $user)
         @if($currentSlb)
             <div class="text-muted mb-2">
                 Отметиться на службе
@@ -98,7 +99,6 @@
                 @endif
             </div>
         </form>
-        @can('view', $user)
             @if($user->projects->count())
                 <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
                     Мои Проекты
