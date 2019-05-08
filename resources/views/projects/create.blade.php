@@ -16,6 +16,10 @@
                 <label for="description">Описание задачи</label>
                 <textarea name="description" class="form-control" id="description" placeholder="{{ old('description') }}" required></textarea>
             </div>
+            <div class="form-group">
+                <label for="expire">Дата выполнения</label>
+                <input type="datetime-local" name="expire" class="form-control" id="expire" required>
+            </div>
             <button type="submit" class="btn btn-outline-info mb-2 float-right">💥️
                 Сохранить
             </button>
