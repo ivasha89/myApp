@@ -28,15 +28,19 @@
                 </a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url('/slbs') }}">
-                Таблица посещаемости
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" id="arati" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                Службы-арати
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url('/slbs/statistic') }}">
-                Статистика посещаемости
-            </a>
+            <div class="dropdown-menu" aria-labelledby="arati" style="background-color:#152542">
+                <a class="nav-link text-light" href="{{ url('/slbs') }}">
+                    Таблица
+                </a>
+                <a class="nav-link text-light" href="{{ url('/slbs/statistic') }}">
+                    Статистика
+                </a>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link text-light" href={{ url('/logout') }}>
