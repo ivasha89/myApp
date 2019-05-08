@@ -8,13 +8,25 @@
 </button>
 <div class="collapse navbar-collapse" id="navbar">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link text-light" href='{{ url("/$user->id") }}'>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" id="{{$user->id}}" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
                 {{ $user->name }}
                 <span class="sr-only">
                     (current)
                 </span>
             </a>
+            <div class="dropdown-menu" aria-labelledby="{{$user->id}}" style="background-color:#152542">
+                <a class="dropdown-item text-light" href='{{ url("/$user->id") }}'>
+                    Моя станица
+                </a>
+                <a class="dropdown-item text-light" href='{{ url("/$user->id/projects") }}'>
+                    Мои Проекты
+                </a>
+                <a class="dropdown-item text-light" href='{{ url("/projects/create") }}'>
+                    Создать свой проект
+                </a>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link text-light" href="{{ url('/slbs') }}">
