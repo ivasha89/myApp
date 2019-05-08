@@ -101,11 +101,11 @@
         @can('view', $user)
             @if($user->projects->count())
                 <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
-                    Мои Задачи/Цели
+                    Мои Проекты
                 </div>
             @endif
             <div class="text-muted mb-2" onclick="document.location.href='{{ url("/projects/create") }}'">
-                Создать Задачу/Цель
+                Создать Проект
             </div>
         @endcan
     </div>
