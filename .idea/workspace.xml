@@ -526,12 +526,12 @@
       <workItem from="1557140240414" duration="5623000" />
       <workItem from="1557211545025" duration="32133000" />
       <workItem from="1557298912951" duration="6498000" />
-      <workItem from="1557310726579" duration="9253000" />
+      <workItem from="1557310726579" duration="9880000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="630596000" />
+    <option name="totallyTimeSpent" value="631223000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -544,9 +544,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49479166" visible="true" weight="0.20984848" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49479166" visible="true" weight="0.20984848" />
       <window_info id="Structure" order="1" sideWeight="0.5052083" side_tool="true" weight="0.21060605" />
       <window_info id="npm" order="2" sideWeight="0.50242716" side_tool="true" weight="0.19545455" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -561,7 +560,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32899022" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32899022" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5143939" side_tool="true" weight="0.3762215" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.48560607" visible="true" weight="0.23941368" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.48560607" visible="true" weight="0.23941368" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32899022" />
       <window_info anchor="bottom" id="REST Client" order="13" weight="0.50162864" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="14" weight="0.32899022" />

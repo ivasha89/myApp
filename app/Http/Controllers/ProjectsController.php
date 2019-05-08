@@ -11,7 +11,7 @@ class ProjectsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:view,project')->except('create');
+        $this->middleware('can:view,project')->except('create', 'store');
     }
     /**
      * Show the form for creating a new resource.
@@ -25,11 +25,11 @@ class ProjectsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param User $user
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
         $user = auth()->user();
         $request->validate([
