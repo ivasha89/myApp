@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label for="expire">Дата выполнения</label>
                 <input type="datetime-local" name="expire" class="form-control" id="expire"
-                       value="{{ (new \DateTime())->add(new DateInterval('P7D'))->format('Y-m-d H:i') }}" required>
+                       value="{{ (new \DateTime())->add(new DateInterval('P7D'))->format('Y-m-d H:i') }}">
             </div>
             <button type="submit" class="btn btn-outline-info mb-2 float-right">💥️
                 Сохранить

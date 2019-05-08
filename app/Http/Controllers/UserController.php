@@ -10,6 +10,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:view,user')->except('index');
     }
     /**
      * Display a listing of the resource.
@@ -36,9 +37,7 @@ class UserController extends Controller
         $currentSlb = VariablesController::timeSet()['slb'];
         $alrt = MysqlRequests::programm()['alrt'];
 
-        $projects = $user->projects;
-
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'projects'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt'));
     }
 
     /**
@@ -71,8 +70,19 @@ class UserController extends Controller
     public function show(User $user)
     {
         $projects = $user->projects;
-        $this->authorize('view', $user);
-        return view('projects.index', compact('projects', 'user'));
+        if ($projects->count()) {
+            foreach ($projects as $project) {
+                $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
+                $project->hour = (new \DateTime($project->expire_at))->diff(new \DateTime())->h;
+                $project->minute = (new \DateTime($project->expire_at))->diff(new \DateTime())->i;
+                $project->second = (new \DateTime($project->expire_at))->diff(new \DateTime())->s;
+            }
+            return view('projects.index', compact('projects'));
+        }
+        else {
+            session()->flash('message', 'Нет проектов');
+            return redirect("/$user->id");
+        }
     }
 
     /**

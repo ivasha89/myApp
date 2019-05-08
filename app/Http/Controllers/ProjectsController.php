@@ -37,13 +37,24 @@ class ProjectsController extends Controller
            'description' => 'required|string|min:3|unique:projects'
         ]);
 
-        Project::create([
-            'user_id' => $user->id,
-            'title' => $request->title,
-            'description' => $request->description
-        ]);
+        if ($request->has('expire')) {
+            Project::create([
+                'user_id' => $user->id,
+                'title' => $request->title,
+                'description' => $request->description,
+                'expire_at' => $request->expire
+            ]);
+        }
+        else {
+            Project::create([
+                'user_id' => $user->id,
+                'title' => $request->title,
+                'description' => $request->description
+            ]);
+        }
 
-        session()->flash('message', 'Задача создана. Добавьте подпункты к задаче');
+
+        session()->flash('message', "Задача .$request->title. создана. Добавьте подпункты к задаче 😉️");
 
         return redirect("/$user->id/projects");
     }

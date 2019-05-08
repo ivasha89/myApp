@@ -99,7 +99,7 @@
             </div>
         </form>
         @can('view', $user)
-            @if($projects->count())
+            @if($user->projects->count())
                 <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
                     Мои Задачи/Цели
                 </div>
