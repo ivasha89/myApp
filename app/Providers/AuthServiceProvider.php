@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\ProjectPolicy;
+use App\Project;
 use App\User;
 use App\Policies\UserPolicy;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
+        Project::class => ProjectPolicy::class,
     ];
 
     /**

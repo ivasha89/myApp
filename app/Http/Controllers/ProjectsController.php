@@ -11,20 +11,8 @@ class ProjectsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:view,project')->except('create');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function index(User $user)
-    {
-        $projects = $user->projects;
-        return view('projects.index', compact('projects', 'user'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -43,6 +31,7 @@ class ProjectsController extends Controller
      */
     public function store(Request $request, User $user)
     {
+        $user = auth()->user();
         $request->validate([
            'title' => 'required|string|min:3',
            'description' => 'required|string|min:3|unique:projects'
@@ -56,7 +45,7 @@ class ProjectsController extends Controller
 
         session()->flash('message', 'Задача создана. Добавьте подпункты к задаче');
 
-        return redirect("/{$user->id}/projects");
+        return redirect("/$user->id/projects");
     }
 
     /**
@@ -67,7 +56,8 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
-        return view('projects.show')->with('project', $project);
+        $user = auth()->user();
+        return view('projects.show', compact('project', 'user'));
     }
 
     /**
@@ -109,9 +99,11 @@ class ProjectsController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user, Project $project)
+    public function destroy(Project $project)
     {
+        $user = $project->user;
+        session()->flash('message', "Проект $project->title удалён");
         $project->delete();
-        return redirect("/$user->id/projects");
+        return redirect("/$user->id");
     }
 }

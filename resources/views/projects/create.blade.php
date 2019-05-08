@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title')
+    Создать проект
+@endsection
+
 @section('content')
     <div class="d-flex justify-content-center">
         <form action='{{ url("/projects") }}' method="post">

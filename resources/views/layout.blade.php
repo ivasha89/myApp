@@ -8,7 +8,11 @@
 
     <title>
         @auth
-            {{ auth()->user()->name }}
+            @hasSection('title')
+                @yield('title')
+            @else
+                {{ auth()->user()->name }}
+            @endif
         @endauth
         @guest
             Гость

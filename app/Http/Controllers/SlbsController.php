@@ -21,7 +21,7 @@ class SlbsController extends Controller
 
     public function index()
     {
-        IndexController::sessionData();
+//        IndexController::sessionData();
         $test1 = new VariablesController();
         $now = (new DateTime)->format('Y-m-d');
         $y = $test1::timeSet()['now'];

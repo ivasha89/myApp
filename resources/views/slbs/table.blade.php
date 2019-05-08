@@ -58,7 +58,7 @@
                         <th scope="col">
                             @if($mode)
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" id="checkbox0" class="cl custom-control-input">
+                                <input type="checkbox" id="checkbox0" class="custom-control-input">
                                 <label class="custom-control-label" for="checkbox0">
                                 </label>
                             </div>
