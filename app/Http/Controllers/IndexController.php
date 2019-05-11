@@ -13,13 +13,4 @@ class IndexController extends Controller
         $this->sessionData();
         return view('index', compact('user'));
     }
-
-    public static function sessionData()
-    {
-        if (auth()->user() && !session('name')) {
-            session()->put('name', auth()->user()->name);
-            session()->put('id', auth()->user()->id);
-            session()->put('right', auth()->user()->right);
-        }
-    }
 }

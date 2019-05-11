@@ -37,7 +37,7 @@
                          alt="...">
                 </a>
         </div>
-        @if(session('right') == 'root')
+        @if(auth()->user()->right == 'root')
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="ok" value="admin" name="mode" onchange="this.form.submit()">
                 <label class="custom-control-label" for="ok">
@@ -107,7 +107,7 @@
                         @foreach($slba as $slb)
                         <td id="{{ $slb }}">
 
-        @if ((($slb == $currentSlb) && ($user->id == session('id')) && ($y->format('Y-m-d') == $now)) or $mode)
+        @if ((($slb == $currentSlb) && ($user->id == auth()->id()) && ($y->format('Y-m-d') == $now)) or $mode)
                             <a href="#" class="statusSet">
         @endif
                                 @if(isset($user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))

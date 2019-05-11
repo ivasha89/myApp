@@ -29,7 +29,7 @@
             <tbody>
                 @for ($j = 0; $j < count($row1); ++$j)
                     <tr title="{{ $row1[$j]['name'] }}" id="{{$row1[$j]['id']}}">
-                        <td class="{{($row1[$j]['id'] == session('id')) || (session('right') !== 'usr') ? 'stts' : ''}}" id="{{count($date)}}">
+                        <td class="{{($row1[$j]['id'] == auth()->id()) || (auth()->user()->right !== 'usr') ? 'stts' : ''}}" id="{{count($date)}}">
                             {{ $row1[$j]['name'] }}
                         </td>
                         @for ($i = 0; $i < count($slba); ++$i)

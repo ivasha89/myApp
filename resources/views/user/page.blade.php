@@ -42,7 +42,7 @@
             </tr>
             </tbody>
         </table>
-        @can('view', $user)
+        @if($user->id == auth()->id())
         @if($currentSlb)
             <div class="text-muted mb-2">
                 Отметиться на службе
@@ -99,14 +99,14 @@
                 @endif
             </div>
         </form>
-            @if($user->projects->count())
-                <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
-                    Мои Проекты
-                </div>
-            @endif
             <div class="text-muted mb-2" onclick="document.location.href='{{ url("/projects/create") }}'">
                 Создать Проект
             </div>
-        @endcan
+        @if($user->projects->count())
+            <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
+                Личные Проекты
+            </div>
+        @endif
+        @endif
     </div>
 @endsection
