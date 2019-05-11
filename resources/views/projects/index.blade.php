@@ -7,9 +7,10 @@
 @section('content')
     <div class="list-group">
         @foreach($projects as $project)
+            <div class="mb-3 shadow">
             <a href='{{ url("/projects/$project->id") }}' class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ $project->title }}</h5>
+                <div class="d-flex justify-content-between">
+                    <p class="h5 text-truncate">{{ $project->title }}</p>
                     <small class="badge {{ $project->day <= 1 ? 'badge-danger' : 'badge-success'}}">
                         @if($project->day >= 1)
                             Дней: {{ $project->day }} часов: {{ $project->hour }}
@@ -21,6 +22,10 @@
                     </small>
                 </div>
             </a>
+            <div class="text-truncate m-1 font-italic">
+                {{ $project->description }}
+            </div>
+            </div>
         @endforeach
     </div>
 @endsection

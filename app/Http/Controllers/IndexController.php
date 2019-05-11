@@ -10,7 +10,6 @@ class IndexController extends Controller
     {
         $user = auth()->user();
         session()->forget('token');
-        $this->sessionData();
         return view('index', compact('user'));
     }
 }

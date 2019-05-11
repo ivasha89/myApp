@@ -54,7 +54,7 @@ class ProjectsController extends Controller
         }
 
 
-        session()->flash('message', "Задача .$request->title. создана. Добавьте подпункты к задаче 😉️");
+        session()->flash('message', "Задача \"$request->title\" создана. Добавьте подпункты к задаче 😉️");
 
         return redirect("/$user->id/projects");
     }

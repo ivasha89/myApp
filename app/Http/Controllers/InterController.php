@@ -7,6 +7,7 @@ use App\User;
 use App\Brah;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 
 class InterController extends Controller
@@ -110,13 +111,9 @@ class InterController extends Controller
         ]);
 
     	$user = User::where('name', $request->name)->first();
-        $password = $request->password;
-        if($request->remember == 'on')
-            $remember = TRUE;
-        else
-            $remember = FALSE;
+        $remember = (int)$request->remember;
 
-        if (Auth::attempt(['name' => $user, 'password' => $password], $remember)) {
+        if (Auth::attempt(['name' => Input::get('name'), 'password' => Input::get('password')], $remember)) {
             $request->session()->regenerate();
             return redirect("/$user->id");
         }
