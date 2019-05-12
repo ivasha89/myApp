@@ -94,7 +94,7 @@ class SlbsController extends Controller
         }
         else{
             $var1 = auth()->user()->id;
-            $var2 = (int)$y->format('Y-m-d');
+            $var2 = (string)$y->format('Y-m-d');
             $var3 = $request->slba;
         }
 
