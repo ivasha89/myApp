@@ -4,7 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afa7eb74-3c51-47ea-8984-0dee104e5184" name="Default Changelist" comment="" />
+    <list default="true" id="afa7eb74-3c51-47ea-8984-0dee104e5184" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SlbsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="104" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="260">
+              <caret line="97" column="24" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
               <folding>
                 <element signature="e#40#52#0#PHP" expanded="true" />
               </folding>
@@ -231,8 +233,8 @@
         <option value="$PROJECT_DIR$/resources/views/slbs/table.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/slbs/stats.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MyFunctions.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/VariablesController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/SlbsController.php" />
       </list>
     </option>
   </component>
@@ -576,12 +578,12 @@
       <workItem from="1557310726579" duration="16866000" />
       <workItem from="1557573983941" duration="9128000" />
       <workItem from="1557586682431" duration="902000" />
-      <workItem from="1557660542410" duration="5538000" />
+      <workItem from="1557660542410" duration="5782000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="653777000" />
+    <option name="totallyTimeSpent" value="654021000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -594,7 +596,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49479166" visible="true" weight="0.2189394" />
       <window_info id="Structure" order="1" sideWeight="0.5052083" side_tool="true" weight="0.21060605" />
@@ -1039,8 +1040,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SlbsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        <state relative-caret-position="260">
+          <caret line="97" column="24" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
           <folding>
             <element signature="e#40#52#0#PHP" expanded="true" />
           </folding>
