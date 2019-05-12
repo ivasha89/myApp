@@ -97,12 +97,12 @@ class SlbsController extends Controller
             $var2 = $y->format('Y-m-d');
             $var3 = $request->slba;
         }
-
+        dd($var1, $var2, $var3, $var4);
         if ($request->has('delete'))
             MyFunctions::delete($var1, $var2, $var3);
         else
             MyFunctions::updateOrInsert($var1, $var2, $var3, $var4);
-dd($var1, $var2, $var3, $var4);
+
         return redirect('/slbs');
     }
 
