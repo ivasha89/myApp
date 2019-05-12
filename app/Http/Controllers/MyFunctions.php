@@ -32,7 +32,7 @@ class MyFunctions extends Controller
                 foreach($arraySearch as $key => $value) {
                      $res = DB::table('slbs')
                          ->where('stts', 'like', $value)
-                         ->select('user_id', 'slba', 'date')
+                         ->select('user_id', 'slba', 'data')
                          ->get();
                 }
               break;
@@ -53,7 +53,7 @@ class MyFunctions extends Controller
                     for ($j = 0; $j < count($var3); $j++) {
                         DB::table('slbs')
                             ->updateOrInsert(
-                                ['user_id' => $var1[$i], 'date' => $var2, 'slba' => $var3[$j]],
+                                ['user_id' => $var1[$i], 'data' => $var2, 'slba' => $var3[$j]],
                                 ['stts' => $var4]
                             );
                     }
@@ -62,7 +62,7 @@ class MyFunctions extends Controller
         } else {
             DB::table('slbs')
                 ->updateOrInsert(
-                    ['user_id' => $var1, 'date' => $var2, 'slba' => $var3],
+                    ['user_id' => $var1, 'data' => $var2, 'slba' => $var3],
                     ['stts' => $var4]
                 );
         }
@@ -76,7 +76,7 @@ class MyFunctions extends Controller
                      for ($j = 0; $j < count($var3); $j++) {
                          DB::table('slbs')
                              ->where('user_id', $var1[$i])
-                             ->where('date', $var2)
+                             ->where('data', $var2)
                              ->where('slba', $var3[$j])
                              ->delete();
                      }
@@ -86,7 +86,7 @@ class MyFunctions extends Controller
          else {
              DB::table('slbs')
                  ->where('user_id', $var1)
-                 ->where('date', $var2)
+                 ->where('data', $var2)
                  ->where('slba', $var3)
                  ->delete();
          }
