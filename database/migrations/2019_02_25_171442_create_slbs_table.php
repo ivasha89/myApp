@@ -14,10 +14,10 @@ class CreateSlbsTable extends Migration
     public function up()
     {
         Schema::create('slbs', function (Blueprint $table) {
-            $table->string('user_id', 28);
-            $table->string('date', 28);
-            $table->string('slba', 28);
-            $table->string('stts', 28);
+            $table->integer('user_id', 28);
+            $table->char('date', 28);
+            $table->char('slba', 28);
+            $table->char('stts', 28);
             $table->increments('id');
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';
