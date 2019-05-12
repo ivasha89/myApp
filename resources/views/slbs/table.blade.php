@@ -91,8 +91,8 @@
                             @if($mode)
                                 <input type="hidden" name="date" value="{{$y->format('Y-m-d')}}">
                                 <div class="custom-control custom-switch" id="control1">
-                                    <input type="checkbox" name="id[]" value="{{$user->id}}" class="custom-control-input" id="{{$user->id}}">
-                                    <label class="custom-control-label" for="{{$user->id}}">
+                                    <input type="checkbox" name="id[]" value="{{$user->id}}" class="custom-control-input" id="{{$user->id}}id">
+                                    <label class="custom-control-label" for="{{$user->id}}id">
                                     </label>
                                 </div>
                             @endif
@@ -110,8 +110,8 @@
         @if ((($slb == $currentSlb) && ($user->id == auth()->id()) && ($y->format('Y-m-d') == $now)) or $mode)
                             <a href="#" class="statusSet">
         @endif
-                                @if(isset($user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
-                                    {{$user->slbs->where('date', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
+                                @if(isset($user->slbs->where('data', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
+                                    {{$user->slbs->where('data', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
                                 @else
                                     ❌
                                 @endif

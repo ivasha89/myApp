@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="alert alert-info shadow">
             <p class="h4" id="timeSet">
-                Статистика за {{$diff-1}} дней начиная с {{ $date[0]->format(' d ') . $months[$date[0]->format('n')] }}
+                Статистика за {{$diff}} дней начиная с {{ $date[0]->format(' d ') . $months[$date[0]->format('n')] }}
                 до {{ $date[$diff-1]->format(' d ') . $months[$date[$diff-1]->format('n')] }} в %
             </p>
         </div>

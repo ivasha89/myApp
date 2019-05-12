@@ -33,10 +33,10 @@ class VariablesController extends Controller
     public static function timeSet()
     {
         $now = new DateTime();
-        $mangalarati = new DateTime('4:30:00'); //дата с которой отчитываем
+        $mangalarati = new DateTime('4:30:00');
         $dzapa = new DateTime('6:00:00');
         $meetDeity = new DateTime('7:45:00');
-        $gauraArati = new DateTime('18:00:00');
+        $gauraArati = new DateTime('16:30:00');
         $diff0 = $now->getTimestamp() - $mangalarati->getTimestamp();
         $diff1 = $now->getTimestamp() - $dzapa->getTimestamp();
         $diff2 = $now->getTimestamp() - $meetDeity->getTimestamp();

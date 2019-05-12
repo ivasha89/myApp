@@ -23,8 +23,8 @@ class MysqlRequests extends Controller
             unset($row1[$j]->sname);
         }
 
-        $alrt = Slb::where('date', (new \DateTime)->format('Y-m-d'))
-            ->where('user_id', session('id'))
+        $alrt = Slb::where('data', (new \DateTime)->format('Y-m-d'))
+            ->where('user_id', auth()->id())
             ->select('user_id')
             ->get();
 

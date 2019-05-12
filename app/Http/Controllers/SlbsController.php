@@ -93,7 +93,7 @@ class SlbsController extends Controller
             $var3 = $request->sluzhba;
         }
         else{
-            $var1 = auth()->id();
+            $var1 = auth()->user()->id;
             $var2 = $y->format('Y-m-d');
             $var3 = $request->slba;
         }
@@ -150,7 +150,7 @@ class SlbsController extends Controller
         for ($j = 0; $j < count($id); ++$j) {
             for ($i = 0; $i < count($slbs); ++$i) {
                 for ($k = 0; $k < count($date); ++$k) {
-                    $status = Slb::where('date', $date[$k]->format('Y-m-d'))
+                    $status = Slb::where('data', $date[$k]->format('Y-m-d'))
                         ->where('slba', $slbs[$i])
                         ->where('user_id', $id[$j])
                         ->select('stts')
@@ -167,7 +167,7 @@ class SlbsController extends Controller
                         $day[$j][$i][$k] = 0;
                         $statuses[$j][$i][$k] = '❌';
                     }
-                    $dzhapa = Slb::where('date', $date[$k]->format('Y-m-d'))
+                    $dzhapa = Slb::where('data', $date[$k]->format('Y-m-d'))
                         ->where('slba', 'ДЖ')
                         ->where('user_id', $id[$j])
                         ->select('stts')

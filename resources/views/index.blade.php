@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+    @auth
     <div class="container-fluid">
     <div class="jumbotron jumbotron-fluid">
 	    <div class="container">
@@ -10,7 +11,7 @@
 					    Добро пожаловать в БСШСА
                     </h1>
 	                <p class="lead">
-	                    {{ session('name') }}, дорогой, вы уже вошли
+	                    {{ auth()->user()->name }}, дорогой, вы уже вошли
 	                </p>
                 </div>
                 <div class="col-3">
@@ -35,6 +36,7 @@
         </div>
     </div>
     </div>
+    @endauth
 @endsection
 @section('guest')
     <div class="container-fluid">

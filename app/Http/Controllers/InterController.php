@@ -127,8 +127,14 @@ class InterController extends Controller
     {
         if (isset($name))
             $name = null;
-        else
-            $name = session()->pull('name');
+        else {
+            if (auth()->user()) {
+                session()->flash('name', auth()->user()->name);
+                $name = session('name');
+            }
+            else
+                $name = null;
+        }
 
         Auth::logout();
         return view('guest.logout', compact('name'));
