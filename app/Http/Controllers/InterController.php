@@ -128,10 +128,8 @@ class InterController extends Controller
         if (isset($name))
             $name = null;
         else {
-            if (auth()->user()) {
-                session()->flash('name', auth()->user()->name);
-                $name = session('name');
-            }
+            if (auth()->user())
+                $name = auth()->user()->name;
             else
                 $name = null;
         }

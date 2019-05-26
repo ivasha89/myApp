@@ -20,7 +20,7 @@ class User extends Authenticatable implements AuthenticatableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'right', 'id',
+        'name', 'right', 'id', 'password',
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -64,5 +64,10 @@ class User extends Authenticatable implements AuthenticatableContract
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

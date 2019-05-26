@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    @if($alrt->first() == null)
+    @if(($alrt->first() == null) && ($user->id == auth()->id()))
         <div class="shadow alert alert-info alert-dismissible fade show" role="alert">
             <p class="lead text-center">
                 Здравствуйте {{ $user->name }}, это ваша страница. Доброго утра и приятного дня.

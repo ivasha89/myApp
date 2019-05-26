@@ -81,7 +81,7 @@ class SlbsController extends Controller
             $var4 = $request->statusNumber;
         }
         else
-            $var4 = (string)$request->status;
+            $var4 = $request->status;
 
         if (!$request->slba){
             $request->slba = $this->index()['currentSlb'];
