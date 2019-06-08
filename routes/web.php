@@ -14,26 +14,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
 Route::get('/signup', 'InterController@signup');
+Route::get('/chat', 'ChatsController@index');
 Route::get('/check', 'InterController@signup');
 Route::get('/login', 'InterController@login')->name('login');
 Route::get('/logout', 'InterController@logout')->name('logout');
+Route::get('/messages', 'ChatsController@fetchMessages');
 Route::get('/slbs', 'SlbsController@index');
 Route::get('/slbs/statistic','SlbsController@statistics');
 Route::get('/{user}', 'UserController@index');
 Route::get('/{user}/projects', 'UserController@show');
 Route::post('/login', 'InterController@enter');
 Route::post('/check', 'InterController@check');
+Route::post('/messages', 'ChatsController@sendMessage');
 Route::post('/signup', 'InterController@registration');
 Route::post('/slbs', 'SlbsController@store');
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
 
 Route::resource('/projects', 'ProjectsController')->except('index');
-
-Route::get('/chat', 'ChatsController@index');
-Route::get('messages', 'ChatsController@fetchMessages');
-Route::post('messages', 'ChatsController@sendMessage');
-
 /*
 Route::post('/welcome', function() {
     Slb::create(request(['stts', 'slba', 'user_id', 'date']));

@@ -21,7 +21,7 @@ class MessageSent implements ShouldBroadcast
      *
      * @var \App\User
      */
-    public $user;
+
 
     /**
      * Message details
@@ -35,9 +35,8 @@ class MessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(User $user, Message $message)
+    public function __construct(Message $message)
     {
-        $this->user = $user;
         $this->message = $message;
     }
 

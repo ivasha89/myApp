@@ -6,6 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>
         @auth
             @hasSection('title')
@@ -13,14 +15,15 @@
             @else
                 {{ auth()->user()->name }}
             @endif
-        @endauth
-        @guest
+        @else
             Гость
-        @endguest
+        @endauth
     </title>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
+{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 </head>
 <body>
 <div class="spinner-border text-success"
@@ -45,10 +48,9 @@
             @endif
             @auth
                     @yield('content')
-            @endauth
-            @guest
+            @else
                     @yield('guest')
-            @endguest
+            @endauth
         </div>
     </main>
 @include('layouts.footer')
