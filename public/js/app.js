@@ -59803,7 +59803,6 @@ Vue.use(vue_chat_scroll_top_scroll__WEBPACK_IMPORTED_MODULE_0___default.a);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-// Vue.component('chat-form', require('./components/ChatForm.vue').default);
 
 Vue.component('chat', __webpack_require__(/*! ./components/ChatMessages.vue */ "./resources/js/components/ChatMessages.vue")["default"]);
 /**

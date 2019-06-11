@@ -18,7 +18,6 @@ Vue.use(VueChatScroll)
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// Vue.component('chat-form', require('./components/ChatForm.vue').default);
 Vue.component('chat', require('./components/ChatMessages.vue').default);
 
 /**
