@@ -59,7 +59,10 @@ class InterController extends Controller
         ]);
 
         $thisYear = (new \DateTime())->format('y');
-        $lastUser = User::select('id')->get()->last()->id;
+        if(User::select('id')->get()->last()->id)
+            $lastUser = User::select('id')->get()->last()->id;
+        else
+            $lastUser = (int)($thisYear . "00");
         $lastUserId = str_split($lastUser, 2);
         if ($lastUserId[0] == $thisYear)
             $id = $lastUser + 1;
