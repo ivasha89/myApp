@@ -86,10 +86,7 @@
                     }, 3000)
                     })
                 .listen('MessageSent', (event) => {
-                    this.messages.push({
-                        message: event.message.message,
-                        user: event.user
-                    });
+                    this.messages.push(event.message);
                 });
         },
         methods: {
