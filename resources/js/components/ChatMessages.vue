@@ -4,14 +4,17 @@
             <div class="card card-default">
                 <div class="card-header">Чат</div>
                 <div class="card-body">
-                    <div class="shadow text-center rounded" @click="loadNewData">Предыдущие сообщения</div>
-                    <ul class="chat" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}" @scroll-top="loadNewData">
+                    <div class="shadow text-center rounded" v-if="messages.length > 5" @click="loadPreviousMessages()">Предыдущие сообщения</div>
+                    <ul class="chat" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}" @scroll-top="loadPreviousMessages()">
                         <li class="left clearfix" v-for="(message, index) in messages" :key="index">
-                            <div class="chat-body clearfix">
-                                <div class="header">
+                            <div class="chat-body clearfix" v-for="(user, index) in users" :key="index">
+                                <div class="header" @click="showEx = message.id">
                                     <strong class="primary-font">
                                         {{ message.user.name }}
                                     </strong>
+                                    <button v-if="message.user.name === user.name && showEx === message.id" type="button" class="ml-2 mb-1 close hide" @click="deleteMessage()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <p>
                                     {{ message.message }}
@@ -57,11 +60,12 @@
         props: ['user'],
         data() {
             return {
+                showEx: '',
                 messages: [],
                 newMessage: '',
                 users: [],
                 activeUser: false,
-                typingTimer: false
+                typingTimer: false,
             }
         },
         created() {
@@ -94,11 +98,6 @@
                 Echo.join('chat')
                     .whisper('typing', this.user);
             },
-            fetchMessages() {
-                axios.get('messages').then(response => {
-                    this.messages = response.data.slice(-5)
-                }).catch(error => console.log(error));
-            },
             sendMessage() {
                 this.messages.push({
                     user: this.user,
@@ -107,7 +106,20 @@
                 axios.post('/messages', {message: this.newMessage});
                 this.newMessage = ''
             },
-            loadNewData() {
+            deleteMessage(id) {
+                axios.delete('/messageDelete', {id: this.showEx})
+                    .then(function (response) {
+                        console.log(id);
+                        window.location.reload();
+                    })
+                    .catch(error => console.log(error));
+            },
+            fetchMessages() {
+                axios.get('messages').then(response => {
+                    this.messages = response.data.slice(-5)
+                }).catch(error => console.log(error));
+            },
+            loadPreviousMessages() {
                 axios.get('messages').then(response => {
                     let k = this.messages.length;
                     k = k + 5;

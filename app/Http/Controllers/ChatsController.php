@@ -31,4 +31,12 @@ class ChatsController extends Controller
          broadcast(new MessageSent($message->load('user')))->toOthers();
          return ['status' => 'Message Sent!'];
     }
+
+    public function deleteMessage()
+    {
+        $message = Message::select('id', $id)->get()->delete();
+        session()->flash('message', "Сообщение удалено");
+        broadcast(new MessageSent($message->load('user'), session('message')));
+        return ['status' => 'Message Delete!'];
+    }
 }
