@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-10">
+        <div class="col-9">
             <div class="card">
                 <div class="card-header">Чат</div>
                 <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
@@ -39,7 +39,7 @@
             </div>
             <span v-if="activeUser" class="text-muted"> {{ activeUser.name }} печатает...</span>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <p class="" v-for="(user, index) in users" :key="index">
                 <img :src="'/svg/' + user.id + '.jpg'" width="55"
                 class="img-thumbnail rounded-circle" alt="...">

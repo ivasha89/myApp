@@ -47494,7 +47494,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-10" }, [
+    _c("div", { staticClass: "col-9" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
         _vm._v(" "),
@@ -47646,7 +47646,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-2" },
+      { staticClass: "col-3" },
       _vm._l(_vm.users, function(user, index) {
         return _c("p", { key: index }, [
           _c("img", {
