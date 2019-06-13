@@ -4,15 +4,15 @@
             <div class="card card-default">
                 <div class="card-header">Чат</div>
                 <div class="card-body">
-                    <div class="shadow text-center rounded" v-if="messages.length > 5" @click="loadPreviousMessages()">Предыдущие сообщения</div>
+                    <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click="loadPreviousMessages()">Предыдущие сообщения</div>
                     <ul class="chat" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}" @scroll-top="loadPreviousMessages()">
                         <li class="left clearfix" v-for="(message, index) in messages" :key="index">
-                            <div class="chat-body clearfix" v-for="(user, index) in users" :key="index">
+                            <div class="chat-body clearfix">
                                 <div class="header" @click="showEx = message.id">
                                     <strong class="primary-font">
                                         {{ message.user.name }}
                                     </strong>
-                                    <button v-if="message.user.name === user.name && showEx === message.id" type="button" class="ml-2 mb-1 close hide" @click="deleteMessage()">
+                                    <button v-if="message.user_id === message.user.id && showEx === message.id" type="button" class="ml-2 mb-1 close hide" @click="deleteMessage()">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -30,10 +30,9 @@
                                 class="form-control input-sm"
                                 placeholder="Type your message here..."
                                 v-model="newMessage"
-                                @keyup.enter="sendMessage"
                                 @keyup="sendTypingEvent">
                         <button class="ml-2 btn btn-outline-info" @click="sendMessage">
-                            Послать
+                            ✉️
                         </button>
                     </div>
                 </div>
@@ -42,12 +41,10 @@
         </div>
         <div class="col-4">
             <div class="card">
-                <div class="card-header">
-                    Кто в чате
-                </div>
                 <ul class="list-group">
                     <li class="list-group-item" v-for="(user, index) in users" :key="index">
-                        {{ user.name }}
+                        <img :src="'/svg/' + user.id + '.jpg'" width="55"
+                        class="img-thumbnail rounded-circle" alt="...">
                     </li>
                 </ul>
             </div>
@@ -60,6 +57,7 @@
         props: ['user'],
         data() {
             return {
+                allMessages: [],
                 showEx: '',
                 messages: [],
                 newMessage: '',
@@ -99,28 +97,24 @@
                     .whisper('typing', this.user);
             },
             sendMessage() {
-                this.messages.push({
-                    user: this.user,
-                    message: this.newMessage
-                });
                 axios.post('/messages', {message: this.newMessage});
-                this.newMessage = ''
+                this.newMessage = '';
+                this.fetchMessages();
             },
-            deleteMessage(id) {
-                axios.delete('/messageDelete', {id: this.showEx})
-                    .then(function (response) {
-                        console.log(id);
-                        window.location.reload();
-                    })
-                    .catch(error => console.log(error));
+            deleteMessage() {
+                axios.delete('/messageDelete/' + this.showEx);
+                this.showEx = '';
+                this.fetchMessages();
             },
             fetchMessages() {
-                axios.get('messages').then(response => {
-                    this.messages = response.data.slice(-5)
-                }).catch(error => console.log(error));
+                axios.get('messages').then((response) => {
+                    this.messages = response.data.slice(-5);
+                    this.allMessages = response.data;
+                });
+                console.log(this.messages.length);
             },
             loadPreviousMessages() {
-                axios.get('messages').then(response => {
+                axios.get('messages').then((response) => {
                     let k = this.messages.length;
                     k = k + 5;
                     this.messages = response.data.slice(-k);

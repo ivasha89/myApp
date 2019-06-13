@@ -20,7 +20,7 @@ class ChatsController extends Controller
 
     public function fetchMessages()
     {
-        return Message::with('user')->get();
+        return Message::with('user')->select('message', 'id', 'user_id')->get();
     }
 
     public function sendMessage(Request $request)
@@ -32,11 +32,10 @@ class ChatsController extends Controller
          return ['status' => 'Message Sent!'];
     }
 
-    public function deleteMessage()
+    public function deleteMessage(Message $message)
     {
-        $message = Message::select('id', $id)->get()->delete();
-        session()->flash('message', "Сообщение удалено");
-        broadcast(new MessageSent($message->load('user'), session('message')));
+        $message->delete();
+        broadcast(new MessageSent($message->load('user')));
         return ['status' => 'Message Delete!'];
     }
 }

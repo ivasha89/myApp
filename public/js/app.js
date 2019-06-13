@@ -1914,13 +1914,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
     return {
+      allMessages: [],
       showEx: '',
       messages: [],
       newMessage: '',
@@ -1960,33 +1958,25 @@ __webpack_require__.r(__webpack_exports__);
       Echo.join('chat').whisper('typing', this.user);
     },
     sendMessage: function sendMessage() {
-      this.messages.push({
-        user: this.user,
-        message: this.newMessage
-      });
       axios.post('/messages', {
         message: this.newMessage
       });
       this.newMessage = '';
+      this.fetchMessages();
     },
-    deleteMessage: function deleteMessage(id) {
-      axios["delete"]('/messageDelete', {
-        id: this.showEx
-      }).then(function (response) {
-        console.log(id);
-        window.location.reload();
-      })["catch"](function (error) {
-        return console.log(error);
-      });
+    deleteMessage: function deleteMessage() {
+      axios["delete"]('/messageDelete/' + this.showEx);
+      this.showEx = '';
+      this.fetchMessages();
     },
     fetchMessages: function fetchMessages() {
       var _this2 = this;
 
       axios.get('messages').then(function (response) {
         _this2.messages = response.data.slice(-5);
-      })["catch"](function (error) {
-        return console.log(error);
+        _this2.allMessages = response.data;
       });
+      console.log(this.messages.length);
     },
     loadPreviousMessages: function loadPreviousMessages() {
       var _this3 = this;
@@ -47506,7 +47496,7 @@ var render = function() {
         _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _vm.messages.length > 5
+          _vm.messages.length < _vm.allMessages.length
             ? _c(
                 "div",
                 {
@@ -47541,70 +47531,59 @@ var render = function() {
               }
             },
             _vm._l(_vm.messages, function(message, index) {
-              return _c(
-                "li",
-                { key: index, staticClass: "left clearfix" },
-                _vm._l(_vm.users, function(user, index) {
-                  return _c(
+              return _c("li", { key: index, staticClass: "left clearfix" }, [
+                _c("div", { staticClass: "chat-body clearfix" }, [
+                  _c(
                     "div",
-                    { key: index, staticClass: "chat-body clearfix" },
+                    {
+                      staticClass: "header",
+                      on: {
+                        click: function($event) {
+                          _vm.showEx = message.id
+                        }
+                      }
+                    },
                     [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "header",
-                          on: {
-                            click: function($event) {
-                              _vm.showEx = message.id
-                            }
-                          }
-                        },
-                        [
-                          _c("strong", { staticClass: "primary-font" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(message.user.name) +
-                                "\n                                "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          message.user.name === user.name &&
-                          _vm.showEx === message.id
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "ml-2 mb-1 close hide",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deleteMessage()
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "span",
-                                    { attrs: { "aria-hidden": "true" } },
-                                    [_vm._v("×")]
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
+                      _c("strong", { staticClass: "primary-font" }, [
                         _vm._v(
-                          "\n                                " +
-                            _vm._s(message.message) +
-                            "\n                            "
+                          "\n                                    " +
+                            _vm._s(message.user.name) +
+                            "\n                                "
                         )
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      message.user_id === message.user.id &&
+                      _vm.showEx === message.id
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "ml-2 mb-1 close hide",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteMessage()
+                                }
+                              }
+                            },
+                            [
+                              _c("span", { attrs: { "aria-hidden": "true" } }, [
+                                _vm._v("×")
+                              ])
+                            ]
+                          )
+                        : _vm._e()
                     ]
-                  )
-                }),
-                0
-              )
+                  ),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(message.message) +
+                        "\n                            "
+                    )
+                  ])
+                ])
+              ])
             }),
             0
           ),
@@ -47628,18 +47607,7 @@ var render = function() {
               },
               domProps: { value: _vm.newMessage },
               on: {
-                keyup: [
-                  function($event) {
-                    if (
-                      !$event.type.indexOf("key") &&
-                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                    ) {
-                      return null
-                    }
-                    return _vm.sendMessage($event)
-                  },
-                  _vm.sendTypingEvent
-                ],
+                keyup: _vm.sendTypingEvent,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -47655,11 +47623,7 @@ var render = function() {
                 staticClass: "ml-2 btn btn-outline-info",
                 on: { click: _vm.sendMessage }
               },
-              [
-                _vm._v(
-                  "\n                        Послать\n                    "
-                )
-              ]
+              [_vm._v("\n                        ✉️\n                    ")]
             )
           ])
         ])
@@ -47674,20 +47638,19 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "col-4" }, [
       _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _vm._v("\n                Кто в чате\n            ")
-        ]),
-        _vm._v(" "),
         _c(
           "ul",
           { staticClass: "list-group" },
           _vm._l(_vm.users, function(user, index) {
             return _c("li", { key: index, staticClass: "list-group-item" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(user.name) +
-                  "\n                "
-              )
+              _c("img", {
+                staticClass: "img-thumbnail rounded-circle",
+                attrs: {
+                  src: "/svg/" + user.id + ".jpg",
+                  width: "55",
+                  alt: "..."
+                }
+              })
             ])
           }),
           0
