@@ -1,13 +1,12 @@
 <template>
     <div class="row">
-        <div class="col-8 col-md-offset-2">
-            <div class="card card-default">
+        <div class="col-8">
+            <div class="card">
                 <div class="card-header">Чат</div>
-                <div class="card-body">
+                <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
+                     @scroll-top="loadPreviousMessages()">
                     <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click="loadPreviousMessages()">Предыдущие сообщения</div>
-                    <ul class="chat" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}" @scroll-top="loadPreviousMessages()">
-                        <li class="left clearfix" v-for="(message, index) in messages" :key="index">
-                            <div class="chat-body clearfix">
+                        <span class="left clearfix" v-for="(message, index) in messages" :key="index">
                                 <div class="header" @click="showEx = message.id">
                                     <strong class="primary-font">
                                         {{ message.user.name }}
@@ -19,22 +18,20 @@
                                 <p>
                                     {{ message.message }}
                                 </p>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="card-footer d-flex">
-                        <input
-                                id="btn-input"
-                                type="text"
-                                name="message"
-                                class="form-control input-sm"
-                                placeholder="Type your message here..."
-                                v-model="newMessage"
-                                @keyup="sendTypingEvent">
-                        <button class="ml-2 btn btn-outline-info" @click="sendMessage">
-                            ✉️
-                        </button>
-                    </div>
+                        </span>
+                </div>
+                <div class="card-footer d-flex">
+                    <input
+                            id="btn-input"
+                            type="text"
+                            name="message"
+                            class="form-control input-sm col-8"
+                            placeholder="Сообщение..."
+                            v-model="newMessage"
+                            @keyup="sendTypingEvent">
+                    <a class="ml-2 col-3 btn btn-outline-info" @click="sendMessage">
+                        ✉️
+                    </a>
                 </div>
             </div>
             <span v-if="activeUser" class="text-muted"> {{ activeUser.name }} печатает...</span>

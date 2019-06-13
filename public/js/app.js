@@ -1911,9 +1911,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -47491,141 +47488,139 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-8 col-md-offset-2" }, [
-      _c("div", { staticClass: "card card-default" }, [
+    _c("div", { staticClass: "col-8" }, [
+      _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _vm.messages.length < _vm.allMessages.length
-            ? _c(
-                "div",
-                {
-                  staticClass: "shadow text-center rounded",
-                  on: {
-                    click: function($event) {
-                      return _vm.loadPreviousMessages()
-                    }
-                  }
-                },
-                [_vm._v("Предыдущие сообщения")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "ul",
-            {
-              directives: [
-                {
-                  name: "chat-scroll",
-                  rawName: "v-chat-scroll",
-                  value: { always: false },
-                  expression: "{always: false}"
-                }
-              ],
-              staticClass: "chat",
-              staticStyle: { height: "300px", "overflow-y": "scroll" },
-              on: {
-                "scroll-top": function($event) {
-                  return _vm.loadPreviousMessages()
-                }
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "chat-scroll",
+                rawName: "v-chat-scroll",
+                value: { always: false },
+                expression: "{always: false}"
               }
-            },
-            _vm._l(_vm.messages, function(message, index) {
-              return _c("li", { key: index, staticClass: "left clearfix" }, [
-                _c("div", { staticClass: "chat-body clearfix" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "header",
-                      on: {
-                        click: function($event) {
-                          _vm.showEx = message.id
-                        }
+            ],
+            staticClass: "card-body",
+            staticStyle: { height: "300px", "overflow-y": "scroll" },
+            on: {
+              "scroll-top": function($event) {
+                return _vm.loadPreviousMessages()
+              }
+            }
+          },
+          [
+            _vm.messages.length < _vm.allMessages.length
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "shadow text-center rounded",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadPreviousMessages()
                       }
-                    },
-                    [
-                      _c("strong", { staticClass: "primary-font" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(message.user.name) +
-                            "\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      message.user_id === message.user.id &&
-                      _vm.showEx === message.id
-                        ? _c(
-                            "button",
-                            {
-                              staticClass: "ml-2 mb-1 close hide",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteMessage()
-                                }
+                    }
+                  },
+                  [_vm._v("Предыдущие сообщения")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.messages, function(message, index) {
+              return _c("span", { key: index, staticClass: "left clearfix" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "header",
+                    on: {
+                      click: function($event) {
+                        _vm.showEx = message.id
+                      }
+                    }
+                  },
+                  [
+                    _c("strong", { staticClass: "primary-font" }, [
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(message.user.name) +
+                          "\n                                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    message.user_id === message.user.id &&
+                    _vm.showEx === message.id
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "ml-2 mb-1 close hide",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteMessage()
                               }
-                            },
-                            [
-                              _c("span", { attrs: { "aria-hidden": "true" } }, [
-                                _vm._v("×")
-                              ])
-                            ]
-                          )
-                        : _vm._e()
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(message.message) +
-                        "\n                            "
-                    )
-                  ])
+                            }
+                          },
+                          [
+                            _c("span", { attrs: { "aria-hidden": "true" } }, [
+                              _vm._v("×")
+                            ])
+                          ]
+                        )
+                      : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(message.message) +
+                      "\n                            "
+                  )
                 ])
               ])
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer d-flex" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.newMessage,
-                  expression: "newMessage"
-                }
-              ],
-              staticClass: "form-control input-sm",
-              attrs: {
-                id: "btn-input",
-                type: "text",
-                name: "message",
-                placeholder: "Type your message here..."
-              },
-              domProps: { value: _vm.newMessage },
-              on: {
-                keyup: _vm.sendTypingEvent,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.newMessage = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-footer d-flex" }, [
+          _c("input", {
+            directives: [
               {
-                staticClass: "ml-2 btn btn-outline-info",
-                on: { click: _vm.sendMessage }
-              },
-              [_vm._v("\n                        ✉️\n                    ")]
-            )
-          ])
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newMessage,
+                expression: "newMessage"
+              }
+            ],
+            staticClass: "form-control input-sm col-8",
+            attrs: {
+              id: "btn-input",
+              type: "text",
+              name: "message",
+              placeholder: "Сообщение..."
+            },
+            domProps: { value: _vm.newMessage },
+            on: {
+              keyup: _vm.sendTypingEvent,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newMessage = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "ml-2 col-3 btn btn-outline-info",
+              on: { click: _vm.sendMessage }
+            },
+            [_vm._v("\n                    ✉️\n                ")]
+          )
         ])
       ]),
       _vm._v(" "),
