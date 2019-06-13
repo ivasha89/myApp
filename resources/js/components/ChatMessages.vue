@@ -1,24 +1,27 @@
 <template>
     <div class="row">
-        <div class="col-8">
+        <div class="col-10">
             <div class="card">
                 <div class="card-header">Чат</div>
                 <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
                      @scroll-top="loadPreviousMessages()">
                     <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click="loadPreviousMessages()">Предыдущие сообщения</div>
-                        <span class="left clearfix" v-for="(message, index) in messages" :key="index">
-                                <div class="header" @click="showEx = message.id">
-                                    <strong class="primary-font">
-                                        {{ message.user.name }}
-                                    </strong>
-                                    <button v-if="message.user_id === message.user.id && showEx === message.id" type="button" class="ml-2 mb-1 close hide" @click="deleteMessage()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <p>
-                                    {{ message.message }}
-                                </p>
-                        </span>
+                    <div class="container rounded" style="background-color: lightblue" v-for="(message, index) in messages" :key="index"
+                          @click="deleteButton(message.id)">
+                        <strong>
+                            {{ message.user.name }}
+                        </strong> :
+                        <button v-if="message.user_id === user.id && showEx === message.id" type="button"
+                                class="ml-2 mb-1 close hide" @click="deleteMessage(message.id)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <a class="text-break">
+                            {{ message.message }}
+                        </a>
+                        <p class="mb-1 text-muted text-right">
+                            {{ message.created_at }}
+                        </p>
+                    </div>
                 </div>
                 <div class="card-footer d-flex">
                     <input
@@ -36,15 +39,11 @@
             </div>
             <span v-if="activeUser" class="text-muted"> {{ activeUser.name }} печатает...</span>
         </div>
-        <div class="col-4">
-            <div class="card">
-                <ul class="list-group">
-                    <li class="list-group-item" v-for="(user, index) in users" :key="index">
-                        <img :src="'/svg/' + user.id + '.jpg'" width="55"
-                        class="img-thumbnail rounded-circle" alt="...">
-                    </li>
-                </ul>
-            </div>
+        <div class="col-2">
+            <p class="" v-for="(user, index) in users" :key="index">
+                <img :src="'/svg/' + user.id + '.jpg'" width="55"
+                class="img-thumbnail rounded-circle" alt="...">
+            </p>
         </div>
     </div>
 </template>
@@ -84,11 +83,26 @@
                         this.activeUser = false
                     }, 3000)
                     })
-                .listen('MessageSent', (event) => {
+                .listen('MessageSent', (event, message) => {
                     this.messages.push(event.message);
-                });
+                    this.messages = this.messages.filter(m => m.id != message.id);
+                })
         },
         methods: {
+            deleteButton(id) {
+                if(this.showEx === '') {
+                    this.showEx = id;
+                }
+                else {
+                    this.showEx = '';
+                }
+            },
+            fetchMessages() {
+                axios.get('messages').then((response) => {
+                    this.messages = response.data.slice(-5);
+                    this.allMessages = response.data;
+                });
+            },
             sendTypingEvent() {
                 Echo.join('chat')
                     .whisper('typing', this.user);
@@ -98,24 +112,16 @@
                 this.newMessage = '';
                 this.fetchMessages();
             },
-            deleteMessage() {
-                axios.delete('/messageDelete/' + this.showEx);
-                this.showEx = '';
+            deleteMessage(messageId) {
+                axios.get('/messageDelete/' + messageId);
                 this.fetchMessages();
-            },
-            fetchMessages() {
-                axios.get('messages').then((response) => {
-                    this.messages = response.data.slice(-5);
-                    this.allMessages = response.data;
-                });
-                console.log(this.messages.length);
             },
             loadPreviousMessages() {
                 axios.get('messages').then((response) => {
                     let k = this.messages.length;
                     k = k + 5;
                     this.messages = response.data.slice(-k);
-                }).catch(error => console.log(error));
+                });
             }
         }
     };

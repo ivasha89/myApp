@@ -1910,7 +1910,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -1946,11 +1945,30 @@ __webpack_require__.r(__webpack_exports__);
       _this.typingTimer = setTimeout(function () {
         _this.activeUser = false;
       }, 3000);
-    }).listen('MessageSent', function (event) {
+    }).listen('MessageSent', function (event, message) {
       _this.messages.push(event.message);
+
+      _this.messages = _this.messages.filter(function (m) {
+        return m.id != message.id;
+      });
     });
   },
   methods: {
+    deleteButton: function deleteButton(id) {
+      if (this.showEx === '') {
+        this.showEx = id;
+      } else {
+        this.showEx = '';
+      }
+    },
+    fetchMessages: function fetchMessages() {
+      var _this2 = this;
+
+      axios.get('messages').then(function (response) {
+        _this2.messages = response.data.slice(-5);
+        _this2.allMessages = response.data;
+      });
+    },
     sendTypingEvent: function sendTypingEvent() {
       Echo.join('chat').whisper('typing', this.user);
     },
@@ -1961,19 +1979,9 @@ __webpack_require__.r(__webpack_exports__);
       this.newMessage = '';
       this.fetchMessages();
     },
-    deleteMessage: function deleteMessage() {
-      axios["delete"]('/messageDelete/' + this.showEx);
-      this.showEx = '';
+    deleteMessage: function deleteMessage(messageId) {
+      axios.get('/messageDelete/' + messageId);
       this.fetchMessages();
-    },
-    fetchMessages: function fetchMessages() {
-      var _this2 = this;
-
-      axios.get('messages').then(function (response) {
-        _this2.messages = response.data.slice(-5);
-        _this2.allMessages = response.data;
-      });
-      console.log(this.messages.length);
     },
     loadPreviousMessages: function loadPreviousMessages() {
       var _this3 = this;
@@ -1982,8 +1990,6 @@ __webpack_require__.r(__webpack_exports__);
         var k = _this3.messages.length;
         k = k + 5;
         _this3.messages = response.data.slice(-k);
-      })["catch"](function (error) {
-        return console.log(error);
       });
     }
   }
@@ -47488,7 +47494,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-8" }, [
+    _c("div", { staticClass: "col-10" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
         _vm._v(" "),
@@ -47528,57 +47534,64 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm._l(_vm.messages, function(message, index) {
-              return _c("span", { key: index, staticClass: "left clearfix" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "header",
-                    on: {
-                      click: function($event) {
-                        _vm.showEx = message.id
-                      }
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticClass: "container rounded",
+                  staticStyle: { "background-color": "lightblue" },
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteButton(message.id)
                     }
-                  },
-                  [
-                    _c("strong", { staticClass: "primary-font" }, [
-                      _vm._v(
-                        "\n                                    " +
-                          _vm._s(message.user.name) +
-                          "\n                                "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    message.user_id === message.user.id &&
-                    _vm.showEx === message.id
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "ml-2 mb-1 close hide",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteMessage()
-                              }
+                  }
+                },
+                [
+                  _c("strong", [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(message.user.name) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" :\n                    "),
+                  message.user_id === _vm.user.id && _vm.showEx === message.id
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "ml-2 mb-1 close hide",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteMessage(message.id)
                             }
-                          },
-                          [
-                            _c("span", { attrs: { "aria-hidden": "true" } }, [
-                              _vm._v("×")
-                            ])
-                          ]
-                        )
-                      : _vm._e()
-                  ]
-                ),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "\n                                " +
-                      _vm._s(message.message) +
-                      "\n                            "
-                  )
-                ])
-              ])
+                          }
+                        },
+                        [
+                          _c("span", { attrs: { "aria-hidden": "true" } }, [
+                            _vm._v("×")
+                          ])
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("a", { staticClass: "text-break" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(message.message) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-1 text-muted text-right" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(message.created_at) +
+                        "\n                    "
+                    )
+                  ])
+                ]
+              )
             })
           ],
           2
@@ -47631,27 +47644,19 @@ var render = function() {
         : _vm._e()
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "col-4" }, [
-      _c("div", { staticClass: "card" }, [
-        _c(
-          "ul",
-          { staticClass: "list-group" },
-          _vm._l(_vm.users, function(user, index) {
-            return _c("li", { key: index, staticClass: "list-group-item" }, [
-              _c("img", {
-                staticClass: "img-thumbnail rounded-circle",
-                attrs: {
-                  src: "/svg/" + user.id + ".jpg",
-                  width: "55",
-                  alt: "..."
-                }
-              })
-            ])
-          }),
-          0
-        )
-      ])
-    ])
+    _c(
+      "div",
+      { staticClass: "col-2" },
+      _vm._l(_vm.users, function(user, index) {
+        return _c("p", { key: index }, [
+          _c("img", {
+            staticClass: "img-thumbnail rounded-circle",
+            attrs: { src: "/svg/" + user.id + ".jpg", width: "55", alt: "..." }
+          })
+        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []

@@ -30,7 +30,7 @@ Route::post('/signup', 'InterController@registration');
 Route::post('/slbs', 'SlbsController@store');
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
-Route::delete('/messageDelete/{message}', 'ChatsController@deleteMessage');
+Route::get('/messageDelete/{id}', 'ChatsController@deleteMessage');
 
 Route::resource('/projects', 'ProjectsController')->except('index');
 /*
