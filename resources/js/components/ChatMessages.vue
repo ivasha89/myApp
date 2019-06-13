@@ -6,21 +6,23 @@
                 <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
                      @scroll-top="loadPreviousMessages()">
                     <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click="loadPreviousMessages()">Предыдущие сообщения</div>
-                    <div class="container rounded" style="background-color: lightblue" v-for="(message, index) in messages" :key="index"
-                          @click="deleteButton(message.id)">
-                        <strong>
-                            {{ message.user.name }}
-                        </strong> :
+                    <div class="row" v-for="(message, index) in messages" :key="index">
+                        <div class="col-10 rounded p-1 m-1" style="background-color: lightblue"
+                             @click="deleteButton(message.id)">
+                            <strong>
+                                {{ message.user.name }}
+                            </strong> :
+                            <a class="text-break">
+                                {{ message.message }}
+                            </a>
+                            <p class="mb-1 text-muted text-right">
+                                {{ message.created_at }}
+                            </p>
+                        </div>
                         <button v-if="message.user_id === user.id && showEx === message.id" type="button"
-                                class="ml-2 mb-1 close hide" @click="deleteMessage(message.id)">
+                            class="col-1 ml-2 mb-1 close hide" @click="deleteMessage(message.id)">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <a class="text-break">
-                            {{ message.message }}
-                        </a>
-                        <p class="mb-1 text-muted text-right">
-                            {{ message.created_at }}
-                        </p>
                     </div>
                 </div>
                 <div class="card-footer d-flex">

@@ -1910,6 +1910,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -47534,64 +47536,65 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm._l(_vm.messages, function(message, index) {
-              return _c(
-                "div",
-                {
-                  key: index,
-                  staticClass: "container rounded",
-                  staticStyle: { "background-color": "lightblue" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteButton(message.id)
+              return _c("div", { key: index, staticClass: "row" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-10 rounded p-1 m-1",
+                    staticStyle: { "background-color": "lightblue" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteButton(message.id)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("strong", [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(message.user.name) +
-                        "\n                    "
-                    )
-                  ]),
-                  _vm._v(" :\n                    "),
-                  message.user_id === _vm.user.id && _vm.showEx === message.id
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "ml-2 mb-1 close hide",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteMessage(message.id)
-                            }
-                          }
-                        },
-                        [
-                          _c("span", { attrs: { "aria-hidden": "true" } }, [
-                            _vm._v("×")
-                          ])
-                        ]
+                  },
+                  [
+                    _c("strong", [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(message.user.name) +
+                          "\n                        "
                       )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("a", { staticClass: "text-break" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(message.message) +
-                        "\n                    "
+                    ]),
+                    _vm._v(" :\n                        "),
+                    _c("a", { staticClass: "text-break" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(message.message) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-1 text-muted text-right" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(message.created_at) +
+                          "\n                        "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                message.user_id === _vm.user.id && _vm.showEx === message.id
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "col-1 ml-2 mb-1 close hide",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteMessage(message.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "mb-1 text-muted text-right" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(message.created_at) +
-                        "\n                    "
-                    )
-                  ])
-                ]
-              )
+                  : _vm._e()
+              ])
             })
           ],
           2
