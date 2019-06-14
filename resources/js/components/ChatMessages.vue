@@ -31,7 +31,7 @@
                         :
                     </span>
                     <a class="mb-1 text-muted text-left">
-                        {{ message.created_at }}
+                        {{ message.create_At }}
                     </a>
                     <a class="float-right btn dropdown-toggle" id="mark" type="button"
                        data-toggle="dropdown"
@@ -78,7 +78,6 @@
         data() {
             return {
                 allMessages: [],
-                showEx: '',
                 messages: [],
                 newMessage: '',
                 users: [],
@@ -88,6 +87,7 @@
         },
         created() {
             this.fetchMessages();
+            moment.locale('ru');
             Echo.join('chat')
                 .here(user => {
                     this.users = user;
@@ -115,6 +115,9 @@
             fetchMessages() {
                 axios.get('messages').then(response => {
                     this.messages = response.data.slice(-5);
+                    this.messages.forEach(function (item, i) {
+                        item.create_At = moment(item.created_at).calendar();
+                    });
                     this.allMessages = response.data;
                 });
             },

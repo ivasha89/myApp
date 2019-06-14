@@ -8,8 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import VueChatScroll from 'vue-chat-scroll-top-scroll'
-Vue.use(VueChatScroll)
-
+Vue.use(VueChatScroll);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
