@@ -1983,19 +1983,17 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/messages', {
         message: this.newMessage
-      }).then(this.newMessage = '');
-      axios.get('messages').then(function (response) {
-        _this3.messages = response.data.slice(-5);
-        _this3.allMessages = response.data;
+      }).then(function (responce) {
+        _this3.fetchMessages();
+
+        _this3.newMessage = '';
       });
     },
     deleteMessage: function deleteMessage(messageId) {
       var _this4 = this;
 
-      axios.get('/messageDelete/' + messageId);
-      axios.get('messages').then(function (response) {
-        _this4.messages = response.data.slice(-5);
-        _this4.allMessages = response.data;
+      axios.get('/messageDelete/' + messageId).then(function (responce) {
+        _this4.fetchMessages();
       });
     },
     loadPreviousMessages: function loadPreviousMessages() {

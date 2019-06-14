@@ -117,21 +117,15 @@
             },
             sendMessage() {
                 axios.post('/messages', {message: this.newMessage})
-                    .then(
-                        this.newMessage = '',
-                    );
-                axios.get('messages')
-                    .then(response => {
-                        this.messages = response.data.slice(-5);
-                        this.allMessages = response.data;
-                });
+                    .then(responce => {
+                        this.fetchMessages();
+                            this.newMessage = ''
+                    });
             },
             deleteMessage(messageId) {
-                axios.get('/messageDelete/' + messageId);
-                axios.get('messages')
-                    .then(response => {
-                        this.messages = response.data.slice(-5);
-                        this.allMessages = response.data;
+                axios.get('/messageDelete/' + messageId)
+                    .then(responce => {
+                        this.fetchMessages()
                 });
             },
             loadPreviousMessages() {
