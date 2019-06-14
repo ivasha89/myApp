@@ -1927,6 +1927,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -47506,215 +47513,229 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-9" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "chat-scroll",
-                rawName: "v-chat-scroll",
-                value: { always: false },
-                expression: "{always: false}"
-              }
-            ],
-            staticClass: "card-body",
-            staticStyle: { height: "300px", "overflow-y": "scroll" },
-            on: {
-              "scroll-top": function($event) {
-                return _vm.loadPreviousMessages()
-              }
-            }
-          },
-          [
-            _vm.messages.length < _vm.allMessages.length
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "shadow text-center rounded",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.loadPreviousMessages()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    Предыдущие сообщения\n                "
-                    )
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.messages, function(message, index) {
-              return _c(
-                "div",
-                {
-                  key: index,
-                  staticClass: "rounded p-2 m-1",
-                  staticStyle: { "background-color": "lightblue" }
-                },
-                [
-                  _c("div", { staticClass: "clearfix" }, [
-                    _c("strong", { staticClass: "text-left" }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(message.user.name) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-left" }, [
-                      _vm._v(
-                        "\n                            :\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("a", { staticClass: "mb-1 text-muted text-left" }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(message.created_at) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    message.user_id === _vm.user.id
-                      ? _c(
-                          "a",
-                          {
-                            staticClass: "float-right btn dropdown-toggle",
-                            attrs: {
-                              id: "mark",
-                              type: "button",
-                              "data-toggle": "dropdown",
-                              "aria-haspopup": "true",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                            ...\n                        "
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "dropdown-menu dropdown-menu-right",
-                        attrs: { "aria-labelledby": "mark" }
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteMessage(message.id)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Удалить\n                                "
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-break" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(message.message) +
-                        "\n                    "
-                    )
-                  ])
-                ]
-              )
-            })
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-footer d-flex clearfix" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.newMessage,
-                expression: "newMessage"
-              }
-            ],
-            staticClass: "form-control input-sm",
-            attrs: {
-              role: "textbox",
-              id: "btn-input",
-              "aria-multiline": "true",
-              contenteditable: "true",
-              name: "message",
-              placeholder: "Сообщение...",
-              rows: "2"
-            },
-            domProps: { value: _vm.newMessage },
-            on: {
-              keyup: function($event) {
-                return _vm.sendTypingEvent()
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.newMessage = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "ml-1 btn btn-outline-info",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.sendMessage()
-                }
-              }
-            },
-            [_vm._v("\n                    ✉️\n                ")]
-          )
-        ])
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header clearfix" }, [
+      _c("a", { staticClass: "text-left align-self-center" }, [
+        _vm._v("\n            Чат\n        ")
       ]),
       _vm._v(" "),
-      _vm.activeUser
-        ? _c("span", { staticClass: "text-muted" }, [
-            _vm._v(" " + _vm._s(_vm.activeUser.name) + " перебирает буковки...")
+      _c(
+        "a",
+        {
+          staticClass: "float-right btn dropdown-toggle",
+          attrs: {
+            id: "users",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [_vm._v("\n            Кто здесь\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu dropdown-menu-right",
+          attrs: { "aria-labelledby": "users" }
+        },
+        _vm._l(_vm.users, function(user, index) {
+          return _c("a", { key: index, staticClass: "dropdown-item" }, [
+            _c("img", {
+              staticClass: "img-thumbnail rounded-circle",
+              attrs: {
+                src: "/svg/" + user.id + ".jpg",
+                width: "55",
+                alt: "..."
+              }
+            })
           ])
-        : _vm._e()
+        }),
+        0
+      )
     ]),
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-3" },
-      _vm._l(_vm.users, function(user, index) {
-        return _c("p", { key: index }, [
-          _c("img", {
-            staticClass: "img-thumbnail rounded-circle",
-            attrs: { src: "/svg/" + user.id + ".jpg", width: "55", alt: "..." }
-          })
+      {
+        directives: [
+          {
+            name: "chat-scroll",
+            rawName: "v-chat-scroll",
+            value: { always: false },
+            expression: "{always: false}"
+          }
+        ],
+        staticClass: "card-body",
+        staticStyle: { height: "300px", "overflow-y": "scroll" },
+        on: {
+          "scroll-top": function($event) {
+            return _vm.loadPreviousMessages()
+          }
+        }
+      },
+      [
+        _vm.messages.length < _vm.allMessages.length
+          ? _c(
+              "div",
+              {
+                staticClass: "shadow text-center rounded",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.loadPreviousMessages()
+                  }
+                }
+              },
+              [_vm._v("\n            Предыдущие сообщения\n        ")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._l(_vm.messages, function(message, index) {
+          return _c(
+            "div",
+            {
+              key: index,
+              staticClass: "rounded p-2 m-1",
+              staticStyle: { "background-color": "lightblue" }
+            },
+            [
+              _c("div", { staticClass: "clearfix" }, [
+                _c("strong", { staticClass: "text-left" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(message.user.name) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-left" }, [
+                  _vm._v("\n                    :\n                ")
+                ]),
+                _vm._v(" "),
+                _c("a", { staticClass: "mb-1 text-muted text-left" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(message.created_at) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                message.user_id === _vm.user.id
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "float-right btn dropdown-toggle",
+                        attrs: {
+                          id: "mark",
+                          type: "button",
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [_vm._v("\n                    ...\n                ")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "dropdown-menu dropdown-menu-right",
+                    attrs: { "aria-labelledby": "mark" }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteMessage(message.id)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Удалить\n                        "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-break" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(message.message) +
+                    "\n            "
+                )
+              ])
+            ]
+          )
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer" }, [
+      _c("div", { staticClass: "clearfix row" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.newMessage,
+              expression: "newMessage"
+            }
+          ],
+          staticClass: "form-control input-sm col-9",
+          attrs: {
+            role: "textbox",
+            id: "btn-input",
+            "aria-multiline": "true",
+            contenteditable: "true",
+            name: "message",
+            placeholder: "Сообщение...",
+            rows: "2"
+          },
+          domProps: { value: _vm.newMessage },
+          on: {
+            keyup: function($event) {
+              return _vm.sendTypingEvent()
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.newMessage = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "ml-3 btn btn-outline-info col-2",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.sendMessage()
+              }
+            }
+          },
+          [_vm._v("\n                ✉️\n            ")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.activeUser
+      ? _c("span", { staticClass: "text-muted" }, [
+          _vm._v(" " + _vm._s(_vm.activeUser.name) + " перебирает буковки...")
         ])
-      }),
-      0
-    )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
