@@ -1912,6 +1912,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -1947,22 +1962,11 @@ __webpack_require__.r(__webpack_exports__);
       _this.typingTimer = setTimeout(function () {
         _this.activeUser = false;
       }, 3000);
-    }).listen('MessageSent', function (event, message) {
+    }).listen('MessageSent', function (event) {
       _this.messages.push(event.message);
-
-      _this.messages = _this.messages.filter(function (m) {
-        return m.id != message.id;
-      });
     });
   },
   methods: {
-    deleteButton: function deleteButton(id) {
-      if (this.showEx === '') {
-        this.showEx = id;
-      } else {
-        this.showEx = '';
-      }
-    },
     fetchMessages: function fetchMessages() {
       var _this2 = this;
 
@@ -1975,23 +1979,32 @@ __webpack_require__.r(__webpack_exports__);
       Echo.join('chat').whisper('typing', this.user);
     },
     sendMessage: function sendMessage() {
-      axios.post('/messages', {
-        message: this.newMessage
-      });
-      this.newMessage = '';
-      this.fetchMessages();
-    },
-    deleteMessage: function deleteMessage(messageId) {
-      axios.get('/messageDelete/' + messageId);
-      this.fetchMessages();
-    },
-    loadPreviousMessages: function loadPreviousMessages() {
       var _this3 = this;
 
+      axios.post('/messages', {
+        message: this.newMessage
+      }).then(this.newMessage = '');
       axios.get('messages').then(function (response) {
-        var k = _this3.messages.length;
+        _this3.messages = response.data.slice(-5);
+        _this3.allMessages = response.data;
+      });
+    },
+    deleteMessage: function deleteMessage(messageId) {
+      var _this4 = this;
+
+      axios.get('/messageDelete/' + messageId);
+      axios.get('messages').then(function (response) {
+        _this4.messages = response.data.slice(-5);
+        _this4.allMessages = response.data;
+      });
+    },
+    loadPreviousMessages: function loadPreviousMessages() {
+      var _this5 = this;
+
+      axios.get('messages').then(function (response) {
+        var k = _this5.messages.length;
         k = k + 5;
-        _this3.messages = response.data.slice(-k);
+        _this5.messages = response.data.slice(-k);
       });
     }
   }
@@ -47496,7 +47509,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-10" }, [
+    _c("div", { staticClass: "col-9" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
         _vm._v(" "),
@@ -47527,80 +47540,114 @@ var render = function() {
                     staticClass: "shadow text-center rounded",
                     on: {
                       click: function($event) {
+                        $event.preventDefault()
                         return _vm.loadPreviousMessages()
                       }
                     }
                   },
-                  [_vm._v("Предыдущие сообщения")]
+                  [
+                    _vm._v(
+                      "\n                    Предыдущие сообщения\n                "
+                    )
+                  ]
                 )
               : _vm._e(),
             _vm._v(" "),
             _vm._l(_vm.messages, function(message, index) {
-              return _c("div", { key: index, staticClass: "row" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "col-10 rounded p-1 m-1",
-                    staticStyle: { "background-color": "lightblue" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteButton(message.id)
-                      }
-                    }
-                  },
-                  [
-                    _c("strong", [
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticClass: "rounded p-2 m-1",
+                  staticStyle: { "background-color": "lightblue" }
+                },
+                [
+                  _c("div", { staticClass: "clearfix" }, [
+                    _c("strong", { staticClass: "text-left" }, [
                       _vm._v(
                         "\n                            " +
                           _vm._s(message.user.name) +
                           "\n                        "
                       )
                     ]),
-                    _vm._v(" :\n                        "),
-                    _c("a", { staticClass: "text-break" }, [
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-left" }, [
                       _vm._v(
-                        "\n                            " +
-                          _vm._s(message.message) +
-                          "\n                        "
+                        "\n                            :\n                        "
                       )
                     ]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "mb-1 text-muted text-right" }, [
+                    _c("a", { staticClass: "mb-1 text-muted text-left" }, [
                       _vm._v(
                         "\n                            " +
                           _vm._s(message.created_at) +
                           "\n                        "
                       )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                message.user_id === _vm.user.id && _vm.showEx === message.id
-                  ? _c(
-                      "button",
+                    ]),
+                    _vm._v(" "),
+                    message.user_id === _vm.user.id
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "float-right btn dropdown-toggle",
+                            attrs: {
+                              id: "mark",
+                              type: "button",
+                              "data-toggle": "dropdown",
+                              "aria-haspopup": "true",
+                              "aria-expanded": "false"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            ...\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
                       {
-                        staticClass: "col-1 ml-2 mb-1 close hide",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteMessage(message.id)
-                          }
-                        }
+                        staticClass: "dropdown-menu dropdown-menu-right",
+                        attrs: { "aria-labelledby": "mark" }
                       },
                       [
-                        _c("span", { attrs: { "aria-hidden": "true" } }, [
-                          _vm._v("×")
-                        ])
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteMessage(message.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    Удалить\n                                "
+                            )
+                          ]
+                        )
                       ]
                     )
-                  : _vm._e()
-              ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-break" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(message.message) +
+                        "\n                    "
+                    )
+                  ])
+                ]
+              )
             })
           ],
           2
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "card-footer d-flex" }, [
+        _c("div", { staticClass: "card-footer d-flex clearfix" }, [
           _c("input", {
             directives: [
               {
@@ -47610,12 +47657,15 @@ var render = function() {
                 expression: "newMessage"
               }
             ],
-            staticClass: "form-control input-sm col-8",
+            staticClass: "form-control input-sm",
             attrs: {
+              role: "textbox",
               id: "btn-input",
-              type: "text",
+              "aria-multiline": "true",
+              contenteditable: "true",
               name: "message",
-              placeholder: "Сообщение..."
+              placeholder: "Сообщение...",
+              rows: "2"
             },
             domProps: { value: _vm.newMessage },
             on: {
@@ -47634,9 +47684,10 @@ var render = function() {
           _c(
             "a",
             {
-              staticClass: "ml-2 col-3 btn btn-outline-info",
+              staticClass: "ml-1 btn btn-outline-info",
               on: {
                 click: function($event) {
+                  $event.preventDefault()
                   return _vm.sendMessage()
                 }
               }
@@ -47655,7 +47706,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-2" },
+      { staticClass: "col-3" },
       _vm._l(_vm.users, function(user, index) {
         return _c("p", { key: index }, [
           _c("img", {

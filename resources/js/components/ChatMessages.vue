@@ -1,47 +1,62 @@
 <template>
     <div class="row">
-        <div class="col-10">
+        <div class="col-9">
             <div class="card">
                 <div class="card-header">Чат</div>
                 <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
                      @scroll-top="loadPreviousMessages()">
-                    <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click="loadPreviousMessages()">Предыдущие сообщения</div>
-                    <div class="row" v-for="(message, index) in messages" :key="index">
-                        <div class="col-10 rounded p-1 m-1" style="background-color: lightblue"
-                             @click="deleteButton(message.id)">
-                            <strong>
+                    <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click.prevent="loadPreviousMessages()">
+                        Предыдущие сообщения
+                    </div>
+                    <div class="rounded p-2 m-1" style="background-color: lightblue"
+                         v-for="(message, index) in messages" :key="index">
+                        <div class="clearfix">
+                            <strong class="text-left">
                                 {{ message.user.name }}
-                            </strong> :
-                            <a class="text-break">
-                                {{ message.message }}
-                            </a>
-                            <p class="mb-1 text-muted text-right">
+                            </strong>
+                            <span class="text-left">
+                                :
+                            </span>
+                            <a class="mb-1 text-muted text-left">
                                 {{ message.created_at }}
-                            </p>
+                            </a>
+                            <a class="float-right btn dropdown-toggle" id="mark" type="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"
+                               v-if="message.user_id === user.id">
+                                ...
+                            </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="mark">
+                                    <a class="dropdown-item" @click="deleteMessage(message.id)">
+                                        Удалить
+                                    </a>
+                                </div>
                         </div>
-                        <button v-if="message.user_id === user.id && showEx === message.id" type="button"
-                            class="col-1 ml-2 mb-1 close hide" @click="deleteMessage(message.id)">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div class="text-break">
+                            {{ message.message }}
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer d-flex">
+                <div class="card-footer d-flex clearfix">
                     <input
+                            role="textbox"
                             id="btn-input"
-                            type="text"
+                            aria-multiline="true"
+                            contenteditable="true"
                             name="message"
-                            class="form-control input-sm col-8"
+                            class="form-control input-sm"
                             placeholder="Сообщение..."
                             v-model="newMessage"
-                            @keyup="sendTypingEvent()">
-                    <a class="ml-2 col-3 btn btn-outline-info" @click="sendMessage()">
+                            @keyup="sendTypingEvent()"
+                            rows="2">
+                    <a class="ml-1 btn btn-outline-info" @click.prevent="sendMessage()">
                         ✉️
                     </a>
                 </div>
             </div>
             <span v-if="activeUser" class="text-muted"> {{ activeUser.name }} перебирает буковки...</span>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <p class="" v-for="(user, index) in users" :key="index">
                 <img :src="'/svg/' + user.id + '.jpg'" width="55"
                 class="img-thumbnail rounded-circle" alt="...">
@@ -85,22 +100,13 @@
                         this.activeUser = false
                     }, 3000)
                     })
-                .listen('MessageSent', (event, message) => {
+                .listen('MessageSent', (event) => {
                     this.messages.push(event.message);
-                    this.messages = this.messages.filter(m => m.id != message.id);
                 })
         },
         methods: {
-            deleteButton(id) {
-                if(this.showEx === '') {
-                    this.showEx = id;
-                }
-                else {
-                    this.showEx = '';
-                }
-            },
             fetchMessages() {
-                axios.get('messages').then((response) => {
+                axios.get('messages').then(response => {
                     this.messages = response.data.slice(-5);
                     this.allMessages = response.data;
                 });
@@ -110,13 +116,23 @@
                     .whisper('typing', this.user);
             },
             sendMessage() {
-                axios.post('/messages', {message: this.newMessage});
-                this.newMessage = '';
-                this.fetchMessages();
+                axios.post('/messages', {message: this.newMessage})
+                    .then(
+                        this.newMessage = '',
+                    );
+                axios.get('messages')
+                    .then(response => {
+                        this.messages = response.data.slice(-5);
+                        this.allMessages = response.data;
+                });
             },
             deleteMessage(messageId) {
                 axios.get('/messageDelete/' + messageId);
-                this.fetchMessages();
+                axios.get('messages')
+                    .then(response => {
+                        this.messages = response.data.slice(-5);
+                        this.allMessages = response.data;
+                });
             },
             loadPreviousMessages() {
                 axios.get('messages').then((response) => {
