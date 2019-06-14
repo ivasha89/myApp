@@ -47496,7 +47496,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-9" }, [
+    _c("div", { staticClass: "col-10" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [_vm._v("Чат")]),
         _vm._v(" "),
@@ -47619,7 +47619,9 @@ var render = function() {
             },
             domProps: { value: _vm.newMessage },
             on: {
-              keyup: _vm.sendTypingEvent,
+              keyup: function($event) {
+                return _vm.sendTypingEvent()
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -47633,7 +47635,11 @@ var render = function() {
             "a",
             {
               staticClass: "ml-2 col-3 btn btn-outline-info",
-              on: { click: _vm.sendMessage }
+              on: {
+                click: function($event) {
+                  return _vm.sendMessage()
+                }
+              }
             },
             [_vm._v("\n                    ✉️\n                ")]
           )
@@ -47642,14 +47648,14 @@ var render = function() {
       _vm._v(" "),
       _vm.activeUser
         ? _c("span", { staticClass: "text-muted" }, [
-            _vm._v(" " + _vm._s(_vm.activeUser.name) + " печатает...")
+            _vm._v(" " + _vm._s(_vm.activeUser.name) + " перебирает буковки...")
           ])
         : _vm._e()
     ]),
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-3" },
+      { staticClass: "col-2" },
       _vm._l(_vm.users, function(user, index) {
         return _c("p", { key: index }, [
           _c("img", {

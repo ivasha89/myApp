@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-9">
+        <div class="col-10">
             <div class="card">
                 <div class="card-header">Чат</div>
                 <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
@@ -33,15 +33,15 @@
                             class="form-control input-sm col-8"
                             placeholder="Сообщение..."
                             v-model="newMessage"
-                            @keyup="sendTypingEvent">
-                    <a class="ml-2 col-3 btn btn-outline-info" @click="sendMessage">
+                            @keyup="sendTypingEvent()">
+                    <a class="ml-2 col-3 btn btn-outline-info" @click="sendMessage()">
                         ✉️
                     </a>
                 </div>
             </div>
-            <span v-if="activeUser" class="text-muted"> {{ activeUser.name }} печатает...</span>
+            <span v-if="activeUser" class="text-muted"> {{ activeUser.name }} перебирает буковки...</span>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <p class="" v-for="(user, index) in users" :key="index">
                 <img :src="'/svg/' + user.id + '.jpg'" width="55"
                 class="img-thumbnail rounded-circle" alt="...">
