@@ -116,9 +116,12 @@
                 axios.get('messages').then(response => {
                     this.messages = response.data.slice(-5);
                     this.messages.forEach(function (item, i) {
-                        item.create_At = moment(item.created_at).calendar();
+                        item.create_At = moment(item.created_at).startOf('day').fromNow();
                     });
                     this.allMessages = response.data;
+                    this.allMessages.forEach(function (item, i) {
+                        item.create_At = moment(item.created_at).startOf('day').fromNow();
+                    });
                 });
             },
             sendTypingEvent() {
