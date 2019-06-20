@@ -26,5 +26,18 @@ Vue.component('chat', require('./components/ChatMessages.vue').default);
  */
 
 const app = new Vue({
-    el: '#app',
+   el: '#app',
+    methods: {
+       openNav() {
+           var vm = this;
+           vm.$refs.mySidenav.style.width = "250px";
+           vm.$refs.main.style.marginLeft = "250px";
+       },
+
+       closeNav() {
+           var vm = this;
+           vm.$refs.mySidenav.style.width = "0";
+           vm.$refs.main.style.marginLeft = "0";
+       },
+    }
 });

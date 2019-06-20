@@ -87,7 +87,7 @@
         },
         created() {
             this.fetchMessages();
-            moment.locale('hi');
+            moment.locale('ru');
             Echo.join('chat')
                 .here(user => {
                     this.users = user;

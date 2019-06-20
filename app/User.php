@@ -23,7 +23,7 @@ class User extends Authenticatable implements AuthenticatableContract
         'name', 'right', 'id', 'password',
     ];
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'right',
     ];
     /**
      * The attributes that should be hidden for arrays.

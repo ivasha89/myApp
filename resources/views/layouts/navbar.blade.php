@@ -2,6 +2,17 @@
     $user = auth()->user();
 @endphp
 
+<button @click="closeNav" class="btn closebtn">&times;</button>
+<a href='{{ url("/$user->id") }}'>Моя страница</a>
+<a href='{{ url("/$user->id/projects") }}'>Мои проекты</a>
+<a href="{{ url('/chat') }}">Чат</a>
+<a href="{{ url('/slbs') }}">Службы</a>
+<a href="#" data-toggle="tooltip" title="В разработке">Служения</a>
+{{--
+@php
+    $user = auth()->user();
+@endphp
+
 <button class="navbar-toggler bg-info" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="nvSpCnt" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon">
     </span>
@@ -51,4 +62,4 @@
             </a>
         </li>
     </ul>
-</div>
+</div>--}}

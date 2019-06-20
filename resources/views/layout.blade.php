@@ -23,7 +23,8 @@
 
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
 <div class="spinner-border text-success"
@@ -31,17 +32,16 @@
      role="status">
     <span class="sr-only">Loading...</span>
 </div>
-    <header class="page-header d-none">
-        <nav class="navbar sticky-top navbar-expand-md navbar-light shadow mb-2" style="background-color:#152542">
-            <a class="navbar-brand text-light" href="{{ url('/') }}">
-                <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
-            </a>
+<div id="app">
+    <div class="page-header d-none sidenav" ref="mySidenav" id="mySidenav">
         @auth
             @include('layouts.navbar')
         @endauth
-        </nav>
-    </header>
-    <main class="page-main d-none">
+    </div>
+    <span @click="openNav">
+        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
+    </span>
+    <div class="page-main d-none" ref="main" id="main">
         <div class="container">
             @if($errors->any() || session('message'))
                 @include('layouts.toast')
@@ -52,7 +52,8 @@
                     @yield('guest')
             @endauth
         </div>
-    </main>
+    </div>
+</div>
 @include('layouts.footer')
 </body>
 </html>
