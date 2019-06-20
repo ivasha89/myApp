@@ -116,7 +116,7 @@
                 axios.get('messages').then(response => {
                     this.messages = response.data.slice(-5);
                     this.messages.forEach(function (item, i) {
-                        item.create_At = moment(item.created_at).startOf('day').fromNow();
+                        item.create_At = moment(item.created_at).startOf('minute').fromNow();
                     });
                     this.allMessages = response.data;
                 });
@@ -144,7 +144,7 @@
                     k = k + 5;
                     this.messages = response.data.slice(-k);
                     this.messages.forEach(function (item, i) {
-                        item.create_At = moment(item.created_at).startOf('day').fromNow();
+                        item.create_At = moment(item.created_at).startOf('minute').fromNow();
                     });
                 });
             }

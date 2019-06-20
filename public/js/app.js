@@ -1981,14 +1981,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.messages = response.data.slice(-5);
 
         _this2.messages.forEach(function (item, i) {
-          item.create_At = moment(item.created_at).startOf('day').fromNow();
+          item.create_At = moment(item.created_at).startOf('minute').fromNow();
         });
 
         _this2.allMessages = response.data;
-
-        _this2.allMessages.forEach(function (item, i) {
-          item.create_At = moment(item.created_at).startOf('day').fromNow();
-        });
       });
     },
     sendTypingEvent: function sendTypingEvent() {
@@ -2019,6 +2015,10 @@ __webpack_require__.r(__webpack_exports__);
         var k = _this5.messages.length;
         k = k + 5;
         _this5.messages = response.data.slice(-k);
+
+        _this5.messages.forEach(function (item, i) {
+          item.create_At = moment(item.created_at).startOf('minute').fromNow();
+        });
       });
     }
   }
