@@ -119,9 +119,6 @@
                         item.create_At = moment(item.created_at).startOf('day').fromNow();
                     });
                     this.allMessages = response.data;
-                    this.allMessages.forEach(function (item, i) {
-                        item.create_At = moment(item.created_at).startOf('day').fromNow();
-                    });
                 });
             },
             sendTypingEvent() {
@@ -146,6 +143,9 @@
                     let k = this.messages.length;
                     k = k + 5;
                     this.messages = response.data.slice(-k);
+                    this.messages.forEach(function (item, i) {
+                        item.create_At = moment(item.created_at).startOf('day').fromNow();
+                    });
                 });
             }
         }

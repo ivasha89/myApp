@@ -1981,10 +1981,14 @@ __webpack_require__.r(__webpack_exports__);
         _this2.messages = response.data.slice(-5);
 
         _this2.messages.forEach(function (item, i) {
-          item.create_At = moment(item.created_at).calendar();
+          item.create_At = moment(item.created_at).startOf('day').fromNow();
         });
 
         _this2.allMessages = response.data;
+
+        _this2.allMessages.forEach(function (item, i) {
+          item.create_At = moment(item.created_at).startOf('day').fromNow();
+        });
       });
     },
     sendTypingEvent: function sendTypingEvent() {
