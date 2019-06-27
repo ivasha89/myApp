@@ -33,11 +33,26 @@ const app = new Vue({
            vm.$refs.mySidenav.style.width = "250px";
            vm.$refs.main.style.marginLeft = "250px";
        },
-
        closeNav() {
            var vm = this;
            vm.$refs.mySidenav.style.width = "0";
            vm.$refs.main.style.marginLeft = "0";
        },
+        updateCurrentTime() {
+           var id = document.querySelectorAll('.expireAt');
+           moment.locale('ru');
+           id.forEach(function(item, i) {
+               if(item.getAttribute('title') == 'play') {
+                   let expireAt = item.getAttribute('id');
+                   item.innerHTML = moment(expireAt).endOf('minutes').fromNow();
+               }
+               else {
+                   item.innerHTML = 'Завершён';
+               }
+           });
+        }
+    },
+    created() {
+        setInterval(() => this.updateCurrentTime(), 1000);
     }
 });

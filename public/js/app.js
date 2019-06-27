@@ -1950,6 +1950,12 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.fetchMessages();
+    setInterval(function () {
+      return _this.fetchMessages();
+    }, 60 * 1000);
+    setInterval(function () {
+      return _this.loadPreviousMessages;
+    }, 60 * 1000);
     moment.locale('ru');
     Echo.join('chat').here(function (user) {
       _this.users = user;
@@ -1981,7 +1987,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.messages = response.data.slice(-5);
 
         _this2.messages.forEach(function (item, i) {
-          item.create_At = moment(item.created_at).startOf('minute').fromNow();
+          item.create_At = moment(item.created_at).startOf('second').fromNow();
         });
 
         _this2.allMessages = response.data;
@@ -77543,7 +77549,26 @@ var app = new Vue({
       var vm = this;
       vm.$refs.mySidenav.style.width = "0";
       vm.$refs.main.style.marginLeft = "0";
+    },
+    updateCurrentTime: function updateCurrentTime() {
+      var id = document.querySelectorAll('.expireAt');
+      moment.locale('ru');
+      id.forEach(function (item, i) {
+        if (item.getAttribute('title') == 'play') {
+          var expireAt = item.getAttribute('id');
+          item.innerHTML = moment(expireAt).endOf('minutes').fromNow();
+        } else {
+          item.innerHTML = 'Завершён';
+        }
+      });
     }
+  },
+  created: function created() {
+    var _this = this;
+
+    setInterval(function () {
+      return _this.updateCurrentTime();
+    }, 1000);
   }
 });
 

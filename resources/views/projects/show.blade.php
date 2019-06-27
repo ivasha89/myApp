@@ -7,12 +7,12 @@
     <div class="accordion mb-2" id="accordionTitle">
         <div class="card">
             <div class="text-wrap" id="heading">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseDescription"
-                            aria-expanded="true" aria-controls="collapseDescription">
-                        <h3 class="word-break">
-                        {{ $project->title }}
-                        </h3>
-                    </button>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseDescription"
+                        aria-expanded="true" aria-controls="collapseDescription">
+                    <h3 class="word-break">
+                    {{ $project->title }}
+                    </h3>
+                </button>
             </div>
             <div id="collapseDescription" class="collapse" aria-labelledby="heading" data-parent="#accordionTitle">
                 <div class="card-body text-muted font-italic">

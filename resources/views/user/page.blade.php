@@ -61,7 +61,7 @@
                         </label>
                         <label class="btn btn-secondary" for="sttsc">
                             <input type="radio" name="status"
-                                   class="custom-control-input" id="sttsc" value="c"
+                                  class="custom-control-input" id="sttsc" value="c"
                                    onchange="this.form.submit()">c
                         </label>
                         <label class="btn btn-secondary" for="sttsb">

@@ -33,13 +33,13 @@
     <span class="sr-only">Loading...</span>
 </div>
 <div id="app">
-    <div class="page-header d-none sidenav" ref="mySidenav" id="mySidenav">
+    <div class="page-header d-none sidenav bg-light" ref="mySidenav" id="mySidenav">
         @auth
             @include('layouts.navbar')
         @endauth
     </div>
     <span @click="openNav">
-        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top" alt="">
+        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top m-2" alt="">
     </span>
     <div class="page-main d-none" ref="main" id="main">
         <div class="container">

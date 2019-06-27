@@ -73,10 +73,9 @@ class UserController extends Controller
         $projects = $user->projects;
         if ($projects->count()) {
             foreach ($projects as $project) {
-                $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
-                $project->hour = (new \DateTime($project->expire_at))->diff(new \DateTime())->h;
-                $project->minute = (new \DateTime($project->expire_at))->diff(new \DateTime())->i;
-                $project->second = (new \DateTime($project->expire_at))->diff(new \DateTime())->s;
+                $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
+                if ($project->date > 0)
+                    $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
             }
             return view('projects.index', compact('projects'));
         }

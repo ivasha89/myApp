@@ -87,6 +87,8 @@
         },
         created() {
             this.fetchMessages();
+            setInterval(() => this.fetchMessages(), 60 * 1000);
+            setInterval(() => this.loadPreviousMessages , 60 * 1000);
             moment.locale('ru');
             Echo.join('chat')
                 .here(user => {
@@ -116,7 +118,7 @@
                 axios.get('messages').then(response => {
                     this.messages = response.data.slice(-5);
                     this.messages.forEach(function (item, i) {
-                        item.create_At = moment(item.created_at).startOf('minute').fromNow();
+                        item.create_At = moment(item.created_at).startOf('second').fromNow();
                     });
                     this.allMessages = response.data;
                 });
