@@ -27,21 +27,4 @@ class Project extends Model
         $this->tasks()->create($task);
     }
 
-    public function finished()
-    {
-        $diff = (new \DateTime())->getTimestamp() - (new \DateTime($this->expire_at))->getTimestamp();
-        if($diff >= 0)
-            return $this;
-        else
-            return false;
-    }
-
-    public function actual()
-    {
-        $diff = (new \DateTime())->getTimestamp() - (new \DateTime($this->expire_at))->getTimestamp();
-        if($diff < 0)
-            return $this;
-        else
-            return false;
-    }
 }

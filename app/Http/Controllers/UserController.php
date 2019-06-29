@@ -11,7 +11,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:view,user')->except('index');
+        $this->middleware('can:view,user')->except('index', 'store');
     }
     /**
      * Display a listing of the resource.
@@ -20,6 +20,19 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
+        $doneProjects = $user->projects()->where('finished', true)->get();
+        foreach ($doneProjects as $project) {
+            $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
+            if ($project->date > 0)
+                $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
+        }
+        $ongoingProjects = $user->projects()->where('finished', false)->get();
+        foreach ($ongoingProjects as $project) {
+            $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
+            if ($project->date > 0)
+                $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
+        }
+
         $daysInAshram = (integer)((new \DateTime("$user->created_at"))->diff(new \DateTime('now'))->days);
         $dzhapa = $user->slbs()->where('slba', 'ДЖ')->select('stts')->get();
         $dzhapaFiltered = $dzhapa->filter(function ($value, $key) {
@@ -38,7 +51,7 @@ class UserController extends Controller
         $currentSlb = VariablesController::timeSet()['slb'];
         $alrt = MysqlRequests::programm()['alrt'];
 
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects'));
     }
 
     /**
@@ -55,11 +68,14 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request)
     {
-        //
+        auth()->user()->update([
+            'lastSeen_at' => $request->lastSeen_at
+        ]);
+        return ['status' => 'lastSeen status updated!'];
     }
 
     /**
@@ -70,19 +86,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $projects = $user->projects;
-        if ($projects->count()) {
-            foreach ($projects as $project) {
-                $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
-                if ($project->date > 0)
-                    $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
-            }
-            return view('projects.index', compact('projects'));
-        }
-        else {
-            session()->flash('message', 'Нет проектов');
-            return redirect("/$user->id");
-        }
     }
 
     /**

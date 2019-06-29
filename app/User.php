@@ -20,7 +20,7 @@ class User extends Authenticatable implements AuthenticatableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'right', 'id', 'password',
+        'name', 'right', 'id', 'password', 'lastSeen_at'
     ];
     protected $hidden = [
         'password', 'remember_token', 'right',

@@ -3,11 +3,17 @@
 @endphp
 
 <button @click="closeNav" class="btn closebtn">&times;</button>
-<a class="btn btn-outline-info m-2" href='{{ url("/$user->id") }}'>Моя страница</a>
-<a class="btn btn-outline-info m-2" href='{{ url("/$user->id/projects") }}'>Мои проекты</a>
-<a class="btn btn-outline-info m-2" href="{{ url('/chat') }}">Чат</a>
-<a class="btn btn-outline-info m-2" href="{{ url('/slbs') }}">Службы</a>
-<a class="btn btn-outline-info m-2" href="#" data-toggle="tooltip" title="В разработке">Служения</a>
+@auth
+    <a class="btn btn-outline-info m-2" href='{{ url("/$user->id") }}'>Моя страница</a>
+    <a class="btn btn-outline-info m-2" href='{{ url("/$user->id/projects") }}'>Мои проекты</a>
+    <a class="btn btn-outline-info m-2" href="{{ url('/chat') }}">Чат</a>
+    <a class="btn btn-outline-info m-2" href="{{ url('/slbs') }}">Службы</a>
+    <a class="btn btn-outline-info m-2" href="#" data-toggle="tooltip" title="В разработке">Служения</a>
+    <a class="btn btn-outline-info m-2" href="{{ url('/logout') }}">Выход</a>
+@else
+    <a class="btn btn-outline-info m-2" href="{{ url('/login') }}">Вход</a>
+    <a class="btn btn-outline-info m-2" href="{{ url('/signup') }}">Регистрация</a>
+@endauth
 {{--
 @php
     $user = auth()->user();

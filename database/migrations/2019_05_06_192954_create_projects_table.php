@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->timestamp('expire_at')->nullable();
+            $table->boolean('finished')->default(false);
             $table->increments('id');
             $table->engine = 'InnoDB';
             $table->charset = 'Utf8mb4';

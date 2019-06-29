@@ -14,10 +14,4 @@ $(document).ready(function () {
             $('#statuses').modal('show');
         });
     });
-    /*$('small').each(function (j, element) {
-        moment.locale('ru');
-        let id = $(this).parent().attr('id');
-        let expireAt = moment(id).endOf('second').fromNow();
-        $(this).html(expireAt);
-    });*/
 });

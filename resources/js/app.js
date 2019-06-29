@@ -38,9 +38,8 @@ const app = new Vue({
            vm.$refs.mySidenav.style.width = "0";
            vm.$refs.main.style.marginLeft = "0";
        },
-        updateCurrentTime() {
+        updateProjectTime() {
            var id = document.querySelectorAll('.expireAt');
-           moment.locale('ru');
            id.forEach(function(item, i) {
                if(item.getAttribute('title') == 'play') {
                    let expireAt = item.getAttribute('id');
@@ -50,9 +49,29 @@ const app = new Vue({
                    item.innerHTML = 'Завершён';
                }
            });
-        }
+        },
+        updateLastSeenTime() {
+           var getTeg = document.querySelector('.lastSeen');
+           var lastSeenTimeFromDatabase = getTeg.getAttribute('id');
+           var lastSeenInUnix = moment(lastSeenTimeFromDatabase).unix();
+           var nowInUnix = moment().unix();
+           var minutesLastSeenFromNow = Math.ceil((nowInUnix - lastSeenInUnix) / 60);
+           var lastSeen = moment(lastSeenTimeFromDatabase).startOf('minutes').fromNow();
+           if(minutesLastSeenFromNow >= 5) {
+               getTeg.innerHTML = 'Был здесь ' + lastSeen;
+           }
+           else {
+               getTeg.innerHTML = 'Здесь';
+           }
+        },
     },
     created() {
-        setInterval(() => this.updateCurrentTime(), 1000);
+        moment.locale('ru');
+        setInterval(() => this.updateProjectTime(),1000);
+        setInterval(() => this.updateLastSeenTime(),1000);
+        var currentDate = moment().format('Y-MM-DD');
+        var currentTime =  moment().format('LTS');
+        var now = currentDate + ' ' + currentTime;
+        window.onbeforeunload = axios.post('/onlineOrGone', {lastSeen_at: now});
     }
 });

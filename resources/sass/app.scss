@@ -4,6 +4,13 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+body {
+  background: linear-gradient(rgba(0,0,0,0.01),rgba(0,0,0,0.01)), url('/svg/krishnaRadhe.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -53,7 +60,9 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background: url("/svg/ShP.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.5s;

@@ -20,11 +20,9 @@
         @endauth
     </title>
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
 </head>
 <body>
 <div class="spinner-border text-success"
@@ -34,24 +32,20 @@
 </div>
 <div id="app">
     <div class="page-header d-none sidenav bg-light" ref="mySidenav" id="mySidenav">
-        @auth
-            @include('layouts.navbar')
-        @endauth
+        @include('layouts.navbar')
     </div>
     <span @click="openNav">
-        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded d-inline-block align-top m-2" alt="">
+        <img src="{{ url('svg/BSSHSA.jpg') }}" width="35" class="rounded align-top m-2" alt="">
     </span>
     <div class="page-main d-none" ref="main" id="main">
-        <div class="container">
-            @if($errors->any() || session('message'))
-                @include('layouts.toast')
-            @endif
-            @auth
-                    @yield('content')
-            @else
-                    @yield('guest')
-            @endauth
-        </div>
+        @if($errors->any() || session('message'))
+            @include('layouts.toast')
+        @endif
+        @auth
+                @yield('content')
+        @else
+                @yield('guest')
+        @endauth
     </div>
 </div>
 @include('layouts.footer')

@@ -31,6 +31,7 @@ Route::post('/slbs', 'SlbsController@store');
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
 Route::get('/messageDelete/{id}', 'ChatsController@deleteMessage');
+Route::post('/onlineOrGone', 'UserController@store');
 
 Route::resource('/projects', 'ProjectsController')->except('index');
 /*

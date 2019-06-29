@@ -61,8 +61,7 @@
                     class="form-control input-sm col-9"
                     placeholder="Сообщение..."
                     v-model="newMessage"
-                    @keyup="sendTypingEvent()"
-                    rows="2">
+                    @keyup="sendTypingEvent()">
                 <a class="ml-3 btn btn-outline-info col-2" @click.prevent="sendMessage()">
                     ✉️
                 </a>

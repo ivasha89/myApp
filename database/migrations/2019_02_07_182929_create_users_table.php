@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->char('right', 16);
             $table->string('remember_token', 100)->nullable();
             $table->timestamp('created_at');
+            $table->timestamp('lastSeen_at');
             $table->string('id', 16)->primary();
             $table->engine='InnoDB';
             $table->charset='Utf8mb4';
