@@ -19,13 +19,14 @@
 {{--    @endif--}}
     <div class="d-flex bg-light rounded flex-column">
         <div class="d-flex flex-row">
-            <div class="w-25 mb-1">
+            <div class="w-50 mb-1">
                 <div class="card mr-1">
-                    <img src='{{ url("/svg/".$user->id.".jpg") }}' alt="" width="255" class="rounded-circle img-thumbnail">
-                    <footer class="blockquote-footer lastSeen font-weight-bold text-dark p-2" id="{{ $user->lastSeen_at }}"></footer>
+                    <div class="card-header lastSeen text-muted p-1 text-right"
+                         id="{{ $user->lastSeen_at }}"></div>
+                    <img src='{{ url("/svg/".$user->id.".jpg") }}' alt="" width="255" class="rounded img-thumbnail align-item-center">
                 </div>
             </div>
-            <div class="w-75 list-group" id="list-tab" role="tablist">
+            <div class="w-50 list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-person-list" data-toggle="list"
                    href="#list-person" role="tab" aria-controls="home">Личные данные</a>
                 <a class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list"
