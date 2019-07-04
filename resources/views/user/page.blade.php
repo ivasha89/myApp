@@ -21,9 +21,9 @@
         <div class="d-flex flex-row">
             <div class="w-50 mb-1">
                 <div class="card mr-1">
-                    <div class="card-header lastSeen text-muted p-1 text-right"
-                         id="{{ $user->lastSeen_at }}"></div>
                     <img src='{{ url("/svg/".$user->id.".jpg") }}' alt="" width="255" class="rounded img-thumbnail align-item-center">
+                    <div class="card-footer lastSeen text-muted p-1 text-right"
+                         id="{{ $user->lastSeen_at }}"></div>
                 </div>
             </div>
             <div class="w-50 list-group" id="list-tab" role="tablist">
