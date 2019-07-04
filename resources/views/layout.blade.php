@@ -22,7 +22,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">
+{{--    <link rel="stylesheet" href="{{ url('css/bootstrap-reboot.min.css') }}">--}}
 </head>
 <body>
 <div class="spinner-border text-success"
