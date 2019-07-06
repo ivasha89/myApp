@@ -19,40 +19,50 @@
 {{--    @endif--}}
     <div class="d-flex bg-light rounded flex-column">
         <div class="d-flex flex-row">
-            <div class="w-50 mb-1">
+            <div class="w-25 mb-1 img">
                 <div class="card mr-1">
                     <img src='{{ url("/svg/".$user->id.".jpg") }}' alt="" class="rounded img-thumbnail personal-img">
                     <div class="card-footer lastSeen text-muted p-1 text-right"
                          id="{{ $user->lastSeen_at }}"></div>
                 </div>
             </div>
-            <div class="w-50 list-group" id="list-tab" role="tablist">
+            <div class="w-75 list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-person-list" data-toggle="list"
                    href="#list-person" role="tab" aria-controls="home">
                     Личные данные
                 </a>
-                <a class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list"
-                   href="#list-projects" role="tab" aria-controls="projects">
-                    Мои проекты
-                </a>
-                <a class="list-group-item list-group-item-action" id="list-slbs-list" data-toggle="list"
-                   href="#list-slbs" role="tab" aria-controls="slbs">
-                    Мои службы
-                </a>
+                @can('view', $user)
+                    <a class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list"
+                       href="#list-projects" role="tab" aria-controls="projects">
+                        @if(auth()->id() == $user->id)
+                            Мои проекты
+                        @else
+                            Проекты преданного
+                        @endif
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-slbs-list" data-toggle="list"
+                       href="#list-slbs" role="tab" aria-controls="slbs">
+                        @if(auth()->id() == $user->id)
+                            Мои службы
+                        @else
+                            Службы преданного
+                        @endif
+                    </a>
+                @endcan
             </div>
         </div>
-        <div class="flex-row">
+        <div>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-person" role="tabpanel"
                      aria-labelledby="list-person-list">
                     <ul class="list-group list-group-flush">
-                        @if($user->brah->sname)
+                        @if($user->sname)
                             <li class="list-group-item">
                                 <a class="badge badge-light">
                                    Духовное Имя
                                 </a>
                                 <span class="float-right">
-                                    {{$user->brah->sname}}
+                                    {{$user->sname}}
                                 </span>
                             </li>
                         @endif
@@ -98,135 +108,116 @@
                         </li>
                     </ul>
                 </div>
-                <div class="tab-pane fade" id="list-projects" role="tabpanel"
-                     aria-labelledby="list-projects-list">
-                    <div class="accordion" id="projects">
-                        <div class="card">
-                            <div class="card-header h2" id="actual">
-                                <button class="btn" type="button" data-toggle="collapse"
-                                        data-target="#collapseActual"
-                                        aria-expanded="true" aria-controls="collapseActual">
-                                    <a class="h4">
-                                        Текущие Проекты
-                                    </a>
-                                </button>
-                            </div>
-                            <div id="collapseActual" class="collapse show" aria-labelledby="actual"
-                                 data-parent="#projects">
-                                <div class="card-body">
-                                    @if($ongoingProjects)
-                                        <div class="list-group">
-                                            @foreach($ongoingProjects as $project)
-                                                <div class="mb-3 shadow">
-                                                    <a href='{{ url("/projects/$project->id") }}'
-                                                       class="list-group-item list-group-item-action">
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="h5 text-dark text-truncate">
-                                                                {{ $project->title }}
-                                                            </p>
-                                                            <small class="badge expireAt {{ $project->day <= 1 ? 'badge-danger' : 'badge-success'}}"
-                                                                   id="{{$project->expire_at}}"
-                                                                   title="{{ $project->date <= 0 ? 'stop' : 'play' }}">
-                                                            </small>
+                @can('view', $user)
+                    <div class="tab-pane fade" id="list-projects" role="tabpanel"
+                         aria-labelledby="list-projects-list">
+                        <div class="accordion" id="projects">
+                            <div class="card">
+                                <div class="card-header h2 text-center" id="actual">
+                                    <button class="btn" type="button" data-toggle="collapse"
+                                            data-target="#collapseActual"
+                                            aria-expanded="true" aria-controls="collapseActual">
+                                        <a class="h4">
+                                            Текущие Проекты
+                                        </a>
+                                    </button>
+                                </div>
+                                <div id="collapseActual" class="collapse show" aria-labelledby="actual"
+                                     data-parent="#projects">
+                                    <div class="card-body">
+                                        @if($ongoingProjects->count())
+                                            <div class="list-group">
+                                                @foreach($ongoingProjects as $project)
+                                                    <div class="mb-3 shadow">
+                                                        <a href='{{ url("/projects/$project->id") }}'
+                                                           class="list-group-item list-group-item-action">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="h5 text-dark text-truncate">
+                                                                    {{ $project->title }}
+                                                                </p>
+                                                                <small class="badge expireAt {{ $project->day <= 1 ? 'badge-danger' : 'badge-success'}}"
+                                                                       id="{{$project->expire_at}}"
+                                                                       title="{{ $project->date <= 0 ? 'stop' : 'play' }}">
+                                                                </small>
+                                                            </div>
+                                                        </a>
+                                                        <div class="text-truncate m-1 font-italic">
+                                                            {{ $project->description }}
                                                         </div>
-                                                    </a>
-                                                    <div class="text-truncate m-1 font-italic">
-                                                        {{ $project->description }}
                                                     </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @else
-                                        Пусто
-                                    @endif
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <div class="text-center">
+                                                Пусто
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card text-muted">
+                                <div class="card-header text-center" id="archive">
+                                    <button class="btn" type="button" data-toggle="collapse"
+                                            data-target="#collapseArchive"
+                                            aria-expanded="true" aria-controls="collapseArchive">
+                                        <a class="h4 text-muted">
+                                            Архив
+                                        </a>
+                                    </button>
+                                </div>
+                                <div id="collapseArchive" class="collapse" aria-labelledby="archive"
+                                     data-parent="#projects">
+                                    <div class="card-body">
+                                        @if($doneProjects->count())
+                                            <div class="list-group">
+                                                @foreach($doneProjects as $project)
+                                                    <div class="mb-3 shadow">
+                                                        <a href='{{ url("/projects/$project->id") }}'
+                                                           class="list-group-item list-group-item-action">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="h5 text-truncate">
+                                                                    {{ $project->title }}
+                                                                </p>
+                                                                <small class="badge expireAt badge-danger"
+                                                                       id="{{$project->expire_at}}"
+                                                                       title="stop">
+                                                                </small>
+                                                            </div>
+                                                        </a>
+                                                        <div class="text-truncate m-1 font-italic">
+                                                            {{ $project->description }}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <div class="text-center">
+                                                Пусто
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card text-muted">
-                            <div class="card-header" id="archive">
-                                <button class="btn" type="button" data-toggle="collapse"
-                                        data-target="#collapseArchive"
-                                        aria-expanded="true" aria-controls="collapseArchive">
-                                    <a class="h4 text-muted">
-                                        Архив
-                                    </a>
-                                </button>
-                            </div>
-                            <div id="collapseArchive" class="collapse" aria-labelledby="archive"
-                                 data-parent="#projects">
-                                <div class="card-body">
-                                    @if($doneProjects)
-                                        <div class="list-group">
-                                            @foreach($doneProjects as $project)
-                                                <div class="mb-3 shadow">
-                                                    <a href='{{ url("/projects/$project->id") }}'
-                                                       class="list-group-item list-group-item-action">
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="h5 text-truncate">
-                                                                {{ $project->title }}
-                                                            </p>
-                                                            <small class="badge expireAt badge-danger"
-                                                                   id="{{$project->expire_at}}"
-                                                                   title="stop">
-                                                            </small>
-                                                        </div>
-                                                    </a>
-                                                    <div class="text-truncate m-1 font-italic">
-                                                        {{ $project->description }}
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @else
-                                        Пусто
-                                    @endif
+                        @if($user->id == auth()->id())
+                            <div class="flex-fill">
+                                <div class="text-muted mb-2"
+                                     onclick="document.location.href='{{ url("/projects/create") }}'">
+                                    Создать Проект
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
-                    @if($user->id == auth()->id())
-                        <div class="flex-fill">
-                            <div class="text-muted mb-2"
-                                 onclick="document.location.href='{{ url("/projects/create") }}'">
-                                Создать Проект
-                            </div>
-                        </div>
-                    @endif
-                </div>
-{{--                @if($user->id == auth()->id())--}}
                     <div class="tab-pane fade" id="list-slbs" role="tabpanel"
-                         aria-labelledby="list-slbs-list">
-                        @if($currentSlb)
+                     aria-labelledby="list-slbs-list">
+                        @if($currentSlb && ($user->id == auth()->id()))
                             <div class="text-muted mb-2">
                                 Отметиться на службе
                             </div>
                         @endif
-                        <form action="{{ url('/slbs') }}" method="post">
+                        <form action="{{ url('/slbs') }}" class="mb-1" method="post">
                             @csrf
-                            <table class="table table-sm table-striped table-bordered shadow bg-light mb-1">
-                                <caption>
-                                    {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
-                                </caption>
-                                <tr>
-                                    <td>
-                                        @if($user->brah->sname)
-                                            {{ $user->brah->sname }}
-                                        @else
-                                            {{ $user->name }}
-                                        @endif
-                                    </td>
-                                    @foreach($slba as $slb)
-                                        <td id="{{ $slb }}">
-                                            @if(isset($user->slbs->where('data', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
-                                                {{$user->slbs->where('data', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
-                                            @else
-                                                ❌
-                                            @endif
-                                        </td>
-                                    @endforeach
-                                </tr>
-                                </tbody>
-                            </table>
+                            @if($user->id == auth()->id())
                             <div class="row justify-content-center mb-3">
                                 @if($currentSlb == 'ДЖ')
                                     <input type="hidden" name="slba" id="dzhapa" value="">
@@ -275,9 +266,57 @@
                                     </div>
                                 @endif
                             </div>
+                        @endif
                         </form>
+                            <table class="table table-sm table-striped table-bordered table-fit shadow bg-light">
+                                <caption>
+                                    Статистка посещаемости
+                                </caption>
+                                <thead class="bg-info">
+                                <tr>
+                                    <th>
+                                        @if($user->sname)
+                                            {{ $user->sname }}
+                                        @else
+                                            {{ $user->name }}
+                                        @endif
+                                    </th>
+                                    @foreach($slba as $slb)
+                                        <th scope='col' id="{{ $slb }}">
+                                            {{ $slb }}
+                                        </th>
+                                    @endforeach
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @for($k = 0; $k < count($date); ++$k)
+                                        <tr>
+                                            <td>
+                                                {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
+                                            </td>
+                                            @for ($i = 0; $i < count($slba); ++$i)
+                                                <td>
+                                                    <div>
+                                                        {{$userStatuses[$k][$i]}}
+                                                    </div>
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                    @endfor
+                                    <tr>
+                                        <td>
+                                            Итого
+                                        </td>
+                                        @for($i = 0; $i < count($slba); ++$i)
+                                            <td class="{{ (($userAttendance[$i] >= 75) || (($user->id < $yearId) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
+                                                {{ $userAttendance[$i] }}
+                                            </td>
+                                        @endfor
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
-{{--                @endif--}}
+                @endcan
             </div>
         </div>
 @endsection

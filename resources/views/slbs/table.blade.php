@@ -97,8 +97,8 @@
                                 </div>
                             @endif
                                 <a href='{{ url("/$user->id") }}'>
-                                    @if($user->brah->sname)
-                                        {{ $user->brah->sname }}
+                                    @if($user->sname)
+                                        {{ $user->sname }}
                                     @else
                                         {{ $user->name }}
                                     @endif

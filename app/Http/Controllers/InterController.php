@@ -69,24 +69,14 @@ class InterController extends Controller
         else
             $id = (int)($thisYear . "01");
 
-        if($request->has('spiritualName')) {
-            Brah::create([
-                'sname' => $request->spiritualName,
-                'tel' => '',
-                'city' => '',
-                'user_id' => $id
-            ]);
-        }
-        else {
-            Brah::create([
-                'sname' => '',
-                'tel' => '',
-                'city' => '',
-                'user_id' => $id
-            ]);
-        }
+        Brah::create([
+            'tel' => '',
+            'city' => '',
+            'user_id' => $id
+        ]);
 
         User::create([
+            'sname' => $request->spiritualName,
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'right' => $request->right,

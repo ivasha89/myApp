@@ -20,7 +20,7 @@ class User extends Authenticatable implements AuthenticatableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'right', 'id', 'password', 'lastSeen_at'
+        'sname','name', 'right', 'id', 'password', 'lastSeen_at'
     ];
     protected $hidden = [
         'password', 'remember_token', 'right',
@@ -39,6 +39,11 @@ class User extends Authenticatable implements AuthenticatableContract
     public function slbs()
     {
         return $this->hasMany(Slb::class);
+    }
+
+    public function services()
+    {
+        return $this->hasOne(Service::class);
     }
 
     public function brah()

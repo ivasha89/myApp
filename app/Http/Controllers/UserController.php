@@ -11,15 +11,39 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:view,user')->except('index', 'store');
     }
+
     /**
      * Display a listing of the resource.
      *
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function index(User $user)
     {
+        $test1 = new VariablesController();
+        $stts = $test1::$stts;
+        $currentSlb = $test1::timeSet()['slb'];
+        $alrt = MysqlRequests::programm()['alrt'];
+        $slba = $test1::$slba;
+        $y = $test1::timeSet()['now'];
+        $days = $test1::$days;
+        $months = $test1::$months;
+
+        $test = new SlbsController();
+        $allUsersStatuses = $test::statistics()['statuses'];
+        $allUsersAttendance = $test::statistics()['attendance'];
+        $keysAllUsersAttendanceArray = array_keys($allUsersAttendance);
+        $usersIds = $test::statistics()['id'];
+        $keysUsersIdsArray = array_keys($usersIds);
+        for($i = 4; $i <count($allUsersAttendance); $i++){
+            if($keysAllUsersAttendanceArray[$i] == $keysUsersIdsArray[$i]){
+               $userAttendance = $allUsersAttendance[$i];
+               $userStatuses = $allUsersStatuses[$i];
+            }
+        }
+        $date = $test::statistics()['date'];
+
         $doneProjects = $user->projects()->where('finished', true)->get();
         foreach ($doneProjects as $project) {
             $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
@@ -47,16 +71,12 @@ class UserController extends Controller
         else
             $allDzhapa = 0;
 
-        $test1 = new VariablesController();
-        $stts = $test1::$stts;
-        $currentSlb = $test1::timeSet()['slb'];
-        $alrt = MysqlRequests::programm()['alrt'];
-        $slba = $test1::$slba;
-        $y = $test1::timeSet()['now'];
-        $days = $test1::$days;
-        $months = $test1::$months;
+        if(($y->format('m') < '08') && ($y->format('d') < '26'))
+            $yearId = (int)($y->format('y') . '00') - 100;
+        else
+            $yearId = (int)($y->format('y') . '00');
 
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'statuses', 'date', 'userStatuses', 'yearId'));
     }
 
     /**

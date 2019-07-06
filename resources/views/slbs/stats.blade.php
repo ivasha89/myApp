@@ -9,8 +9,8 @@
             </p>
         </div>
     </div>
-    <div class="row">
-        <table class="table table-sm table-striped table-bordered shadow">
+    <div class="d-flex flex-row">
+        <table class="table table-sm table-striped table-bordered table-fit shadow bg-light">
             <caption>
                 Статистка посещаемости
             </caption>
@@ -33,11 +33,11 @@
                             {{ $row1[$j]['name'] }}
                         </td>
                         @for ($i = 0; $i < count($slba); ++$i)
-                                <td style="background-color: {{ (($a[$j][$i] >= 75) || (((int)$row1[$j]['id'] < 1800) && ($slba[$i] == 'ЙГ'))) ? 'palegreen' : 'salmon'}}">
-                                    @for($k = 0; $k < count($date); ++$k)
-                                        <div class="hide sts{{$row1[$j]['id']}}{{$i}}{{$k}}" title="{{$statuses[$j][$i][$k]}}"></div>
-                                    @endfor
-                                    {{ $a[$j][$i] }}
+                            <td class="{{ (($a[$j][$i] >= 75) || (((int)$row1[$j]['id'] < 1800) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
+                                @for($k = 0; $k < count($date); ++$k)
+                                    <div class="hide sts{{$row1[$j]['id']}}{{$i}}{{$k}}" title="{{$statuses[$j][$i][$k]}}"></div>
+                                @endfor
+                                {{ $attendance[$j][$i] }}
                             </td>
                         @endfor
                     </tr>
@@ -46,7 +46,7 @@
         </table>
     </div>
     <form action="{{url('/slbs/statistic')}}" method="get">
-        <div class="row justify-content-center p-2">
+        <div class="row justify-content-center">
             <div style="width:300px">
                 <div class="text-center card border-info mb-2">
                     <div class="card-header">

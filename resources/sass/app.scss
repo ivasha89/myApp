@@ -111,5 +111,15 @@ body {
     padding: 0;
     margin: 0;
   }
+  div .card-body{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  td, th, tr{
+    margin: 1rem;
+  }
+  .img{
+
+  }
   img .personal-img{width: 75px;}
 }

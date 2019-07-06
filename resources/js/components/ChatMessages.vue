@@ -16,7 +16,7 @@
                 </a>
             </div>
         </div>
-        <div class="card-body" style="height: 300px; overflow-y:scroll; padding-left: 0; padding-right: 0;" v-chat-scroll="{always: false}"
+        <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
              @scroll-top="loadPreviousMessages()">
             <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click.prevent="loadPreviousMessages()">
                 Предыдущие сообщения

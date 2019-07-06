@@ -106,7 +106,7 @@ class SlbsController extends Controller
         return redirect('/slbs');
     }
 
-    public function statistics()
+    public static function statistics()
     {
         $test = new VariablesController();
         $dateEnd = new DateTime();
@@ -121,8 +121,8 @@ class SlbsController extends Controller
         ];
 
         $row1 = MysqlRequests::programm()['row1'];
-        $days = $this->index()['days'];
-        $months = $this->index()['months'];
+        $days = $test::$days;
+        $months = $test::$months;
         $diff = 7;
         $dateStart->modify("-8 day");
 
@@ -143,7 +143,7 @@ class SlbsController extends Controller
         }
         $yogaDays = $diff - $weekEndDays;
 
-        $userId = User::whereNotIn('users.right', ['adm', 'out'])->select('id')->get()->toArray();
+        $userId = User::whereNotIn('right', ['adm', 'out'])->select('id')->get()->toArray();
         for ($i = 0; $i < count($userId); ++$i )
             $id[$i] = $userId[$i]['id'];
 
@@ -193,24 +193,24 @@ class SlbsController extends Controller
 
                     if ($slbs[$i] == 'ЙГ') {
                         if ($yogaDays == 0)
-                            $a[$j][$i] = '❌';
+                            $attendance[$j][$i] = '❌';
                         else
-                            $a[$j][$i] = (int)(array_sum($day[$j][$i]) / $yogaDays * 100);
+                            $attendance[$j][$i] = (int)(array_sum($day[$j][$i]) / $yogaDays * 100);
                     }
                     else
-                        $a[$j][$i] = (int)(array_sum($day[$j][$i]) / $diff * 100);
+                        $attendance[$j][$i] = (int)(array_sum($day[$j][$i]) / $diff * 100);
 
-                    $a[$j][6] = (int)(array_sum($day[$j][6]) / 16 / $diff * 100);
+                    $attendance[$j][6] = (int)(array_sum($day[$j][6]) / 16 / $diff * 100);
                 }
-                $iArr[$i] = $i;
+                $iArray[$i] = $i;
                 if ($i == 5)
-                    $iArr[6] = 6;
+                    $iArray[6] = 6;
             }
-            array_multisort($iArr, SORT_ASC, $day[$j]);
-            array_multisort($iArr, SORT_ASC, $a[$j]);
-            array_multisort($iArr, SORT_ASC, $statuses[$j]);
+            array_multisort($iArray, SORT_ASC, $day[$j]);
+            array_multisort($iArray, SORT_ASC, $attendance[$j]);
+            array_multisort($iArray, SORT_ASC, $statuses[$j]);
         }
 
-        return view('slbs.stats',compact('a', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd'));
+        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'id'));
     }
 }

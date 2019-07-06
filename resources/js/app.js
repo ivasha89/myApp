@@ -30,7 +30,7 @@ const app = new Vue({
     methods: {
        openNav() {
            var vm = this;
-           vm.$refs.mySidenav.style.width = "250px";
+           vm.$refs.mySidenav.style.width = "280px";
            vm.$refs.main.style.opacity = "0";
        },
        closeNav() {

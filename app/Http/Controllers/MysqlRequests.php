@@ -10,9 +10,8 @@ class MysqlRequests extends Controller
 {
     public static function programm() {
 
-        $row1 = User::join('brahs', 'users.id', '=', 'brahs.user_id')
-            ->whereNotIn('users.right', ['adm', 'out'])
-            ->select('users.name','brahs.sname','users.id','users.right')
+        $row1 = User::whereNotIn('users.right', ['adm', 'out'])
+            ->select('name','sname','id','right')
             ->orderBy( 'users.id', 'asc')
             ->get();
 
