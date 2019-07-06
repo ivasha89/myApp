@@ -77557,12 +77557,12 @@ var app = new Vue({
     openNav: function openNav() {
       var vm = this;
       vm.$refs.mySidenav.style.width = "250px";
-      vm.$refs.main.style.marginLeft = "250px";
+      vm.$refs.main.style.opacity = "0";
     },
     closeNav: function closeNav() {
       var vm = this;
       vm.$refs.mySidenav.style.width = "0";
-      vm.$refs.main.style.marginLeft = "0";
+      vm.$refs.main.style.opacity = "1";
     },
     updateProjectTime: function updateProjectTime() {
       var id = document.querySelectorAll('.expireAt');

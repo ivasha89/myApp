@@ -31,12 +31,12 @@ const app = new Vue({
        openNav() {
            var vm = this;
            vm.$refs.mySidenav.style.width = "250px";
-           vm.$refs.main.style.marginLeft = "250px";
+           vm.$refs.main.style.opacity = "0";
        },
        closeNav() {
            var vm = this;
            vm.$refs.mySidenav.style.width = "0";
-           vm.$refs.main.style.marginLeft = "0";
+           vm.$refs.main.style.opacity = "1";
        },
         updateProjectTime() {
            var id = document.querySelectorAll('.expireAt');

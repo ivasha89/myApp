@@ -21,7 +21,7 @@
         <div class="d-flex flex-row">
             <div class="w-50 mb-1">
                 <div class="card mr-1">
-                    <img src='{{ url("/svg/".$user->id.".jpg") }}' alt="" width="255" class="rounded img-thumbnail align-item-center">
+                    <img src='{{ url("/svg/".$user->id.".jpg") }}' alt="" class="rounded img-thumbnail personal-img">
                     <div class="card-footer lastSeen text-muted p-1 text-right"
                          id="{{ $user->lastSeen_at }}"></div>
                 </div>

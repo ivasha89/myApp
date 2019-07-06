@@ -86,20 +86,30 @@ body {
   top: 0;
   right: 25px;
   font-size: 35px;
-  margin-left: 50px;
+  margin-left: 55px;
 }
 
-#main {
-  transition: margin-left .5s;
+#main{
+  transition: opacity 0.3s;
 }
 
 @media screen and (max-width: 450px)
 {
-  .sidenav{padding-top: 14px;}
-  .sidenav a{font-size: 14px;}
+  .sidenav {
+    padding-top: 30px;
+  }
+  .sidenav a{
+    font-size: 18px;
+    padding: 4px 4px 4px 4px;}
+  .sidenav .closebtn{
+    top: -20px;
+    right: 10px;
+    font-size: 40px;
+    margin-left: 30px;
+  }
   body{
     padding: 0;
     margin: 0;
   }
-  img {width: 75px;}
+  img .personal-img{width: 75px;}
 }
