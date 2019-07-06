@@ -76,7 +76,7 @@ class UserController extends Controller
         else
             $yearId = (int)($y->format('y') . '00');
 
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'statuses', 'date', 'userStatuses', 'yearId'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'date', 'userStatuses', 'yearId'));
     }
 
     /**
