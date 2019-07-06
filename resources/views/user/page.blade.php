@@ -28,9 +28,17 @@
             </div>
             <div class="w-50 list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-person-list" data-toggle="list"
-                   href="#list-person" role="tab" aria-controls="home">Личные данные</a>
+                   href="#list-person" role="tab" aria-controls="home">
+                    Личные данные
+                </a>
                 <a class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list"
-                   href="#list-projects" role="tab" aria-controls="projects">Мои проекты</a>
+                   href="#list-projects" role="tab" aria-controls="projects">
+                    Мои проекты
+                </a>
+                <a class="list-group-item list-group-item-action" id="list-slbs-list" data-toggle="list"
+                   href="#list-slbs" role="tab" aria-controls="slbs">
+                    Мои службы
+                </a>
             </div>
         </div>
         <div class="flex-row">
@@ -106,8 +114,8 @@
                             <div id="collapseActual" class="collapse show" aria-labelledby="actual"
                                  data-parent="#projects">
                                 <div class="card-body">
-                                    <div class="list-group">
-                                        @if($ongoingProjects)
+                                    @if($ongoingProjects)
+                                        <div class="list-group">
                                             @foreach($ongoingProjects as $project)
                                                 <div class="mb-3 shadow">
                                                     <a href='{{ url("/projects/$project->id") }}'
@@ -127,10 +135,10 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                        @else
-                                            Пусто
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @else
+                                        Пусто
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -147,8 +155,8 @@
                             <div id="collapseArchive" class="collapse" aria-labelledby="archive"
                                  data-parent="#projects">
                                 <div class="card-body">
-                                    <div class="list-group">
-                                        @if($doneProjects)
+                                    @if($doneProjects)
+                                        <div class="list-group">
                                             @foreach($doneProjects as $project)
                                                 <div class="mb-3 shadow">
                                                     <a href='{{ url("/projects/$project->id") }}'
@@ -168,85 +176,108 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                            @else
-                                            Пусто
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @else
+                                        Пусто
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @if($user->id == auth()->id())
+                        <div class="flex-fill">
+                            <div class="text-muted mb-2"
+                                 onclick="document.location.href='{{ url("/projects/create") }}'">
+                                Создать Проект
+                            </div>
+                        </div>
+                    @endif
                 </div>
+{{--                @if($user->id == auth()->id())--}}
+                    <div class="tab-pane fade" id="list-slbs" role="tabpanel"
+                         aria-labelledby="list-slbs-list">
+                        @if($currentSlb)
+                            <div class="text-muted mb-2">
+                                Отметиться на службе
+                            </div>
+                        @endif
+                        <form action="{{ url('/slbs') }}" method="post">
+                            @csrf
+                            <table class="table table-sm table-striped table-bordered shadow bg-light mb-1">
+                                <caption>
+                                    {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
+                                </caption>
+                                <tr>
+                                    <td>
+                                        @if($user->brah->sname)
+                                            {{ $user->brah->sname }}
+                                        @else
+                                            {{ $user->name }}
+                                        @endif
+                                    </td>
+                                    @foreach($slba as $slb)
+                                        <td id="{{ $slb }}">
+                                            @if(isset($user->slbs->where('data', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts))
+                                                {{$user->slbs->where('data', $y->format('Y-m-d'))->where('slba', $slb)->first()->stts}}
+                                            @else
+                                                ❌
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="row justify-content-center mb-3">
+                                @if($currentSlb == 'ДЖ')
+                                    <input type="hidden" name="slba" id="dzhapa" value="">
+                                    <div class="btn-group-toggle col-6" data-toggle="buttons">
+                                        <label class="btn btn-secondary" for="sttsn">
+                                            <input type="radio" name="status"
+                                                   class="custom-control-input" id="sttsn" value="n"
+                                                   onchange="this.form.submit()">n
+                                        </label>
+                                        <label class="btn btn-secondary" for="sttsc">
+                                            <input type="radio" name="status"
+                                                   class="custom-control-input" id="sttsc" value="c"
+                                                   onchange="this.form.submit()">c
+                                        </label>
+                                        <label class="btn btn-secondary" for="sttsb">
+                                            <input type="radio" name="status"
+                                                   class="custom-control-input" id="sttsb" value="b"
+                                                   onchange="this.form.submit()">b
+                                        </label>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <input type="number" name="statusNumber" onfocusout="this.form.submit()"
+                                               class="form-control"
+                                               placeholder="в лакхах" min="1" max="16">
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-outline-danger" name="delete">
+                                            ❌
+                                        </button>
+                                    </div>
+                                @elseif($currentSlb)
+                                    <input type="hidden" name="slba" id="sluzhba" value="">
+                                    <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                                        @foreach($stts as $key => $stt)
+                                            <label class="btn btn-secondary" for="stts{{ $key }}">
+                                                <input type="radio" name="status" onchange="this.form.submit()"
+                                                       class="custom-control-input" id="stts{{ $key }}"
+                                                       value="{{ $key }}">{{ $key }}
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-outline-danger" name="delete">
+                                            ❌
+                                        </button>
+                                    </div>
+                                @endif
+                            </div>
+                        </form>
+                    </div>
+{{--                @endif--}}
             </div>
         </div>
-    </div>
-        @if($user->id == auth()->id())
-        @if($currentSlb)
-            <div class="text-muted mb-2">
-                Отметиться на службе
-            </div>
-        @endif
-        <form action="{{ url('/slbs') }}" method="post">
-            @csrf
-            <div class="row justify-content-center mb-3">
-                @if($currentSlb == 'ДЖ')
-                    <input type="hidden" name="slba" id="dzhapa" value="">
-                    <div class="btn-group-toggle col-6" data-toggle="buttons">
-                        <label class="btn btn-secondary" for="sttsn">
-                            <input type="radio" name="status"
-                                   class="custom-control-input" id="sttsn" value="n"
-                                   onchange="this.form.submit()">n
-                        </label>
-                        <label class="btn btn-secondary" for="sttsc">
-                            <input type="radio" name="status"
-                                  class="custom-control-input" id="sttsc" value="c"
-                                   onchange="this.form.submit()">c
-                        </label>
-                        <label class="btn btn-secondary" for="sttsb">
-                            <input type="radio" name="status"
-                                   class="custom-control-input" id="sttsb" value="b"
-                                   onchange="this.form.submit()">b
-                        </label>
-                    </div>
-                    <div class="col-6 mb-2">
-                        <input type="number" name="statusNumber" onfocusout="this.form.submit()"
-                               class="form-control"
-                               placeholder="в лакхах" min="1" max="16">
-                    </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-outline-danger" name="delete">
-                            ❌
-                        </button>
-                    </div>
-                @elseif($currentSlb)
-                    <input type="hidden" name="slba" id="sluzhba" value="">
-                    <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                        @foreach($stts as $key => $stt)
-                            <label class="btn btn-secondary" for="stts{{ $key }}">
-                                <input type="radio" name="status" onchange="this.form.submit()"
-                                       class="custom-control-input" id="stts{{ $key }}"
-                                       value="{{ $key }}">{{ $key }}
-                            </label>
-                        @endforeach
-                    </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-outline-danger" name="delete">
-                            ❌
-                        </button>
-                    </div>
-                @endif
-            </div>
-        </form>
-        <div class="flex-fill">
-            <div class="text-muted mb-2" onclick="document.location.href='{{ url("/projects/create") }}'">
-                Создать Проект
-            </div>
-            @if($user->projects->count())
-                <div class="text-muted mb-2" onclick="document.location.href='{{ url("/$user->id/projects") }}'">
-                    Личные Проекты
-                </div>
-            @endif
-        </div>
-        @endif
-    </div>
 @endsection

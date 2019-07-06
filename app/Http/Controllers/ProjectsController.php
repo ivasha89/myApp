@@ -33,8 +33,9 @@ class ProjectsController extends Controller
     {
         $user = auth()->user();
         $request->validate([
-           'title' => 'required|string|min:3',
-           'description' => 'required|string|min:3|unique:projects'
+            'title' => 'required|string|min:3',
+            'description' => 'required|string|min:3|unique:projects',
+            'expire' => 'required'
         ]);
 
         if ($request->has('expire')) {

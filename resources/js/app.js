@@ -58,7 +58,7 @@ const app = new Vue({
            var minutesLastSeenFromNow = Math.ceil((nowInUnix - lastSeenInUnix) / 60);
            var lastSeen = moment(lastSeenTimeFromDatabase).startOf('minutes').fromNow();
            if(minutesLastSeenFromNow >= 5) {
-               getTeg.innerHTML = 'Был здесь ' + lastSeen;
+               getTeg.innerHTML = 'Был ' + lastSeen;
            }
            else {
                getTeg.innerHTML = 'Здесь';

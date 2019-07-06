@@ -8,7 +8,7 @@
                     <div class="modal-header bg-info justify-content-center">
                         Изменить дату
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body bg-light">
                         <input class="form-control mb-2" onchange="this.form.submit()" type="date"
                                name="changeDate" value="{{$y->format('Y-m-d')}}">
                     </div>
@@ -26,7 +26,7 @@
                         {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                     </div>
                     <a href='{{ url("/slbs?changeDate=$now") }}' class="shadow">
-                        <button type="button" class="btn btn-outline-info">
+                        <button type="button" class="btn btn-outline-info ">
                             Сегодня
                         </button>
                     </a>
@@ -48,8 +48,8 @@
     </form>
     <form action="{{ url('/slbs') }}" method="post">
         @csrf
-        <div class="row">
-            <table class="table table-sm table-striped table-bordered shadow">
+        <div class="d-flex flex-row">
+            <table class="table table-sm table-striped table-bordered shadow bg-light">
                 <caption>
                     Список посещаемости
                 </caption>
@@ -104,7 +104,7 @@
                                     @endif
                                 </a>
                         </td>
-                        @foreach($slba as $slb)
+        @foreach($slba as $slb)
                         <td id="{{ $slb }}">
 
         @if ((($slb == $currentSlb) && ($user->id == auth()->id()) && ($y->format('Y-m-d') == $now)) or $mode)

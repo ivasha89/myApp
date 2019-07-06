@@ -16,15 +16,18 @@
                 </a>
             </div>
         </div>
-        <div class="card-body" style="height: 300px; overflow-y:scroll" v-chat-scroll="{always: false}"
+        <div class="card-body" style="height: 300px; overflow-y:scroll; padding-left: 0; padding-right: 0;" v-chat-scroll="{always: false}"
              @scroll-top="loadPreviousMessages()">
             <div class="shadow text-center rounded" v-if="messages.length < allMessages.length" @click.prevent="loadPreviousMessages()">
                 Предыдущие сообщения
             </div>
-            <div class="rounded p-2 m-1" style="background-color: lightblue"
+            <div class="rounded p-2 mb-1" style="background-color: lightblue"
                  v-for="(message, index) in messages" :key="index">
                 <div class="clearfix">
-                    <strong class="text-left">
+                    <strong class="text-left" v-if="message.user.sname">
+                        {{ message.user.sname }}
+                    </strong>
+                    <strong v-else="message.user.name">
                         {{ message.user.name }}
                     </strong>
                     <span class="text-left">

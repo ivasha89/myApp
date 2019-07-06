@@ -47,11 +47,16 @@ class UserController extends Controller
         else
             $allDzhapa = 0;
 
-        $stts = VariablesController::$stts;
-        $currentSlb = VariablesController::timeSet()['slb'];
+        $test1 = new VariablesController();
+        $stts = $test1::$stts;
+        $currentSlb = $test1::timeSet()['slb'];
         $alrt = MysqlRequests::programm()['alrt'];
+        $slba = $test1::$slba;
+        $y = $test1::timeSet()['now'];
+        $days = $test1::$days;
+        $months = $test1::$months;
 
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months'));
     }
 
     /**

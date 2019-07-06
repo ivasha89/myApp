@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="d-flex justify-content-center">
-        <form action='{{ url("/projects") }}' method="post">
+        <form action='{{ url("/projects") }}' method="post" class="bg-light rounded border-primary">
             @csrf
             <div class="form-group">
                 <label for="title">Название задачи</label>
