@@ -48,7 +48,6 @@ class SlbsController extends Controller
             array_splice($slba, 2, 1);
 
         $users = User::whereNotIn('right', ['adm', 'out'])
-            ->select('name', 'right','id')
             ->orderBy('id', 'asc')
             ->get();
 
