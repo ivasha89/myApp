@@ -5,7 +5,6 @@
 <button @click="closeNav" class="btn closebtn">&times;</button>
 @auth
     <a class="btn btn-outline-info m-2" href='{{ url("/$user->id") }}'>Моя страница</a>
-    <a class="btn btn-outline-info m-2" href='{{ url("/$user->id/projects") }}'>Мои проекты</a>
     <a class="btn btn-outline-info m-2" href="{{ url('/chat') }}">Чат</a>
     <a class="btn btn-outline-info m-2" href="{{ url('/slbs') }}">Службы</a>
     <a class="btn btn-outline-info m-2" href="#" data-toggle="tooltip" title="В разработке">Служения</a>

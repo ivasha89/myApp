@@ -10751,9 +10751,9 @@ body {
   transition: margin-left 0.5s;
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (max-width: 450px) {
   .sidenav {
-    padding-top: 11px;
+    padding-top: 14px;
   }
 
   .sidenav a {

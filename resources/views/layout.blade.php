@@ -13,7 +13,11 @@
             @hasSection('title')
                 @yield('title')
             @else
-                {{ auth()->user()->name }}
+                @if(auth()->user()->sname)
+                    {{ auth()->user()->sname }}
+                @else
+                    {{ auth()->user()->name }}
+                @endif
             @endif
         @else
             Гость
