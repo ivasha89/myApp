@@ -33,7 +33,7 @@
                             {{ $row1[$j]['name'] }}
                         </td>
                         @for ($i = 0; $i < count($slba); ++$i)
-                            <td class="{{ (($a[$j][$i] >= 75) || (((int)$row1[$j]['id'] < 1800) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
+                            <td class="{{ (($attendance[$j][$i] >= 75) || (((int)$row1[$j]['id'] < 1800) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
                                 @for($k = 0; $k < count($date); ++$k)
                                     <div class="hide sts{{$row1[$j]['id']}}{{$i}}{{$k}}" title="{{$statuses[$j][$i][$k]}}"></div>
                                 @endfor

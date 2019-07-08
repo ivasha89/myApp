@@ -31,18 +31,10 @@ class UserController extends Controller
         $months = $test1::$months;
 
         $test = new SlbsController();
-        $allUsersStatuses = $test::statistics()['statuses'];
-        $allUsersAttendance = $test::statistics()['attendance'];
-        $keysAllUsersAttendanceArray = array_keys($allUsersAttendance);
-        $usersIds = $test::statistics()['id'];
-        $keysUsersIdsArray = array_keys($usersIds);
-        for($i = 4; $i <count($allUsersAttendance); $i++){
-            if($keysAllUsersAttendanceArray[$i] == $keysUsersIdsArray[$i]){
-               $userAttendance = $allUsersAttendance[$i];
-               $userStatuses = $allUsersStatuses[$i];
-            }
-        }
+        $userStatuses = $test::statistics()['userStatuses'];
+        $userAttendance = $test::statistics()['userAttendance'];
         $date = $test::statistics()['date'];
+
 
         $doneProjects = $user->projects()->where('finished', true)->get();
         foreach ($doneProjects as $project) {

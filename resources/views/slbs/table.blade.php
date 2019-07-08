@@ -15,36 +15,41 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center rounded bg-light mb-1 p-2 border-danger">
             <a class="navbar-brand" href='{{ url("/slbs?changeDate=$previousDay") }}'>
                 <img style="height: 80px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
                      class="rounded-circle shadow" alt="...">
             </a>
             <div class="mr-3 ml-3">
                 <div class="row justify-content-center">
-                    <div class="col-12 h5 text-center border border-info rounded p-2 shadow" id="timeSet">
+                    <div class="col-12 h5 text-center border bg-light rounded p-1 shadow-sm" id="timeSet">
                         {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                     </div>
-                    <a href='{{ url("/slbs?changeDate=$now") }}' class="shadow">
-                        <button type="button" class="btn btn-outline-info ">
+                    <a href='{{ url("/slbs?changeDate=$now") }}' class="shadow-sm">
+                        <button type="button" class="btn btn-light">
                             Сегодня
                         </button>
                     </a>
                 </div>
             </div>
-                <a class="navbar-brand ml-2" href='{{ url("/slbs?changeDate=$nextDay") }}'>
-                    <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
-                         alt="...">
-                </a>
+            <a class="navbar-brand ml-2" href='{{ url("/slbs?changeDate=$nextDay") }}'>
+                <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                     alt="...">
+            </a>
         </div>
-        @if(auth()->user()->right == 'root')
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="ok" value="admin" name="mode" onchange="this.form.submit()">
-                <label class="custom-control-label" for="ok">
-                    admin mode
-                </label>
-            </div>
-        @endif
+        <div class="d-flex rounded bg-light mb-1 border-primary">
+            @if(auth()->user()->right == 'root')
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="ok" value="admin" name="mode" onchange="this.form.submit()">
+                    <label class="custom-control-label" for="ok">
+                        admin mode
+                    </label>
+                </div>
+            @endif
+            <a class="ml-auto text-dark" href="{{ url('/slbs/statistic') }}">
+                Статистика
+            </a>
+        </div>
     </form>
     <form action="{{ url('/slbs') }}" method="post">
         @csrf

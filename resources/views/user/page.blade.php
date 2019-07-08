@@ -5,18 +5,6 @@
 @endsection
 
 @section('content')
-{{--    @if(($alrt->first() == null) && ($user->id == auth()->id()))--}}
-{{--        <div class="shadow alert alert-info alert-dismissible fade show mb-3" role="alert">--}}
-{{--            <p class="lead text-center">--}}
-{{--                Здравствуйте {{ $user->name }}, это ваша страница. Доброго утра и приятного дня.--}}
-{{--            </p>--}}
-{{--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
-{{--                <span aria-hidden="true">--}}
-{{--                    &times;--}}
-{{--                </span>--}}
-{{--            </button>--}}
-{{--        </div>--}}
-{{--    @endif--}}
     <div class="d-flex bg-light rounded flex-column">
         <div class="d-flex flex-row">
             <div class="w-25 mb-1 img">
@@ -49,6 +37,10 @@
                         @endif
                     </a>
                 @endcan
+                <a class="list-group-item list-group-item-action" id="list-services-list" data-toggle="list"
+                   href="#list-services" role="tab" aria-controls="home">
+                    Мои служения
+                </a>
             </div>
         </div>
         <div>
@@ -218,57 +210,57 @@
                         <form action="{{ url('/slbs') }}" class="mb-1" method="post">
                             @csrf
                             @if($user->id == auth()->id())
-                            <div class="row justify-content-center mb-3">
-                                @if($currentSlb == 'ДЖ')
-                                    <input type="hidden" name="slba" id="dzhapa" value="">
-                                    <div class="btn-group-toggle col-6" data-toggle="buttons">
-                                        <label class="btn btn-secondary" for="sttsn">
-                                            <input type="radio" name="status"
-                                                   class="custom-control-input" id="sttsn" value="n"
-                                                   onchange="this.form.submit()">n
-                                        </label>
-                                        <label class="btn btn-secondary" for="sttsc">
-                                            <input type="radio" name="status"
-                                                   class="custom-control-input" id="sttsc" value="c"
-                                                   onchange="this.form.submit()">c
-                                        </label>
-                                        <label class="btn btn-secondary" for="sttsb">
-                                            <input type="radio" name="status"
-                                                   class="custom-control-input" id="sttsb" value="b"
-                                                   onchange="this.form.submit()">b
-                                        </label>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <input type="number" name="statusNumber" onfocusout="this.form.submit()"
-                                               class="form-control"
-                                               placeholder="в лакхах" min="1" max="16">
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-outline-danger" name="delete">
-                                            ❌
-                                        </button>
-                                    </div>
-                                @elseif($currentSlb)
-                                    <input type="hidden" name="slba" id="sluzhba" value="">
-                                    <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                                        @foreach($stts as $key => $stt)
-                                            <label class="btn btn-secondary" for="stts{{ $key }}">
-                                                <input type="radio" name="status" onchange="this.form.submit()"
-                                                       class="custom-control-input" id="stts{{ $key }}"
-                                                       value="{{ $key }}">{{ $key }}
+                                <div class="row justify-content-center mb-3">
+                                    @if($currentSlb == 'ДЖ')
+                                        <input type="hidden" name="slba" id="dzhapa" value="">
+                                        <div class="btn-group-toggle col-6" data-toggle="buttons">
+                                            <label class="btn btn-secondary" for="sttsn">
+                                                <input type="radio" name="status"
+                                                       class="custom-control-input" id="sttsn" value="n"
+                                                       onchange="this.form.submit()">n
                                             </label>
-                                        @endforeach
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-outline-danger" name="delete">
-                                            ❌
-                                        </button>
-                                    </div>
-                                @endif
-                            </div>
-                        @endif
+                                            <label class="btn btn-secondary" for="sttsc">
+                                                <input type="radio" name="status"
+                                                       class="custom-control-input" id="sttsc" value="c"
+                                                       onchange="this.form.submit()">c
+                                            </label>
+                                            <label class="btn btn-secondary" for="sttsb">
+                                                <input type="radio" name="status"
+                                                       class="custom-control-input" id="sttsb" value="b"
+                                                       onchange="this.form.submit()">b
+                                            </label>
+                                        </div>
+                                        <div class="col-6 mb-2">
+                                            <input type="number" name="statusNumber" onfocusout="this.form.submit()"
+                                                   class="form-control"
+                                                   placeholder="в лакхах" min="1" max="16">
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-outline-danger" name="delete">
+                                                ❌
+                                            </button>
+                                        </div>
+                                    @elseif($currentSlb)
+                                        <input type="hidden" name="slba" id="sluzhba" value="">
+                                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                                            @foreach($stts as $key => $stt)
+                                                <label class="btn btn-secondary" for="stts{{ $key }}">
+                                                    <input type="radio" name="status" onchange="this.form.submit()"
+                                                           class="custom-control-input" id="stts{{ $key }}"
+                                                           value="{{ $key }}">{{ $key }}
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-outline-danger" name="delete">
+                                                ❌
+                                            </button>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
                         </form>
-                            <table class="table table-sm table-striped table-bordered table-fit shadow bg-light">
+                        <table class="table table-sm table-striped table-bordered table-fit shadow bg-light">
                                 <caption>
                                     Статистка посещаемости
                                 </caption>
@@ -297,7 +289,7 @@
                                             @for ($i = 0; $i < count($slba); ++$i)
                                                 <td>
                                                     <div>
-                                                        {{$userStatuses[$k][$i]}}
+                                                        {{$userStatuses[$i][$k]}}
                                                     </div>
                                                 </td>
                                             @endfor
@@ -317,6 +309,52 @@
                             </table>
                     </div>
                 @endcan
+                <div class="tab-pane fade" id="list-services" role="tabpanel"
+                     aria-labelledby="list-services-list">
+                    <table class="table table-sm table-striped table-bordered table-fit shadow bg-light">
+                        <thead class="bg-info">
+                        <tr>
+                            <th>
+                                @if($user->sname)
+                                    {{ $user->sname }}
+                                @else
+                                    {{ $user->name }}
+                                @endif
+                            </th>
+                            <th>
+                                Служения
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @for($k = 0; $k < count($date); ++$k)
+                            <tr>
+                                <td>
+                                    {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
+                                </td>
+                                @for ($i = 0; $i < count($slba); ++$i)
+                                    <td>
+                                        <div>
+                                            {{$userStatuses[$i][$k]}}
+                                        </div>
+                                    </td>
+                                @endfor
+                            </tr>
+                        @endfor
+                        <tr>
+                            <td>
+                                Итого
+                            </td>
+                            @for($i = 0; $i < count($slba); ++$i)
+                                <td class="{{ (($userAttendance[$i] >= 75) || (($user->id < $yearId) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
+                                    {{ $userAttendance[$i] }}
+                                </td>
+                            @endfor
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+    </div>
 @endsection

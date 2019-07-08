@@ -142,16 +142,17 @@ class SlbsController extends Controller
         }
         $yogaDays = $diff - $weekEndDays;
 
-        $userId = User::whereNotIn('right', ['adm', 'out'])->select('id')->get()->toArray();
-        for ($i = 0; $i < count($userId); ++$i )
-            $id[$i] = $userId[$i]['id'];
+        $userId = User::whereNotIn('right', ['adm', 'out'])->where('id', auth()->id())->select('id')->get()->toArray();
+        $usersId = User::whereNotIn('right', ['adm', 'out'])->select('id')->get()->toArray();
+        for ($i = 0; $i < count($usersId); ++$i )
+            $ids[$i] = $usersId[$i]['id'];
 
-        for ($j = 0; $j < count($id); ++$j) {
+        for ($j = 0; $j < count($ids); ++$j) {
             for ($i = 0; $i < count($slbs); ++$i) {
                 for ($k = 0; $k < count($date); ++$k) {
                     $status = Slb::where('data', $date[$k]->format('Y-m-d'))
                         ->where('slba', $slbs[$i])
-                        ->where('user_id', $id[$j])
+                        ->where('user_id', $ids[$j])
                         ->select('stts')
                         ->get()
                         ->toArray();
@@ -168,7 +169,7 @@ class SlbsController extends Controller
                     }
                     $dzhapa = Slb::where('data', $date[$k]->format('Y-m-d'))
                         ->where('slba', 'ДЖ')
-                        ->where('user_id', $id[$j])
+                        ->where('user_id', $ids[$j])
                         ->select('stts')
                         ->get()
                         ->toArray();
@@ -208,8 +209,12 @@ class SlbsController extends Controller
             array_multisort($iArray, SORT_ASC, $day[$j]);
             array_multisort($iArray, SORT_ASC, $attendance[$j]);
             array_multisort($iArray, SORT_ASC, $statuses[$j]);
+            if($ids[$j] == auth()->id()){
+                $userAttendance = $attendance[$j];
+                $userStatuses = $statuses[$j];
+            }
         }
 
-        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'id'));
+        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'userAttendance', 'userStatuses'));
     }
 }

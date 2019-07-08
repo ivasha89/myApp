@@ -30,7 +30,7 @@
                 </button>
             </div>
             <div id="tasksList" class="collapse" aria-labelledby="tasks" data-parent="#accordionTitle">
-                <div class="card-body text-muted font-italic">
+                <div class="card-body text-muted font-italic mb-1">
                     @if($project->tasks->count())
                         <div class="mb-2">
                             @foreach($project->tasks as $task)
@@ -53,6 +53,18 @@
                         Нет задач
                     @endif
                 </div>
+                <form method="post" action='{{ url("/projects/$project->id/tasks") }}' class="card-footer p-2">
+                    @csrf
+                    <div class="form-group mb-2">
+                        <input type="text" class="form-control" id="description" name="description"
+                               placeholder="Новая задача" required>
+                    </div>
+                    <div class="d-flex">
+                        <button class="btn btn-outline-info float-right" type="submit">
+                            Добавить к проекту
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -62,16 +74,4 @@
             Изменить проект
         </button>
     </div>
-    <form method="post" action='{{ url("/projects/$project->id/tasks") }}' class="card p-2">
-        @csrf
-        <div class="form-group mb-2">
-            <label class="text-info" for="description">Добавить задачу</label>
-            <input type="text" class="form-control" id="description" name="description" placeholder="Новая задача" required>
-        </div>
-        <div class="d-flex">
-            <button class="btn btn-outline-info float-right" type="submit">
-                Добавить к проекту
-            </button>
-         </div>
-    </form>
 @endsection
