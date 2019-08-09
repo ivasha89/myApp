@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title')
+    Таблица служений
+@endsection
+
 @section('content')
     <form method="get" action="{{ url('/slbs') }}">
         <div class="modal fade" id="timeForm">

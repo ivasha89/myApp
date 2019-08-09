@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -68,7 +69,13 @@ class UserController extends Controller
         else
             $yearId = (int)($y->format('y') . '00');
 
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'date', 'userStatuses', 'yearId'));
+        for($i = 0; $i < 7; $i++) {
+            $rules[$i] = DB::table('rules')
+                ->select('service', 'id')
+                ->get()[$i];
+        }
+
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'date', 'userStatuses', 'yearId', 'rules'));
     }
 
     /**

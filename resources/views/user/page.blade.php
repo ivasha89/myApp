@@ -332,25 +332,11 @@
                                 <td>
                                     {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
                                 </td>
-                                @for ($i = 0; $i < count($slba); ++$i)
-                                    <td>
-                                        <div>
-                                            {{$userStatuses[$i][$k]}}
-                                        </div>
-                                    </td>
-                                @endfor
+                                <td>
+                                    {{ $rules[$k]->service }}
+                                </td>
                             </tr>
                         @endfor
-                        <tr>
-                            <td>
-                                Итого
-                            </td>
-                            @for($i = 0; $i < count($slba); ++$i)
-                                <td class="{{ (($userAttendance[$i] >= 75) || (($user->id < $yearId) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
-                                    {{ $userAttendance[$i] }}
-                                </td>
-                            @endfor
-                        </tr>
                         </tbody>
                     </table>
                 </div>

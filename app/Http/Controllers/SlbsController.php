@@ -21,11 +21,12 @@ class SlbsController extends Controller
 
     public function index()
     {
-        $test1 = new VariablesController();
         $now = (new DateTime)->format('Y-m-d');
-        $y = $test1::timeSet()['now'];
         $nextDay = (new DateTime())->modify('+1 day')->format('Y-m-d');
         $previousDay = (new DateTime())->modify('-1 day')->format('Y-m-d');
+
+        $test1 = new VariablesController();
+        $y = $test1::timeSet()['now'];
         $days = $test1::$days;
         $months = $test1::$months;
         $currentSlb = $test1::timeSet()['slb'];
@@ -107,9 +108,10 @@ class SlbsController extends Controller
 
     public static function statistics()
     {
-        $test = new VariablesController();
         $dateEnd = new DateTime();
         $dateStart = new DateTime();
+
+        $test = new VariablesController();
         $stts = $test::$stts;
         $slba = $test::$slba;
         $slbs = $slba;
@@ -212,6 +214,10 @@ class SlbsController extends Controller
             if($ids[$j] == auth()->id()){
                 $userAttendance = $attendance[$j];
                 $userStatuses = $statuses[$j];
+            }
+            else {
+                $userAttendance = false;
+                $userStatuses = false;
             }
         }
 

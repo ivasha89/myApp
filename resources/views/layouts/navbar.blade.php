@@ -8,7 +8,7 @@
     <a class="btn btn-light m-2" href='{{ url("/$user->id") }}'>Моя страница</a>
     <a class="btn btn-light m-2" href="{{ url('/chat') }}">Чат</a>
     <a class="btn btn-light m-2" href="{{ url('/slbs') }}">Службы</a>
-    <a class="btn btn-light m-2" href="#" data-toggle="tooltip" title="В разработке">Служения</a>
+    <a class="btn btn-light m-2" href="{{ url('/services') }}">Служения</a>
     <a class="btn btn-light m-2" href="{{ url('/logout') }}">Выход</a>
 @else
     <a class="btn btn-light m-2" href="{{ url('/login') }}">Вход</a>

@@ -22,6 +22,8 @@ Route::get('/messages', 'ChatsController@fetchMessages');
 Route::get('/slbs', 'SlbsController@index');
 Route::get('/slbs/statistic','SlbsController@statistics');
 Route::get('/{user}', 'UserController@index');
+Route::get('/services', 'ServicesController@index');
+Route::post('/services', 'ServicesController@store');
 Route::post('/login', 'InterController@enter');
 Route::post('/check', 'InterController@check');
 Route::post('/messages', 'ChatsController@sendMessage');
@@ -29,7 +31,7 @@ Route::post('/signup', 'InterController@registration');
 Route::post('/slbs', 'SlbsController@store');
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
-Route::get('/messageDelete/{id}', 'ChatsController@deleteMessage');
+Route::get('/messageDelete/{id}', 'ChatsController@eleteMessage');
 Route::post('/onlineOrGone', 'UserController@store');
 
 Route::resource('/projects', 'ProjectsController')->except('index');
