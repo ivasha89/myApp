@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,15 +37,22 @@ class UserController extends Controller
         $userAttendance = $test::statistics()['userAttendance'];
         $date = $test::statistics()['date'];
 
-
-        $doneProjects = $user->projects()->where('finished', true)->get();
-        foreach ($doneProjects as $project) {
+        $ongoingProjects = $user->projects()->where('finished', false)->get();
+        foreach ($ongoingProjects as $key => $project) {
             $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
             if ($project->date > 0)
                 $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
+            else {
+                Project::where('id', $project->id)
+                    ->update([
+                        'finished' => true
+                    ]);
+                $ongoingProjects->forget($key);
+            }
         }
-        $ongoingProjects = $user->projects()->where('finished', false)->get();
-        foreach ($ongoingProjects as $project) {
+
+        $doneProjects = $user->projects()->where('finished', true)->get();
+        foreach ($doneProjects as $project) {
             $project->date = (new \DateTime($project->expire_at))->getTimestamp() - (new \DateTime())->getTimestamp();
             if ($project->date > 0)
                 $project->day = (new \DateTime($project->expire_at))->diff(new \DateTime())->days;
@@ -71,8 +79,8 @@ class UserController extends Controller
 
         for($i = 0; $i < 7; $i++) {
             $rules[$i] = DB::table('rules')
-                ->select('service', 'id')
                 ->get()[$i];
+            $rules[$i]->desc = nl2br($rules[$i]->description);
         }
 
         return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'date', 'userStatuses', 'yearId', 'rules'));

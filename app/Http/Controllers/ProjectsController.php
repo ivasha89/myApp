@@ -98,8 +98,8 @@ class ProjectsController extends Controller
         ]);
         Project::find($project->id)
             ->update([
-            'title' => $request->title,
-            'description' => $request->description
+                'title' => $request->title,
+                'description' => $request->description
         ]);
         return redirect("/projects/$project->id");
     }

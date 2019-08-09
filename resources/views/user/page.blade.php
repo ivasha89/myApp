@@ -333,8 +333,32 @@
                                     {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
                                 </td>
                                 <td>
-                                    {{ $rules[$k]->service }}
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal{{ $rules[$k]->id }}">
+                                        {{ $rules[$k]->service }}
+                                    </button>
                                 </td>
+                                <div class="modal fade" id="exampleModal{{ $rules[$k]->id }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel{{ $rules[$k]->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{ $rules[$k]->id }}">
+                                                    {{ $rules[$k]->service }}
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @php
+                                                    echo $rules[$k]->desc;
+                                                @endphp
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                         @endfor
                         </tbody>
