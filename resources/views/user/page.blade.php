@@ -333,7 +333,7 @@
                                     {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-light border-primary" data-toggle="modal"
                                             data-target="#exampleModal{{ $rules[$k]->id }}">
                                         {{ $rules[$k]->service }}
                                     </button>

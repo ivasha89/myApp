@@ -214,10 +214,6 @@ class SlbsController extends Controller
                 $userAttendance = $attendance[$j];
                 $userStatuses = $statuses[$j];
             }
-            else {
-                $userAttendance = false;
-                $userStatuses = false;
-            }
         }
 
         return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'userAttendance', 'userStatuses'));

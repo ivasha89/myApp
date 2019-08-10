@@ -92,6 +92,9 @@ body {
 #main{
   transition: opacity 0.3s;
 }
+div .width {
+  width: 450px;
+}
 
 @media screen and (max-width: 450px)
 {
@@ -117,9 +120,6 @@ body {
   }
   td, th, tr{
     margin: 1rem;
-  }
-  .img{
-
   }
   img .personal-img{width: 75px;}
 }
