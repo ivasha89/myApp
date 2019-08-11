@@ -19,7 +19,7 @@ class SlbsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public static function index()
     {
         $now = (new DateTime)->format('Y-m-d');
         $nextDay = (new DateTime())->modify('+1 day')->format('Y-m-d');

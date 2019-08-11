@@ -52,13 +52,12 @@
                                     </label>
                                 </div>
                             @endif
-                                <a href='{{ url("/$user->id") }}'>
-                                    @if($user->sname)
-                                        {{ $user->sname }}
-                                    @else
-                                        {{ $user->name }}
-                                    @endif
-                                </a>
+
+                            @if($user->sname)
+                                {{ $user->sname }}
+                            @else
+                                {{ $user->name }}
+                            @endif
                         </td>
         @foreach($slba as $slb)
                         <td id="{{ $slb }}">

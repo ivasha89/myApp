@@ -6,6 +6,7 @@
 {{--&times;--}}
 @auth
     <a class="btn btn-light m-2" href='{{ url("/$user->id") }}'>Моя страница</a>
+    <a class="btn btn-light m-2" href="{{ url('/all') }}">Список брахмачари</a>
     <a class="btn btn-light m-2" href="{{ url('/chat') }}">Чат</a>
     <a class="btn btn-light m-2" href="{{ url('/slbs') }}">Службы</a>
     <a class="btn btn-light m-2" href="{{ url('/services') }}">Служения</a>

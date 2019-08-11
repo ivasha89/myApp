@@ -12,6 +12,9 @@
 */
 use Illuminate\Support\Facades\Route;
 
+Route::get('/services', 'ServicesController@index');
+Route::post('/services', 'ServicesController@store');
+Route::get('/all', 'IndexController@list');
 Route::get('/', 'IndexController@index');
 Route::get('/signup', 'InterController@signup');
 Route::get('/chat', 'ChatsController@index');
@@ -22,8 +25,6 @@ Route::get('/messages', 'ChatsController@fetchMessages');
 Route::get('/slbs', 'SlbsController@index');
 Route::get('/slbs/statistic','SlbsController@statistics');
 Route::get('/{user}', 'UserController@index');
-Route::get('/services', 'ServicesController@index');
-Route::post('/services', 'ServicesController@store');
 Route::post('/login', 'InterController@enter');
 Route::post('/check', 'InterController@check');
 Route::post('/messages', 'ChatsController@sendMessage');
