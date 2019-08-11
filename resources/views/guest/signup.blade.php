@@ -11,14 +11,14 @@
                     <form action="{{ url('/signup') }}" method="post">
                         @csrf
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group mr-1 ml-1">
                                 <label class="text-info" for="name">
                                     Ваше Имя на русском
                                 </label>
                                 <input type="text" class="form-control {{ $errors->has('name') ? 'border-danger' : ''}}"
                                        id="name" value="{{ old('name') }}" name="name" autocapitalize="on" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mr-1 ml-1">
                                 <label class="text-info" for="psw">
                                     Пароль
                                 </label>
@@ -26,7 +26,7 @@
                                        class="form-control {{ $errors->has('password') ? 'is-danger' : ''}}" id="psw"
                                        name="password" maxlength="16" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mr-1 ml-1">
                                 <label class="text-info" for="sn">
                                     Духовное имя
                                 </label>
@@ -59,7 +59,7 @@
                     <form action="{{ url('/check') }}" method="post">
                         @csrf
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group mr-1 ml-1">
                                 <input type="password" class="form-control" id="yep" placeholder="код" maxlength="16"
                                        name="psrd" required autofocus>
                             </div>

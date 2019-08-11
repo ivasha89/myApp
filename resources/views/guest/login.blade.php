@@ -10,13 +10,13 @@
                 <div class="card-body">
                     <form method="post" action="{{ url('login') }}">
                         @csrf
-                    <div class="form-group">
+                    <div class="form-group mr-1 ml-1">
                         <label for="ysl">
                             Ваше имя
                         </label>
                         <input type="text" class="form-control{{ $errors->has('name') ? 'border-danger' : '' }}" id="ysl" value="{{ old('name') }}" maxlength="32" name="name" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mr-1 ml-1">
                         <label for="yep">
                             Пароль
                         </label>
