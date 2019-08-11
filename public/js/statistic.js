@@ -18,5 +18,6 @@ $(document).ready(function () {
         $('.img').removeClass('w-25').addClass('w-50');
         $('.list-item').removeClass('w-75').addClass('w-50');
         $('.all').removeClass('w-50');
+        $('.all-img').addClass('rounded-circle');
     }
 });
