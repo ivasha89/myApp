@@ -112,14 +112,11 @@ class SlbsController extends Controller
         $dateStart = new DateTime();
 
         $test = new VariablesController();
+        $dzhapaStatuses = $test::$dzhapaStatuses;
         $stts = $test::$stts;
         $slba = $test::$slba;
         $slbs = $slba;
         array_splice($slbs, 1, 1);
-
-        $dzhapaStatuses = [
-            'c' => 16, 'n' => 0, '-' => 16, 'b' => 16, '/' => 16
-        ];
 
         $row1 = MysqlRequests::programm()['row1'];
         $days = $test::$days;
@@ -210,12 +207,8 @@ class SlbsController extends Controller
             array_multisort($iArray, SORT_ASC, $day[$j]);
             array_multisort($iArray, SORT_ASC, $attendance[$j]);
             array_multisort($iArray, SORT_ASC, $statuses[$j]);
-            if($ids[$j] == auth()->id()){
-                $userAttendance = $attendance[$j];
-                $userStatuses = $statuses[$j];
-            }
         }
 
-        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'userAttendance', 'userStatuses'));
+        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'weekEndDays'));
     }
 }

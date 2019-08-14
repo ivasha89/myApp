@@ -19,9 +19,12 @@
                         </td>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($users as $user)
-                        <tr>
+                <tbody class="usersCount" id="{{count($users)}}">
+                <input type="hidden" name="id" value="">
+                <input type="hidden" name="date" value="{{$y->format('Y-m-d')}}">
+                <input type="hidden" name="service" value="">
+                    @foreach($users as $key => $user)
+                        <tr title="{{$user->id}}">
                             <td>
                                 @if($user->sname)
                                     {{ $user->sname }}
@@ -30,11 +33,10 @@
                                 @endif
                             </td>
                             <td>
-                                <input type="hidden" name="id" value="{{$user->id}}">
-                                <input type="hidden" name="date" value="{{$y->format('Y-m-d')}}">
-                                <select class="custom-select" name="service" onchange="this.form.submit()">
+                                <select class="custom-select" name="service{{$user->id}}" onchange="this.form.submit()">
+                                    <option>Выбрать служение...</option>
                                     @for($i = 0; $i < count($rules); $i++)
-                                        <option value="{{ $rules[$i]->id }}" >
+                                        <option value="{{ $rules[$i]->id }}">
                                             {{ $rules[$i]->service }}
                                         </option>
                                     @endfor
@@ -44,6 +46,43 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+    </form>
+    <form method="get" action="{{ url('/services') }}" class="d-flex flex-column align-items-center">
+        <div class="modal fade" id="timeForm">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-info justify-content-center">
+                        Изменить дату
+                    </div>
+                    <div class="modal-body bg-light">
+                        <input class="form-control mb-2" onchange="this.form.submit()" type="date"
+                               name="changeDate" value="{{$y->format('Y-m-d')}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="width d-flex justify-content-center rounded bg-info mb-1 p-2">
+            <a class="navbar-brand" href='{{ url("/services?changeDate=$previousDay") }}'>
+                <img style="height: 80px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
+                     class="rounded-circle shadow" alt="...">
+            </a>
+            <div class="mr-3 ml-3">
+                <div class="row justify-content-center">
+                    <div class="col-12 h5 text-center bg-light rounded p-1 shadow-sm" id="timeSet">
+                        {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
+                    </div>
+                    <a href='{{ url("/services?changeDate=$now") }}' class="shadow-sm">
+                        <button type="button" class="btn btn-light">
+                            Сегодня
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <a class="navbar-brand ml-2" href='{{ url("/services?changeDate=$nextDay") }}'>
+                <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                     alt="...">
+            </a>
         </div>
     </form>
 @endsection

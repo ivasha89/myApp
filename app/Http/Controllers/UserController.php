@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Slb;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,11 +32,71 @@ class UserController extends Controller
         $y = $test1::timeSet()['now'];
         $days = $test1::$days;
         $months = $test1::$months;
+        $dzhapaStatuses = $test1::$dzhapaStatuses;
 
         $test = new SlbsController();
-        $userStatuses = $test::statistics()['userStatuses'];
-        $userAttendance = $test::statistics()['userAttendance'];
         $date = $test::statistics()['date'];
+        $weekEndDays = $test::statistics()['weekEndDays'];
+        $yogaDays = 7 - $weekEndDays;
+
+        for ($i = 0; $i < count($slba); ++$i) {
+            for ($k = 0; $k < count($date); ++$k) {
+                $status = Slb::where('data', $date[$k]->format('Y-m-d'))
+                    ->where('slba', $slba[$i])
+                    ->where('user_id', $user->id)
+                    ->select('stts')
+                    ->get()
+                    ->toArray();
+                if ($status) {
+                    $statuses[$i][$k] = $status['0']['stts'];
+                    foreach ($stts as $key => $stt) {
+                        if ($status['0']['stts'] == $key)
+                            $day[$i][$k] = $stt;
+                    }
+                } else {
+                    $day[$i][$k] = 0;
+                    $statuses[$i][$k] = '❌';
+                }
+                $dzhapa = Slb::where('data', $date[$k]->format('Y-m-d'))
+                    ->where('slba', 'ДЖ')
+                    ->where('user_id', $user->id)
+                    ->select('stts')
+                    ->get()
+                    ->toArray();
+                if ($dzhapa) {
+                    if (!(int)$dzhapa['0']['stts']) {
+                        $statuses[6][$k] = $dzhapa['0']['stts'];
+                        foreach ($dzhapaStatuses as $key => $stt) {
+                            if ($dzhapa['0']['stts'] == $key) {
+                                $day[6][$k] = $stt;
+                            }
+                        }
+                    } else {
+                        $day[6][$k] = (int)$dzhapa['0']['stts'];
+                        $statuses[6][$k] = (int)$dzhapa['0']['stts'];
+                    }
+                } else {
+                    $day[6][$k] = 0;
+                    $statuses[6][$k] = '❌';
+                }
+
+                if ($slba[$i] == 'ЙГ') {
+                    if ($yogaDays == 0)
+                        $attendance[$i] = '❌';
+                    else
+                        $attendance[$i] = (int)(array_sum($day[$i]) / $yogaDays * 100);
+                } else
+                    $attendance[$i] = (int)(array_sum($day[$i]) / 7 * 100);
+
+                $attendance[6] = (int)(array_sum($day[6]) / 16 / 7 * 100);
+            }
+            $iArray[$i] = $i;
+            if ($i == 5)
+                $iArray[6] = 6;
+        }
+        array_multisort($iArray, SORT_ASC, $day);
+        array_multisort($iArray, SORT_ASC, $attendance);
+        array_multisort($iArray, SORT_ASC, $statuses);
 
         $ongoingProjects = $user->projects()->where('finished', false)->get();
         foreach ($ongoingProjects as $key => $project) {
@@ -60,7 +121,7 @@ class UserController extends Controller
 
         $daysInAshram = (integer)((new \DateTime("$user->created_at"))->diff(new \DateTime('now'))->days);
         $dzhapa = $user->slbs()->where('slba', 'ДЖ')->select('stts')->get();
-        $dzhapaFiltered = $dzhapa->filter(function ($value, $key) {
+        $dzhapaFiltered = $dzhapa->filter(function ($value) {
             return $value->stts > 1;
         });
         foreach ($dzhapaFiltered as $dzhapaFilt) {
@@ -78,12 +139,22 @@ class UserController extends Controller
             $yearId = (int)($y->format('y') . '00');
 
         for($i = 0; $i < 7; $i++) {
-            $rules[$i] = DB::table('rules')
-                ->get()[$i];
-            $rules[$i]->desc = nl2br($rules[$i]->description);
+            $services[$i] = $user->services()
+                ->where('dateToServe', $date[$i]->modify('+6 day')->format('Y-m-d'))
+                ->get();
+            if(isset($services[$i][0])) {
+                $rules[$i] = DB::table('rules')
+                    ->where('id', $services[$i][0]->rule_id)
+                    ->select('service', 'description', 'id')
+                    ->get()[0];
+                $rules[$i]->desc = nl2br($rules[$i]->description);
+            }
+            else {
+                $rules[$i] = 'Свободен';
+            }
         }
-
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'userAttendance', 'date', 'userStatuses', 'yearId', 'rules'));
+//dd($rules);
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'attendance', 'date', 'statuses', 'yearId', 'rules'));
     }
 
     /**

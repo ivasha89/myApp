@@ -15,4 +15,10 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.service').each(function (i, element) {
+       $(element).click(function () {
+           $('.description'+(i)).modal('show');
+       })
+    });
 });

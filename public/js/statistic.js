@@ -20,4 +20,10 @@ $(document).ready(function () {
         $('.all').removeClass('w-25').removeClass('ml-5');
         $('.all-img').addClass('rounded-circle');
     }
+
+    $('select').click(function () {
+        let userInput = $('input[name = "id"]');
+        let userId = $(this).parents('tr').attr('title');
+        userInput.val(userId);
+    });
 });

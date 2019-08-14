@@ -27,6 +27,10 @@ class VariablesController extends Controller
 
         $stts = [
             '+' => 1, 'o' => 0.5, 'c' => 1, 'n' => 0, '-' => 1, 'b' => 1, '/' => 1
+        ],
+
+        $dzhapaStatuses = [
+            'c' => 16, 'n' => 0, '-' => 16, 'b' => 16, '/' => 16
         ];
 
     public static function timeSet()
@@ -34,7 +38,7 @@ class VariablesController extends Controller
         $now = new DateTime();
         $mangalarati = new DateTime('4:30:00');
         $dzapa = new DateTime('6:00:00');
-        $meetDeity = new DateTime('21:45:00');
+        $meetDeity = new DateTime('14:45:00');
         $gauraArati = new DateTime('18:00:00');
         $diff0 = $now->getTimestamp() - $mangalarati->getTimestamp();
         $diff1 = $now->getTimestamp() - $dzapa->getTimestamp();

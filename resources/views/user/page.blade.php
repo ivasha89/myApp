@@ -289,7 +289,7 @@
                                             @for ($i = 0; $i < count($slba); ++$i)
                                                 <td>
                                                     <div>
-                                                        {{$userStatuses[$i][$k]}}
+                                                        {{$statuses[$i][$k]}}
                                                     </div>
                                                 </td>
                                             @endfor
@@ -300,8 +300,8 @@
                                             Итого
                                         </td>
                                         @for($i = 0; $i < count($slba); ++$i)
-                                            <td class="{{ (($userAttendance[$i] >= 75) || (($user->id < $yearId) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
-                                                {{ $userAttendance[$i] }}
+                                            <td class="{{ (($attendance[$i] >= 75) || (($user->id < $yearId) && ($slba[$i] == 'ЙГ'))) ? 'bg-success' : 'bg-danger'}}">
+                                                {{ $attendance[$i] }}
                                             </td>
                                         @endfor
                                     </tr>
@@ -332,33 +332,35 @@
                                 <td>
                                     {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-light border-primary" data-toggle="modal"
-                                            data-target="#exampleModal{{ $rules[$k]->id }}">
+                                @if($rules[$k] == 'Свободен')
+                                    <td>
+                                        {{$rules[$k]}}
+                                    </td>
+                                @else
+                                    <td class="service">
                                         {{ $rules[$k]->service }}
-                                    </button>
-                                </td>
-                                <div class="modal fade" id="exampleModal{{ $rules[$k]->id }}" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLabel{{ $rules[$k]->id }}" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel{{ $rules[$k]->id }}">
-                                                    {{ $rules[$k]->service }}
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                @php
-                                                    echo $rules[$k]->desc;
-                                                @endphp
+                                    </td>
+                                    <div class="modal fade description{{$k}}">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel{{ $rules[$k]->id }}">
+                                                        {{ $rules[$k]->service }}
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @php
+                                                        echo $rules[$k]->desc;
+                                                    @endphp
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </tr>
                         @endfor
                         </tbody>
