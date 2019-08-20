@@ -156,27 +156,31 @@
                 </div>
             </div>
         </div>
-        <div class="width d-flex justify-content-center rounded bg-info mb-1 p-2">
-            <a class="navbar-brand" href='{{ url("/slbs?changeDate=$previousDay") }}'>
-                <img style="height: 80px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
-                     class="rounded-circle shadow" alt="...">
-            </a>
-            <div class="mr-3 ml-3">
-                <div class="row justify-content-center">
-                    <div class="col-12 h5 text-center bg-light rounded p-1 shadow-sm" id="timeSet">
-                        {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
-                    </div>
-                    <a href='{{ url("/slbs?changeDate=$now") }}' class="shadow-sm">
-                        <button type="button" class="btn btn-light">
-                            Сегодня
-                        </button>
+        <div class="width d-flex justify-content-between rounded bg-info mb-1">
+            <div class="ml-3">
+                <a class="navbar-brand" href='{{ url("/services?changeDate=$previousDay") }}'>
+                    <img style="height: 80px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
+                         class="rounded-circle shadow" alt="...">
+                </a>
+            </div>
+            <div class="d-flex mb-1 mt-1 flex-column">
+                <div class="h5 text-center bg-light rounded p-1 shadow-sm" id="timeSet">
+                    {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
+                </div>
+                <a href='{{ url("/services?changeDate=$now") }}' class="shadow-sm text-center">
+                    <button type="button" class="btn btn-light">
+                        Сегодня
+                    </button>
+                </a>
+            </div>
+            <div class="ml-3">
+                <div>
+                    <a class="navbar-brand" href='{{ url("/services?changeDate=$nextDay") }}'>
+                        <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                             alt="...">
                     </a>
                 </div>
             </div>
-            <a class="navbar-brand ml-2" href='{{ url("/slbs?changeDate=$nextDay") }}'>
-                <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
-                     alt="...">
-            </a>
         </div>
         <div class="width d-flex bg-info mb-1 rounded p-2">
             @if(auth()->user()->right == 'root')
