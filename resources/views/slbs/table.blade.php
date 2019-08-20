@@ -167,8 +167,8 @@
                 <div class="h5 text-center bg-light rounded p-1 shadow-sm" id="timeSet">
                     {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                 </div>
-                <a href='{{ url("/services?changeDate=$now") }}' class="shadow-sm text-center">
-                    <button type="button" class="btn btn-light">
+                <a href='{{ url("/services?changeDate=$now") }}' class="text-center">
+                    <button type="button" class="btn btn-light shadow-sm">
                         Сегодня
                     </button>
                 </a>
