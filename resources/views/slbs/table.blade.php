@@ -159,7 +159,7 @@
         <div class="width d-flex justify-content-between rounded bg-info mb-1">
             <div class="ml-3">
                 <a class="navbar-brand" href='{{ url("/services?changeDate=$previousDay") }}'>
-                    <img style="height: 80px; width: 30px" src="{{ url('/svg/prev.jpg') }}"
+                    <img style="height: 80px; width: 50px" src="{{ url('/svg/prev.jpg') }}"
                          class="rounded-circle shadow" alt="...">
                 </a>
             </div>
@@ -176,7 +176,7 @@
             <div class="ml-3">
                 <div>
                     <a class="navbar-brand" href='{{ url("/services?changeDate=$nextDay") }}'>
-                        <img style="height: 80px; width: 30px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
+                        <img style="height: 80px; width: 50px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
                              alt="...">
                     </a>
                 </div>
