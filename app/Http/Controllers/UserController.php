@@ -155,7 +155,7 @@ class UserController extends Controller
             }
         }
 //dd($rules);
-        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'attendance', 'date', 'statuses', 'yearId', 'rules'));
+        return view('user.page', compact('user', 'daysInAshram', 'allDzhapa', 'stts', 'currentSlb', 'alrt', 'doneProjects', 'ongoingProjects', 'slba', 'y', 'days', 'months', 'attendance', 'date', 'statuses', 'yearId', 'rules', 'data'));
     }
 
     /**
