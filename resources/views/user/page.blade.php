@@ -337,7 +337,7 @@
                                         {{$rules[$k]}}
                                     </td>
                                 @else
-                                    <td class="service">
+                                    <td class="service" id="{{$k}}">
                                         {{ $rules[$k]->service }}
                                     </td>
                                     <div class="modal fade description{{$k}}">

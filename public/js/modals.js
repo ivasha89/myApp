@@ -18,7 +18,9 @@ $(document).ready(function () {
 
     $('.service').each(function (i, element) {
        $(element).click(function () {
-           $('.description'+(i)).modal('show');
+           let dayNumber = $(this).attr('id');
+           $('.description'+(dayNumber)).modal('show');
+           console.log(dayNumber);
        })
     });
 });
