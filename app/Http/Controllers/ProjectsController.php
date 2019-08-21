@@ -54,10 +54,9 @@ class ProjectsController extends Controller
             ]);
         }
 
+        session()->flash('message', "Проект \"$request->title\" создан. Добавьте задачи к проекту 😉️");
 
-        session()->flash('message', "Задача \"$request->title\" создана. Добавьте подпункты к задаче 😉️");
-
-        return redirect("/$user->id/projects");
+        return redirect("/$user->id/");
     }
 
     /**

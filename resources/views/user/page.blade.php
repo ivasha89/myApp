@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="w-75 list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-person-list" data-toggle="list"
+                <a class="list-group-item list-group-item-action" id="list-person-list" data-toggle="list"
                    href="#list-person" role="tab" aria-controls="home">
                     Личные данные
                 </a>
