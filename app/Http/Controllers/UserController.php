@@ -36,6 +36,7 @@ class UserController extends Controller
 
         $test = new SlbsController();
         $date = $test::statistics()['date'];
+        $data = $test::statistics()['date'];
         $weekEndDays = $test::statistics()['weekEndDays'];
         $yogaDays = 7 - $weekEndDays;
 
@@ -139,9 +140,8 @@ class UserController extends Controller
             $yearId = (int)($y->format('y') . '00');
 
         for($i = 0; $i < 7; $i++) {
-            $data[$i] = $date[$i];
             $services[$i] = $user->services()
-                ->where('dateToServe', $data[$i]->modify('+6 day')->format('Y-m-d'))
+                ->where('dateToServe', $data[$i]->modify('+7 day')->format('Y-m-d'))
                 ->get();
             if(isset($services[$i][0])) {
                 $rules[$i] = DB::table('rules')
