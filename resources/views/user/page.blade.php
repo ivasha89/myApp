@@ -357,6 +357,11 @@
                                                         echo $rules[$k]->desc;
                                                     @endphp
                                                 </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                        Спасибо
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
