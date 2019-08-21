@@ -20,7 +20,6 @@ $(document).ready(function () {
        $(element).click(function () {
            let dayNumber = $(this).attr('id');
            $('.description'+(dayNumber)).modal('show');
-           console.log(dayNumber);
        })
     });
 });

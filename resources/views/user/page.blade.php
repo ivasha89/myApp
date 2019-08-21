@@ -210,10 +210,10 @@
                         <form action="{{ url('/slbs') }}" class="mb-1" method="post">
                             @csrf
                             @if($user->id == auth()->id())
-                                <div class="row justify-content-center mb-3">
+                                <div class="d-flex flex-row justify-content-center mb-3">
                                     @if($currentSlb == 'ДЖ')
                                         <input type="hidden" name="slba" id="dzhapa" value="">
-                                        <div class="btn-group-toggle col-6" data-toggle="buttons">
+                                        <div class="btn-group-toggle" data-toggle="buttons">
                                             <label class="btn btn-secondary" for="sttsn">
                                                 <input type="radio" name="status"
                                                        class="custom-control-input" id="sttsn" value="n"
@@ -230,12 +230,12 @@
                                                        onchange="this.form.submit()">b
                                             </label>
                                         </div>
-                                        <div class="col-6 mb-2">
+                                        <div class="mb-2">
                                             <input type="number" name="statusNumber" onfocusout="this.form.submit()"
                                                    class="form-control"
                                                    placeholder="в лакхах" min="1" max="16">
                                         </div>
-                                        <div class="col-12 d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center">
                                             <button type="submit" class="btn btn-outline-danger" name="delete">
                                                 ❌
                                             </button>
@@ -251,7 +251,7 @@
                                                 </label>
                                             @endforeach
                                         </div>
-                                        <div class="col-12 d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center">
                                             <button type="submit" class="btn btn-outline-danger" name="delete">
                                                 ❌
                                             </button>

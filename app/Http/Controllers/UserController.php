@@ -28,9 +28,9 @@ class UserController extends Controller
         $stts = $test1::$stts;
         $currentSlb = $test1::timeSet()['slb'];
         $alrt = MysqlRequests::programm()['alrt'];
-        $slba = $test1::$slba;
         $y = $test1::timeSet()['now'];
         $days = $test1::$days;
+        $slba = $test1::$slba;
         $months = $test1::$months;
         $dzhapaStatuses = $test1::$dzhapaStatuses;
 
@@ -39,11 +39,12 @@ class UserController extends Controller
         $data = $test::statistics()['date'];
         $weekEndDays = $test::statistics()['weekEndDays'];
         $yogaDays = 7 - $weekEndDays;
+        $slbs = $test::statistics()['slbs'];
 
-        for ($i = 0; $i < count($slba); ++$i) {
+        for ($i = 0; $i < count($slbs); ++$i) {
             for ($k = 0; $k < count($date); ++$k) {
                 $status = Slb::where('data', $date[$k]->format('Y-m-d'))
-                    ->where('slba', $slba[$i])
+                    ->where('slba', $slbs[$i])
                     ->where('user_id', $user->id)
                     ->select('stts')
                     ->get()
@@ -81,7 +82,7 @@ class UserController extends Controller
                     $statuses[6][$k] = '❌';
                 }
 
-                if ($slba[$i] == 'ЙГ') {
+                if ($slbs[$i] == 'ЙГ') {
                     if ($yogaDays == 0)
                         $attendance[$i] = '❌';
                     else

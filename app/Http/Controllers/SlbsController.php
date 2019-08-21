@@ -209,6 +209,6 @@ class SlbsController extends Controller
             array_multisort($iArray, SORT_ASC, $statuses[$j]);
         }
 
-        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'weekEndDays'));
+        return view('slbs.stats',compact('attendance', 'row1', 'slba', 'statuses', 'months', 'days', 'date', 'diff', 'dateStart', 'dateEnd', 'weekEndDays', 'slbs'));
     }
 }
