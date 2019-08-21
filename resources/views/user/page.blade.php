@@ -327,10 +327,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @for($k = 0; $k < count($date); ++$k)
+                        @for($k = 0; $k < count($data); ++$k)
                             <tr>
                                 <td>
-                                    {{$days[$date[$k]->format('N')] . $date[$k]->format(' d ') . $months[$date[$k]->format('n')]}}
+                                    {{$days[$data[$k]->format('N')] . $data[$k]->format(' d ') . $months[$data[$k]->format('n')]}}
                                 </td>
                                 @if($rules[$k] == 'Свободен')
                                     <td>

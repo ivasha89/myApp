@@ -158,7 +158,7 @@
         </div>
         <div class="width d-flex justify-content-between rounded bg-info mb-1">
             <div class="ml-3">
-                <a class="navbar-brand" href='{{ url("/services?changeDate=$previousDay") }}'>
+                <a class="navbar-brand" href='{{ url("/slbs?changeDate=$previousDay") }}'>
                     <img style="height: 80px; width: 50px" src="{{ url('/svg/prev.jpg') }}"
                          class="rounded-circle shadow" alt="...">
                 </a>
@@ -167,7 +167,7 @@
                 <div class="h5 text-center bg-light rounded p-1 shadow-sm" id="timeSet">
                     {{ $days[$y->format('N')] . $y->format(' d ') . $months[$y->format('n')] . $y->format(' Y') }}
                 </div>
-                <a href='{{ url("/services?changeDate=$now") }}' class="text-center">
+                <a href='{{ url("/slbs?changeDate=$now") }}' class="text-center">
                     <button type="button" class="btn btn-light shadow-sm">
                         Сегодня
                     </button>
@@ -175,7 +175,7 @@
             </div>
             <div class="ml-3">
                 <div>
-                    <a class="navbar-brand" href='{{ url("/services?changeDate=$nextDay") }}'>
+                    <a class="navbar-brand" href='{{ url("/slbs?changeDate=$nextDay") }}'>
                         <img style="height: 80px; width: 50px" src="{{ url('/svg/next') }}.jpg" class="rounded-circle"
                              alt="...">
                     </a>

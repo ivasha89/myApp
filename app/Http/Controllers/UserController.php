@@ -139,8 +139,9 @@ class UserController extends Controller
             $yearId = (int)($y->format('y') . '00');
 
         for($i = 0; $i < 7; $i++) {
+            $data[$i] = $date[$i];
             $services[$i] = $user->services()
-                ->where('dateToServe', $date[$i]->modify('+6 day')->format('Y-m-d'))
+                ->where('dateToServe', $data[$i]->modify('+6 day')->format('Y-m-d'))
                 ->get();
             if(isset($services[$i][0])) {
                 $rules[$i] = DB::table('rules')
